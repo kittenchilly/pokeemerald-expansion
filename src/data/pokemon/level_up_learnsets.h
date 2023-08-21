@@ -9650,6 +9650,7 @@ static const struct LevelUpMove sArceusLevelUpLearnset[] = {
     LEVEL_UP_MOVE(100, MOVE_JUDGMENT),
     LEVEL_UP_END
 };
+#endif
 
 #if P_GEN_5_POKEMON == TRUE
 static const struct LevelUpMove sVictiniLevelUpLearnset[] = {
