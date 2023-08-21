@@ -7558,7 +7558,7 @@ static const struct LevelUpMove sJirachiLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const struct LevelUpMove sDeoxysNormalLevelUpLearnset[] = {
+static const struct LevelUpMove sDeoxysLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_WRAP),
     LEVEL_UP_MOVE( 7, MOVE_NIGHT_SHADE),
@@ -10704,27 +10704,7 @@ static const struct LevelUpMove sLilligantLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const struct LevelUpMove sBasculinRedStripedLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
-    LEVEL_UP_MOVE( 1, MOVE_WATER_GUN),
-    LEVEL_UP_MOVE( 4, MOVE_TACKLE),
-    LEVEL_UP_MOVE( 8, MOVE_FLAIL),
-    LEVEL_UP_MOVE(12, MOVE_AQUA_JET),
-    LEVEL_UP_MOVE(16, MOVE_BITE),
-    LEVEL_UP_MOVE(20, MOVE_SCARY_FACE),
-    LEVEL_UP_MOVE(24, MOVE_HEADBUTT),
-    LEVEL_UP_MOVE(28, MOVE_SOAK),
-    LEVEL_UP_MOVE(32, MOVE_CRUNCH),
-    LEVEL_UP_MOVE(36, MOVE_TAKE_DOWN),
-    LEVEL_UP_MOVE(40, MOVE_FINAL_GAMBIT),
-    LEVEL_UP_MOVE(44, MOVE_WAVE_CRASH),
-    LEVEL_UP_MOVE(48, MOVE_THRASH),
-    LEVEL_UP_MOVE(52, MOVE_DOUBLE_EDGE),
-    LEVEL_UP_MOVE(56, MOVE_HEAD_SMASH),
-    LEVEL_UP_END
-};
-
-static const struct LevelUpMove sBasculinBlueStripedLevelUpLearnset[] = {
+static const struct LevelUpMove sBasculinLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE( 1, MOVE_WATER_GUN),
     LEVEL_UP_MOVE( 4, MOVE_TACKLE),
@@ -15149,7 +15129,7 @@ static const struct LevelUpMove sDhelmiseLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const struct LevelUpMove sJangmooLevelUpLearnset[] = {
+static const struct LevelUpMove sJangmoOLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 4, MOVE_PROTECT),
@@ -20548,7 +20528,7 @@ static const struct LevelUpMove sCalyrexIceRiderLevelUpLearnset[] = {
     LEVEL_UP_MOVE(16, MOVE_GIGA_DRAIN),
     LEVEL_UP_MOVE(24, MOVE_PSYSHOCK),
     LEVEL_UP_MOVE(32, MOVE_HELPING_HAND),
-    LEVEL_UP_MOVE(40, MOVE_AROMATHERAPY),
+    LEVEL_UP_MOVE(40, MOVE_PSYCHIC_TERRAIN),
     LEVEL_UP_MOVE(48, MOVE_ENERGY_BALL),
     LEVEL_UP_MOVE(56, MOVE_PSYCHIC),
     LEVEL_UP_MOVE(64, MOVE_LEECH_SEED),
