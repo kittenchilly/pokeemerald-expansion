@@ -1789,8 +1789,8 @@ const u32 gItemIconPalette_DynamaxBand[] = INCBIN_U32("graphics/items/icon_palet
 
 // Misc. Key Items
 
-const u32 gItemIcon_Bicycle[] = INCBIN_U32("graphics/items/icons/bicycle.4bpp.lz");
-const u32 gItemIconPalette_Bicycle[] = INCBIN_U32("graphics/items/icon_palettes/bicycle.gbapal.lz");
+const u32 gItemIcon_Bike[] = INCBIN_U32("graphics/items/icons/bike.4bpp.lz");
+const u32 gItemIconPalette_Bike[] = INCBIN_U32("graphics/items/icon_palettes/bike.gbapal.lz");
 
 const u32 gItemIcon_MachBike[] = INCBIN_U32("graphics/items/icons/mach_bike.4bpp.lz");
 const u32 gItemIconPalette_MachBike[] = INCBIN_U32("graphics/items/icon_palettes/mach_bike.gbapal.lz");
@@ -1906,8 +1906,8 @@ const u32 gItemIconPalette_MagmaEmblem[] = INCBIN_U32("graphics/items/icon_palet
 const u32 gItemIcon_ContestPass[] = INCBIN_U32("graphics/items/icons/contest_pass.4bpp.lz");
 const u32 gItemIconPalette_ContestPass[] = INCBIN_U32("graphics/items/icon_palettes/contest_pass.gbapal.lz");
 
-const u32 gItemIcon_OaksParcel[] = INCBIN_U32("graphics/items/icons/oaks_parcel.4bpp.lz");
-const u32 gItemIconPalette_OaksParcel[] = INCBIN_U32("graphics/items/icon_palettes/oaks_parcel.gbapal.lz");
+const u32 gItemIcon_Parcel[] = INCBIN_U32("graphics/items/icons/parcel.4bpp.lz");
+const u32 gItemIconPalette_Parcel[] = INCBIN_U32("graphics/items/icon_palettes/parcel.gbapal.lz");
 
 const u32 gItemIcon_SecretKey[] = INCBIN_U32("graphics/items/icons/secret_key.4bpp.lz");
 const u32 gItemIconPalette_SecretKey[] = INCBIN_U32("graphics/items/icon_palettes/secret_key.gbapal.lz");

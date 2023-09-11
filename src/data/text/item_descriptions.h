@@ -3555,18 +3555,18 @@ static const u8 sDynamaxBandDesc[] = _(
     "allows Dynamaxing.");
 
 // Misc. Key Items
-static const u8 sBicycleDesc[] = _(
-    "A folding bicycle\n"
+static const u8 sBikeDesc[] = _(
+    "A folding bike\n"
     "that is faster than\n"
     "the Running Shoes.");
 
 static const u8 sMachBikeDesc[] = _(
-    "A folding bicycle\n"
+    "A folding bike\n"
     "that doubles your\n"
-    "speed or better.");
+    "movement speed.");
 
 static const u8 sAcroBikeDesc[] = _(
-    "A folding bicycle\n"
+    "A folding bike\n"
     "capable of jumps\n"
     "and wheelies.");
 
@@ -3754,7 +3754,7 @@ static const u8 sContestPassDesc[] = _(
     "for entering\n"
     "Pokémon Contests.");
 
-static const u8 sOaksParcelDesc[] = _(
+static const u8 sParcelDesc[] = _(
     "A parcel for Prof.\n"
     "Oak from a Pokémon\n"
     "Mart's clerk.");

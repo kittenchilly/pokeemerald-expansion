@@ -750,7 +750,7 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_Z_POWER_RING] = {gItemIcon_ZPowerRing, gItemIconPalette_ZPowerRing},
     [ITEM_DYNAMAX_BAND] = {gItemIcon_DynamaxBand, gItemIconPalette_DynamaxBand},
     // Misc. Key Items
-    [ITEM_BICYCLE] = {gItemIcon_Bicycle, gItemIconPalette_Bicycle},
+    [ITEM_BIKE] = {gItemIcon_Bike, gItemIconPalette_Bike},
     [ITEM_MACH_BIKE] = {gItemIcon_MachBike, gItemIconPalette_MachBike},
     [ITEM_ACRO_BIKE] = {gItemIcon_AcroBike, gItemIconPalette_AcroBike},
     [ITEM_OLD_ROD] = {gItemIcon_OldRod, gItemIconPalette_OldRod},
@@ -791,7 +791,7 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_METEORITE] = {gItemIcon_Meteorite, gItemIconPalette_Meteorite},
     [ITEM_MAGMA_EMBLEM] = {gItemIcon_MagmaEmblem, gItemIconPalette_MagmaEmblem},
     [ITEM_CONTEST_PASS] = {gItemIcon_ContestPass, gItemIconPalette_ContestPass},
-    [ITEM_OAKS_PARCEL] = {gItemIcon_OaksParcel, gItemIconPalette_OaksParcel},
+    [ITEM_PARCEL] = {gItemIcon_Parcel, gItemIconPalette_Parcel},
     [ITEM_SECRET_KEY] = {gItemIcon_SecretKey, gItemIconPalette_SecretKey},
     [ITEM_BIKE_VOUCHER] = {gItemIcon_BikeVoucher, gItemIconPalette_BikeVoucher},
     [ITEM_GOLD_TEETH] = {gItemIcon_GoldTeeth, gItemIconPalette_GoldTeeth},

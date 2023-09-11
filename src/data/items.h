@@ -9331,12 +9331,12 @@ const struct Item gItems[] =
 
 // Misc. Key Items
 
-    [ITEM_BICYCLE] =
+    [ITEM_BIKE] =
     {
-        .name = _("Bicycle"),
-        .itemId = ITEM_BICYCLE,
+        .name = _("Bike"),
+        .itemId = ITEM_BIKE,
         .price = 0,
-        .description = sBicycleDesc,
+        .description = sBikeDesc,
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_FIELD,
@@ -9819,12 +9819,12 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_OAKS_PARCEL] =
+    [ITEM_PARCEL] =
     {
-        .name = _("Oak's Parcel"),
-        .itemId = ITEM_OAKS_PARCEL,
+        .name = _("Parcel"),
+        .itemId = ITEM_PARCEL,
         .price = 0,
-        .description = sOaksParcelDesc,
+        .description = sParcelDesc,
         .importance = 2,
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,
