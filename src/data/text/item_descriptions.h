@@ -29,7 +29,7 @@ static const u8 sPremierBallDesc[] = _(
 
 static const u8 sHealBallDesc[] = _(
     "A remedial Ball\n"
-    "that restores\n"
+    "that restores the\n"
     "caught Pokémon.");
 
 static const u8 sNetBallDesc[] = _(
@@ -44,23 +44,23 @@ static const u8 sNestBallDesc[] = _(
 
 static const u8 sDiveBallDesc[] = _(
     "A Ball that works\n"
-    "better on Pokémon\n"
-    "on the ocean floor.");
+    "well on Pokémon\n"
+    "living underwater.");
 
 static const u8 sDuskBallDesc[] = _(
-    "Works well if\n"
-    "used in a\n"
-    "dark place.");
+    "A Ball that works\n"
+    "well at night or\n"
+    "in a dark place.");
 
 static const u8 sTimerBallDesc[] = _(
-    "A Ball that gains\n"
-    "power in battles\n"
-    "taking many turns.");
+    "A Ball that becomes\n"
+    "better the more\n"
+    "turns have passed.");
 
 static const u8 sQuickBallDesc[] = _(
-    "Works well if\n"
-    "used on the\n"
-    "first turn.");
+    "A Ball that works\n"
+    "well if used at\n"
+    "on the first turn.");
 
 static const u8 sRepeatBallDesc[] = _(
     "A Ball that works\n"
@@ -79,8 +79,8 @@ static const u8 sLevelBallDesc[] = _(
 
 static const u8 sLureBallDesc[] = _(
     "A Ball that works\n"
-    "well on fished\n"
-    "up Pokémon.");
+    "well on Pokémon\n"
+    "hooked by a Rod.");
 
 static const u8 sMoonBallDesc[] = _(
     "A Ball that works\n"
@@ -89,32 +89,32 @@ static const u8 sMoonBallDesc[] = _(
 
 static const u8 sFriendBallDesc[] = _(
     "A Ball that makes\n"
-    "a Pokémon friendly\n"
-    "when caught.");
+    "caught Pokémon\n"
+    "more friendly.");
 
 static const u8 sLoveBallDesc[] = _(
-    "Works well on\n"
-    "Pokémon of the\n"
-    "opposite gender.");
+    "A Ball that works\n"
+    "well on Pokémon\n"
+    "of opposite gender.");
 
 static const u8 sFastBallDesc[] = _(
-    "Works well on\n"
-    "very fast\n"
+    "A Ball that works\n"
+    "well on fast\n"
     "Pokémon.");
 
 static const u8 sHeavyBallDesc[] = _(
-    "Works well on\n"
-    "very heavy\n"
-    "Pokémon.");
+    "A Ball that works\n"
+    "well on very\n"
+    "heavy Pokémon.");
 
 static const u8 sDreamBallDesc[] = _(
 #if B_DREAM_BALL_MODIFIER >= GEN_8
     "A Ball that works\n"
-    "well on sleeping\n"
-    "Pokémon.");
+    "well on Pokémon\n"
+    "that are asleep.");
 #else
-    "A Poké Ball used in\n"
-    "the Entree Forest.");
+    "A special Ball used\n"
+    "in Entree Forest.");
 #endif
 
 static const u8 sSafariBallDesc[] = _(
@@ -128,17 +128,18 @@ static const u8 sSportBallDesc[] = _(
     "Contest.");
 
 static const u8 sParkBallDesc[] = _(
-    "A special Ball for\n"
-    "the Pal Park.");
+    "A special Ball used\n"
+    "in the Pal Park.");
 
 static const u8 sBeastBallDesc[] = _(
-    "A Ball designed to\n"
-    "catch Ultra Beasts.");
+    "A strange Ball that\n"
+    "is not effective at\n"
+    "catching Pokémon");
 
 static const u8 sCherishBallDesc[] = _(
     "A rare Ball made\n"
-    "in commemoration\n"
-    "of some event.");
+    "to commemoration\n"
+    "a special occasion.");
 
 // Medicine
 static const u8 sPotionDesc[] = _(
