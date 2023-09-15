@@ -694,7 +694,7 @@ const struct Item gItems[] =
 
     [ITEM_PEWTER_CRUNCHIES] =
     {
-        .name = _("PewtrCrnches"),
+        .name = _("PewterCrnchs"),
         .price = 250,
         .description = sPewterCrunchiesDesc,
         .pocket = POCKET_ITEMS,
