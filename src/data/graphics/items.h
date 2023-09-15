@@ -105,6 +105,7 @@ const u32 gItemIcon_Revive[] = INCBIN_U32("graphics/items/icons/revive.4bpp.lz")
 const u32 gItemIconPalette_Revive[] = INCBIN_U32("graphics/items/icon_palettes/revive.gbapal.lz");
 
 const u32 gItemIcon_MaxRevive[] = INCBIN_U32("graphics/items/icons/max_revive.4bpp.lz");
+const u32 gItemIconPalette_MaxRevive[] = INCBIN_U32("graphics/items/icon_palettes/max_revive.gbapal.lz");
 
 const u32 gItemIcon_FreshWater[] = INCBIN_U32("graphics/items/icons/fresh_water.4bpp.lz");
 const u32 gItemIconPalette_FreshWater[] = INCBIN_U32("graphics/items/icon_palettes/fresh_water.gbapal.lz");

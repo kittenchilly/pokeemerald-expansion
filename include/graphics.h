@@ -7802,6 +7802,7 @@ extern const u32 gItemIconPalette_FullRestore[];
 extern const u32 gItemIcon_Revive[];
 extern const u32 gItemIconPalette_Revive[];
 extern const u32 gItemIcon_MaxRevive[];
+extern const u32 gItemIconPalette_MaxRevive[];
 extern const u32 gItemIcon_FreshWater[];
 extern const u32 gItemIconPalette_FreshWater[];
 extern const u32 gItemIcon_SodaPop[];
