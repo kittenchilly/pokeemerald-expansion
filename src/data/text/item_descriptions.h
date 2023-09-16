@@ -428,13 +428,14 @@ static const u8 sSwiftFeatherDesc[] = _(
 
 // Ability Modifiers
 static const u8 sAbilityCapsuleDesc[] = _(
-    "Switches a Poké-\n"
-    "mon's ability.");
+    "Switches Pokémon's\n"
+    "Ability with other\n"
+    "Ability of species.");
 
 static const u8 sAbilityPatchDesc[] = _(
-    "Turns the ability\n"
-    "of a Pokémon into\n"
-    "a rare ability.");
+    "Changes the ability\n"
+    "of a Pokémon to\n"
+    "a rarer ability.");
 
 // Mints
 static const u8 sLonelyMintDesc[] = _(
