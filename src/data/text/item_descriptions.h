@@ -545,39 +545,39 @@ static const u8 sSeriousMintDesc[] = _(
 
 // Candy
 static const u8 sRareCandyDesc[] = _(
-    "Raises the level\n"
-    "of a Pokémon by\n"
-    "one.");
+    "A candy that\n"
+    "raises a Pokémon's\n"
+    "level by one.");
 
 static const u8 sExpCandyXSDesc[] = _(
-    "Gives a very small\n"
-    "amount of Exp. to\n"
-    "a single Pokémon.");
+    "Grants a Pokémon\n"
+    "a very small number\n"
+    "of Exp. Points.");
 
 static const u8 sExpCandySDesc[] = _(
-    "Gives a small\n"
-    "amount of Exp. to\n"
-    "a single Pokémon.");
+    "Grants a Pokémon\n"
+    "a small number\n"
+    "of Exp. Points.");
 
 static const u8 sExpCandyMDesc[] = _(
-    "Gives a moderate\n"
-    "amount of Exp. to\n"
-    "a single Pokémon.");
+    "Grants a Pokémon\n"
+    "a moderate number\n"
+    "of Exp. Points.");
 
 static const u8 sExpCandyLDesc[] = _(
-    "Gives a large\n"
-    "amount of Exp. to\n"
-    "a single Pokémon.");
+    "Grants a Pokémon\n"
+    "a large number\n"
+    "of Exp. Points.");
 
 static const u8 sExpCandyXLDesc[] = _(
-    "Gives a very large\n"
-    "amount of Exp. to\n"
-    "a single Pokémon.");
+    "Grants a Pokémon\n"
+    "a very large number\n"
+    "of Exp. Points.");
 
 static const u8 sDynamaxCandyDesc[] = _(
-    "Raises the Dynamax\n"
-    "Level of a single\n"
-    "Pokémon by one.");
+    "Raises a Pokemon's\n"
+    "Dynamax Level\n"
+    "by one.");
 
 // Medicinal Flutes
 static const u8 sBlueFluteDesc[] = _(
