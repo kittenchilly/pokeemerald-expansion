@@ -144,12 +144,12 @@ static const u8 sCherishBallDesc[] = _(
 // Medicine
 static const u8 sPotionDesc[] = _(
     "Restores the HP of\n"
-    "a Pokémon by\n"
+    "one Pokémon by\n"
     "20 points.");
 
 static const u8 sSuperPotionDesc[] = _(
     "Restores the HP of\n"
-    "a Pokémon by\n"
+    "one Pokémon by\n"
 #if I_HEALTH_RECOVERY >= GEN_7
     "60 points.");
 #else
@@ -167,7 +167,7 @@ static const u8 sHyperPotionDesc[] = _(
 
 static const u8 sMaxPotionDesc[] = _(
     "Fully restores the\n"
-    "HP of a Pokémon.");
+    "HP of one Pokémon.");
 
 static const u8 sFullRestoreDesc[] = _(
     "Fully restores the\n"
@@ -177,12 +177,12 @@ static const u8 sFullRestoreDesc[] = _(
 static const u8 sReviveDesc[] = _(
     "Revives a fainted\n"
     "Pokémon with half\n"
-    "its HP.");
+    "of its HP.");
 
 static const u8 sMaxReviveDesc[] = _(
     "Revives a fainted\n"
     "Pokémon with all\n"
-    "its HP.");
+    "of its HP.");
 
 static const u8 sFreshWaterDesc[] = _(
     "A mineral water\n"
@@ -241,52 +241,58 @@ static const u8 sHealPowderDesc[] = _(
 
 static const u8 sRevivalHerbDesc[] = _(
     "A very bitter herb\n"
-    "that revives a\n"
+    "that revives one\n"
     "fainted Pokémon.");
 
 static const u8 sAntidoteDesc[] = _(
-    "Heals a poisoned\n"
-    "Pokémon.");
+    "Lifts the effects\n"
+    "of being poisoned\n"
+    "from a Pokémon.");
 
 static const u8 sParalyzeHealDesc[] = _(
-    "Heals a paralyzed\n"
-    "Pokémon.");
+    "Frees a Pokémon\n"
+    "that has been\n"
+    "paralyzed.");
 
 static const u8 sBurnHealDesc[] = _(
-    "Heals Pokémon\n"
-    "of a burn.");
+    "Cures a Pokémon\n"
+    "suffering from\n"
+    "a burn.");
 
 static const u8 sIceHealDesc[] = _(
-    "Defrosts a frozen\n"
-    "Pokémon.");
+    "Thaws out a\n"
+    "Pokémon that has\n"
+    "been frozen solid.");
 
 static const u8 sAwakeningDesc[] = _(
-    "Awakens a sleeping\n"
-    "Pokémon.");
+    "Rouses a Pokémon\n"
+    "from the clutches\n"
+    "of sleep.");
 
 static const u8 sFullHealDesc[] = _(
-    "Heals all the\n"
-    "status problems of\n"
-    "one Pokémon.");
+    "Cures any\n"
+    "status condition a\n"
+    "Pokémon may have.");
 
 static const u8 sEtherDesc[] = _(
-    "Restores the PP\n"
-    "of a selected move\n"
-    "by 10.");
+    "Restores 10 PP to\n"
+    "a single move that\n"
+    "a Pokémon knows.");
 
 static const u8 sMaxEtherDesc[] = _(
     "Fully restores the\n"
-    "PP of a selected\n"
-    "move.");
+    "PP of a single move\n"
+    "a Pokémon knows.");
 
 static const u8 sElixirDesc[] = _(
-    "Restores the PP\n"
-    "of all moves by 10.");
+    "Restores 10 PP of\n"
+    "all moves that\n"
+    "a Pokémon knows.");
 
 static const u8 sMaxElixirDesc[] = _(
     "Fully restores the\n"
-    "PP of a Pokémon's\n"
-    "moves.");
+    "PP of all moves\n"
+    "a Pokémon knows.");
 
 static const u8 sBerryJuiceDesc[] = _(
     "A 100% pure juice\n"
@@ -294,7 +300,7 @@ static const u8 sBerryJuiceDesc[] = _(
     "by 20 points.");
 
 static const u8 sSacredAshDesc[] = _(
-    "Fully revives and\n"
+    "Revives and fully\n"
     "restores all\n"
     "fainted Pokémon.");
 
@@ -306,47 +312,47 @@ static const u8 sSweetHeartDesc[] = _(
 static const u8 sMaxHoneyDesc[] = _(
     "Revives a fainted\n"
     "Pokémon with all\n"
-    "its HP.");
+    "of its HP.");
 
 static const u8 sPewterCrunchiesDesc[] = _(
-    "Heals all the\n"
-    "status problems of\n"
-    "one Pokémon.");
+    "Pewter City snack\n"
+    "that heals all\n"
+    "status conditions.");
 
 static const u8 sRageCandyBarDesc[] = _(
-    "Heals all the\n"
-    "status problems of\n"
-    "one Pokémon.");
+    "Famous Johto candy\n"
+    "that heals all\n"
+    "status conditions.");
 
 static const u8 sLavaCookieDesc[] = _(
     "A local specialty\n"
     "that heals all\n"
-    "status problems.");
+    "status conditions.");
 
 static const u8 sOldGateauDesc[] = _(
-    "Heals all the\n"
-    "status problems of\n"
-    "one Pokémon.");
+    "Old Chateau treat\n"
+    "that heals all\n"
+    "status conditions.");
 
 static const u8 sCasteliaconeDesc[] = _(
-    "Heals all the\n"
-    "status problems of\n"
-    "one Pokémon.");
+    "Unovan ice cream\n"
+    "that heals all\n"
+    "status conditions.");
 
 static const u8 sLumioseGaletteDesc[] = _(
-    "Heals all the\n"
-    "status problems of\n"
-    "one Pokémon.");
+    "Lumiose City treat\n"
+    "that heals all\n"
+    "status conditions.");
 
 static const u8 sShalourSableDesc[] = _(
-    "Heals all the\n"
-    "status problems of\n"
-    "one Pokémon.");
+    "Shalour City bread\n"
+    "that heals all\n"
+    "status conditions.");
 
 static const u8 sBigMalasadaDesc[] = _(
-    "Heals all the\n"
-    "status problems of\n"
-    "one Pokémon.");
+    "Alolan fried bread\n"
+    "that heals all\n"
+    "status conditions.");
 
 // Vitamins
 static const u8 sHPUpDesc[] = _(
