@@ -593,17 +593,18 @@ static const u8 sYellowFluteDesc[] = _(
 static const u8 sRedFluteDesc[] = _(
     "A glass flute that\n"
     "snaps Pokémon\n"
-    "out of attraction.");
+    "out of infatuation.");
 
 // Encounter-modifying Flutes
 static const u8 sBlackFluteDesc[] = _(
     "A glass flute that\n"
-    "keeps away wild\n"
-    "Pokémon.");
+    "makes wild Pokémon\n"
+    "appear less often.");
 
 static const u8 sWhiteFluteDesc[] = _(
     "A glass flute that\n"
-    "lures wild Pokémon.");
+    "makes wild Pokémon\n"
+    "appear more often.");
 
 // Encounter Modifiers
 static const u8 sRepelDesc[] = _(
