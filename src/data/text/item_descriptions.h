@@ -356,43 +356,44 @@ static const u8 sBigMalasadaDesc[] = _(
 
 // Vitamins
 static const u8 sHPUpDesc[] = _(
-    "Raises the base HP\n"
-    "of one Pokémon.");
+    "Increases the\n"
+    "HP base points\n"
+    "of a Pokémon.");
 
 static const u8 sProteinDesc[] = _(
-    "Raises the base\n"
-    "Attack stat of one\n"
-    "Pokémon.");
+    "Increases the\n"
+    "Attack base points\n"
+    "of a Pokémon.");
 
 static const u8 sIronDesc[] = _(
-    "Raises the base\n"
-    "Defense stat of\n"
-    "one Pokémon.");
+    "Increases the\n"
+    "Defense base points\n"
+    "of a Pokémon.");
 
 static const u8 sCalciumDesc[] = _(
-    "Raises the base\n"
-    "Sp. Atk stat of one\n"
-    "Pokémon.");
+    "Increases the\n"
+    "Sp. Atk base points\n"
+    "of a Pokémon.");
 
 static const u8 sZincDesc[] = _(
-    "Raises the base\n"
-    "Sp. Def stat of one\n"
-    "Pokémon.");
+    "Increases the\n"
+    "Sp. Def base points\n"
+    "of a Pokémon.");
 
 static const u8 sCarbosDesc[] = _(
-    "Raises the base\n"
-    "Speed stat of one\n"
-    "Pokémon.");
+    "Increases the\n"
+    "Speed base points\n"
+    "of a Pokémon.");
 
 static const u8 sPPUpDesc[] = _(
-    "Raises the maximum\n"
-    "PP of a selected\n"
-    "move.");
+    "Medicine that\n"
+    "slightly raises the\n"
+    "max PP of a move.");
 
 static const u8 sPPMaxDesc[] = _(
-    "Raises the PP of a\n"
-    "move to its maximum\n"
-    "points.");
+    "Medicine that\n"
+    "fully maximizes the\n"
+    "max PP of a move.");
 
 // EV Feathers
 static const u8 sHealthFeatherDesc[] = _(
