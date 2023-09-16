@@ -396,7 +396,7 @@ static const u8 sPPMaxDesc[] = _(
     "max PP of a move.");
 
 // EV Feathers
-static const u8 sCalciumDesc[] = _(
+static const u8 sHealthFeatherDesc[] = _(
     "Slightly raises the\n"
     "HP base points\n"
     "of a Pokémon.");
