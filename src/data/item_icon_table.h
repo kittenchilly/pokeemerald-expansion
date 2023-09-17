@@ -135,8 +135,8 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     // X Items
     [ITEM_X_ATTACK] = {gItemIcon_BattleStatItem, gItemIconPalette_XAttack},
     [ITEM_X_DEFENSE] = {gItemIcon_BattleStatItem, gItemIconPalette_XDefend},
-    [ITEM_X_SP_ATK] = {gItemIcon_BattleStatItem, gItemIconPalette_XSpecial},
-    [ITEM_X_SP_DEF] = {gItemIcon_XSpecialDefense, gItemIconPalette_XSpecialDefense},
+    [ITEM_X_SP_ATK] = {gItemIcon_BattleStatItem, gItemIconPalette_XSpAtk},
+    [ITEM_X_SP_DEF] = {gItemIcon_BattleStatItem, gItemIconPalette_XSpDef},
     [ITEM_X_SPEED] = {gItemIcon_BattleStatItem, gItemIconPalette_XSpeed},
     [ITEM_X_ACCURACY] = {gItemIcon_BattleStatItem, gItemIconPalette_XAccuracy},
     [ITEM_DIRE_HIT] = {gItemIcon_BattleStatItem, gItemIconPalette_DireHit},

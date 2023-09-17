@@ -301,10 +301,9 @@ const u32 gItemIconPalette_XAttack[] = INCBIN_U32("graphics/items/icon_palettes/
 
 const u32 gItemIconPalette_XDefend[] = INCBIN_U32("graphics/items/icon_palettes/x_defend.gbapal.lz");
 
-const u32 gItemIconPalette_XSpecial[] = INCBIN_U32("graphics/items/icon_palettes/x_special.gbapal.lz");
+const u32 gItemIconPalette_XSpAtk[] = INCBIN_U32("graphics/items/icon_palettes/x_sp_atk.gbapal.lz");
 
-const u32 gItemIcon_XSpecialDefense[] = INCBIN_U32("graphics/items/icons/x_special_defense.4bpp.lz");
-const u32 gItemIconPalette_XSpecialDefense[] = INCBIN_U32("graphics/items/icon_palettes/x_special_defense.gbapal.lz");
+const u32 gItemIconPalette_XSpDef[] = INCBIN_U32("graphics/items/icon_palettes/x_sp_def.gbapal.lz");
 
 const u32 gItemIconPalette_XSpeed[] = INCBIN_U32("graphics/items/icon_palettes/x_speed.gbapal.lz");
 

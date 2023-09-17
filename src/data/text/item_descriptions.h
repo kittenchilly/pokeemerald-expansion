@@ -645,79 +645,78 @@ static const u8 sEscapeRopeDesc[] = _(
 // Battle items
 static const u8 sXAttackDesc[] = _(
 #if B_X_ITEMS_BUFF >= GEN_7
-    "Sharply raises stat\n"
-    "Attack during\n"
-    "one battle.");
+    "Sharply boosts the\n"
+    "Attack stat of a\n"
+    "Pokémon in battle.");
 #else
-    "Raises the stat\n"
-    "Attack during one\n"
-    "battle.");
+    "Boosts the\n"
+    "Attack stat of a\n"
+    "Pokémon in battle.");
 #endif
 
 static const u8 sXDefenseDesc[] = _(
 #if B_X_ITEMS_BUFF >= GEN_7
-    "Sharply raises stat\n"
-    "Defense during\n"
-    "one battle.");
+    "Sharply boosts the\n"
+    "Defense stat of a\n"
+    "Pokémon in battle.");
 #else
-    "Raises the stat\n"
-    "Defense during one\n"
-    "battle.");
+    "Boosts the\n"
+    "Defense stat of a\n"
+    "Pokémon in battle.");
 #endif
 
 static const u8 sXSpAtkDesc[] = _(
 #if B_X_ITEMS_BUFF >= GEN_7
-    "Sharply raises stat\n"
-    "Sp. Atk during\n"
-    "one battle.");
+    "Sharply boosts the\n"
+    "Sp. Atk stat of a\n"
+    "Pokémon in battle.");
 #else
-    "Raises the stat\n"
-    "Sp. Atk during one\n"
-    "battle.");
+    "Boosts the\n"
+    "Sp. Atk stat of a\n"
+    "Pokémon in battle.");
 #endif
 
 static const u8 sXSpDefDesc[] = _(
 #if B_X_ITEMS_BUFF >= GEN_7
-    "Sharply raises stat\n"
-    "Sp. Def during\n"
-    "one battle.");
+    "Sharply boosts the\n"
+    "Sp. Def stat of a\n"
+    "Pokémon in battle.");
 #else
-    "Raises the stat\n"
-    "Sp. Def during one\n"
-    "battle.");
+    "Boosts the\n"
+    "Sp. Def stat of a\n"
+    "Pokémon in battle.");
 #endif
 
 static const u8 sXSpeedDesc[] = _(
 #if B_X_ITEMS_BUFF >= GEN_7
-    "Sharply raises stat\n"
-    "Speed during\n"
-    "one battle.");
+    "Sharply boosts the\n"
+    "Speed stat of a\n"
+    "Pokémon in battle.");
 #else
-    "Raises the stat\n"
-    "Speed during one\n"
-    "battle.");
+    "Boosts the\n"
+    "Speed stat of a\n"
+    "Pokémon in battle.");
 #endif
 
 static const u8 sXAccuracyDesc[] = _(
 #if B_X_ITEMS_BUFF >= GEN_7
-    "Sharply raises move\n"
-    "accuracy during\n"
-    "one battle.");
+    "Sharply boosts a\n"
+    "Pokémon's accuracy\n"
+    "in battle.");
 #else
-    "Raises accuracy\n"
-    "of attack moves\n"
-    "during one battle.");
+    "Boosts a Pokémon's\n"
+    "accuracy in battle.");
 #endif
 
 static const u8 sDireHitDesc[] = _(
-    "Raises the\n"
+    "Sharply boosts the\n"
     "critical-hit ratio\n"
-    "during one battle.");
+    "in battle.");
 
 static const u8 sGuardSpecDesc[] = _(
-    "Prevents stat\n"
-    "reduction when\n"
-    "used in battle.");
+    "Prevents Pokémon\n"
+    "from having stats\n"
+    "lowered in battle.");
 
 // Escape Items
 static const u8 sPokeDollDesc[] = _(
@@ -736,9 +735,9 @@ static const u8 sPokeToyDesc[] = _(
     "a wild Pokémon.");
 
 static const u8 sMaxMushroomsDesc[] = _(
-    "Raises every stat\n"
-    "during one battle\n"
-    "by one stage.");
+    "Boosts all stats\n"
+    "of a Pokémon\n"
+    "during battle.");
 
 // Treasures
 static const u8 sBottleCapDesc[] = _(
