@@ -756,98 +756,98 @@ static const u8 sNuggetDesc[] = _(
     "a high price.");
 
 static const u8 sBigNuggetDesc[] = _(
-    "A big nugget made\n"
-    "of gold, sellable\n"
+    "A big nugget of\n"
+    "pure gold. Sold\n"
     "at a high price.");
 
 static const u8 sTinyMushroomDesc[] = _(
-    "A plain mushroom\n"
-    "that would sell\n"
-    "at a cheap price.");
+    "A small and rare\n"
+    "mushroom. Popular\n"
+    "with collectors.");
 
 static const u8 sBigMushroomDesc[] = _(
-    "A rare mushroom\n"
-    "that would sell at a\n"
-    "high price.");
+    "A large and rare\n"
+    "mushroom. Popular\n"
+    "with collectors.");
 
 static const u8 sBalmMushroomDesc[] = _(
-    "A rare mushroom\n"
-    "that would sell at a\n"
-    "high price.");
+    "A rare mushroom with\n"
+    "a nice fragrance.\n"
+    "Sold at high price.");
 
 static const u8 sPearlDesc[] = _(
-    "A pretty pearl\n"
-    "that would sell at a\n"
-    "cheap price.");
+    "A small pearl with\n"
+    "a silver sheen. Sold\n"
+    "at a low price.");
 
 static const u8 sBigPearlDesc[] = _(
-    "A lovely large pearl\n"
-    "that would sell at a\n"
-    "high price.");
+    "A large pearl with\n"
+    "a silver sheen. Sold\n"
+    "at a high price.");
 
 static const u8 sPearlStringDesc[] = _(
     "Very large pearls\n"
-    "that would sell at a\n"
-    "high price.");
+    "with a silver sheen.\n"
+    "Sold at high price.");
 
 static const u8 sStardustDesc[] = _(
-    "Beautiful red sand.\n"
+    "Lovely red sand.\n"
     "Can be sold at a\n"
-    "high price.");
+    "low price.");
 
 static const u8 sStarPieceDesc[] = _(
-    "A red gem shard.\n"
-    "It would sell for a\n"
-    "very high price.");
+    "A gem shard with\n"
+    "a red sparkle. Sold\n"
+    "at a high price.");
 
 static const u8 sCometShardDesc[] = _(
-    "A comet's shard.\n"
-    "It would sell for a\n"
-    "high price.");
+    "A shard fallen from\n"
+    "a comet. Sold at\n"
+    "a high price.");
 
 static const u8 sShoalSaltDesc[] = _(
-    "Salt obtained from\n"
-    "deep inside the\n"
+    "Salt that was\n"
+    "found inside\n"
     "Shoal Cave.");
 
 static const u8 sShoalShellDesc[] = _(
-    "A seashell found\n"
-    "deep inside the\n"
+    "A seashell that\n"
+    "was found inside\n"
     "Shoal Cave.");
 
 static const u8 sRedShardDesc[] = _(
-    "A shard from an\n"
-    "ancient item. Can\n"
-    "be sold cheaply.");
+    "A small red shard.\n"
+    "Appears to be from\n"
+    "some ancient item.");
 
 static const u8 sBlueShardDesc[] = _(
-    "A shard from an\n"
-    "ancient item. Can\n"
-    "be sold cheaply.");
+    "A small blue shard.\n"
+    "Appears to be from\n"
+    "some ancient item.");
 
 static const u8 sYellowShardDesc[] = _(
-    "A shard from an\n"
-    "ancient item. Can\n"
-    "be sold cheaply.");
+    "Small yellow shard.\n"
+    "Appears to be from\n"
+    "some ancient item.");
 
 static const u8 sGreenShardDesc[] = _(
-    "A shard from an\n"
-    "ancient item. Can\n"
-    "be sold cheaply.");
+    "A small green shard.\n"
+    "Appears to be from\n"
+    "some ancient item.");
 
 static const u8 sHeartScaleDesc[] = _(
-    "A lovely scale.\n"
-    "It is coveted by\n"
-    "collectors.");
+    "A pretty, heart-\n"
+    "shaped scale that\n"
+    "is extremely rare.");
 
 static const u8 sHoneyDesc[] = _(
-    "Sweet honey that\n"
-    "attracts wild\n"
-    "Pokémon when used.");
+    "A sweet honey from\n"
+    "a Pokémon. Sold\n"
+    "at a low price.");
 
 static const u8 sRareBoneDesc[] = _(
-    "A very rare bone.\n"
-    "It can be sold at\n"
+    "A valuable bone for\n"
+    "archaelogy. Sold at\n"
     "a high price.");
 
 static const u8 sOddKeystoneDesc[] = _(
@@ -856,49 +856,49 @@ static const u8 sOddKeystoneDesc[] = _(
     "occasionally.");
 
 static const u8 sPrettyFeatherDesc[] = _(
-    "A beautiful yet\n"
-    "plain feather that\n"
-    "does nothing.");
+    "This feather is\n"
+    "beautiful, but it\n"
+    "has no effect.");
 
 static const u8 sRelicCopperDesc[] = _(
     "A copper coin used\n"
-    "long ago. It sells\n"
-    "at a high price.");
+    "by ancients about\n"
+    "3000 years ago.");
 
 static const u8 sRelicSilverDesc[] = _(
     "A silver coin used\n"
-    "long ago. It sells\n"
-    "at a high price.");
+    "by ancients about\n"
+    "3000 years ago.");
 
 static const u8 sRelicGoldDesc[] = _(
     "A gold coin used\n"
-    "long ago. It sells\n"
-    "at a high price.");
+    "by ancients about\n"
+    "3000 years ago.");
 
 static const u8 sRelicVaseDesc[] = _(
-    "A vase made long\n"
-    "ago. It sells at\n"
-    "a high price.");
+    "A fragile vase made\n"
+    "by ancients about\n"
+    "3000 years ago.");
 
 static const u8 sRelicBandDesc[] = _(
-    "An old bracelet.\n"
-    "It sells at a\n"
-    "high price.");
+    "A bracelet made\n"
+    "by ancients about\n"
+    "3000 years ago.");
 
 static const u8 sRelicStatueDesc[] = _(
-    "An old statue.\n"
-    "It sells at a\n"
-    "high price.");
+    "A figurine made\n"
+    "by ancients about\n"
+    "3000 years ago.");
 
 static const u8 sRelicCrownDesc[] = _(
-    "An old crown.\n"
-    "It sells at a\n"
-    "high price.");
+    "A heavy crown made\n"
+    "by ancients about\n"
+    "3000 years ago.");
 
 static const u8 sStrangeSouvenirDesc[] = _(
     "An ornament that\n"
     "depicts a Pokémon\n"
-    "from Alola.");
+    "venerated in Alola.");
 
 // Fossils
 static const u8 sHelixFossilDesc[] = _(
