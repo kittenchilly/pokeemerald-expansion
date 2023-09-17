@@ -426,16 +426,14 @@ const u32 gItemIconPalette_HoennFossil[] = INCBIN_U32("graphics/items/icon_palet
 const u32 gItemIcon_ClawFossil[] = INCBIN_U32("graphics/items/icons/claw_fossil.4bpp.lz");
 
 const u32 gItemIcon_ArmorFossil[] = INCBIN_U32("graphics/items/icons/armor_fossil.4bpp.lz");
-const u32 gItemIconPalette_ArmorFossil[] = INCBIN_U32("graphics/items/icon_palettes/armor_fossil.gbapal.lz");
+const u32 gItemIconPalette_SinnohFossil[] = INCBIN_U32("graphics/items/icon_palettes/sinnoh_fossil.gbapal.lz");
 
 const u32 gItemIcon_SkullFossil[] = INCBIN_U32("graphics/items/icons/skull_fossil.4bpp.lz");
-const u32 gItemIconPalette_SkullFossil[] = INCBIN_U32("graphics/items/icon_palettes/skull_fossil.gbapal.lz");
 
 const u32 gItemIcon_CoverFossil[] = INCBIN_U32("graphics/items/icons/cover_fossil.4bpp.lz");
-const u32 gItemIconPalette_CoverFossil[] = INCBIN_U32("graphics/items/icon_palettes/cover_fossil.gbapal.lz");
+const u32 gItemIconPalette_UnovaFossil[] = INCBIN_U32("graphics/items/icon_palettes/unova_fossil.gbapal.lz");
 
 const u32 gItemIcon_PlumeFossil[] = INCBIN_U32("graphics/items/icons/plume_fossil.4bpp.lz");
-const u32 gItemIconPalette_PlumeFossil[] = INCBIN_U32("graphics/items/icon_palettes/plume_fossil.gbapal.lz");
 
 const u32 gItemIcon_JawFossil[] = INCBIN_U32("graphics/items/icons/jaw_fossil.4bpp.lz");
 const u32 gItemIconPalette_JawFossil[] = INCBIN_U32("graphics/items/icon_palettes/jaw_fossil.gbapal.lz");

@@ -1961,14 +1961,14 @@ const struct Item gItems[] =
     {
         .name = _("Helix Fossil"),
         .description = sHelixFossilDesc,
-        #if I_KEY_FOSSILS >= GEN_4
-            .price = 7000,
-            .pocket = POCKET_ITEMS,
-        #else
-            .price = 0,
-            .importance = 1,
-            .pocket = POCKET_KEY_ITEMS,
-        #endif
+    #if I_KEY_FOSSILS >= GEN_4
+        .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -1978,14 +1978,14 @@ const struct Item gItems[] =
     {
         .name = _("Dome Fossil"),
         .description = sDomeFossilDesc,
-        #if I_KEY_FOSSILS >= GEN_4
-            .price = 7000,
-            .pocket = POCKET_ITEMS,
-        #else
-            .price = 0,
-            .importance = 1,
-            .pocket = POCKET_KEY_ITEMS,
-        #endif
+    #if I_KEY_FOSSILS >= GEN_4
+        .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -1995,14 +1995,14 @@ const struct Item gItems[] =
     {
         .name = _("Old Amber"),
         .description = sOldAmberDesc,
-        #if I_KEY_FOSSILS >= GEN_4
-            .price = 10000,
-            .pocket = POCKET_ITEMS,
-        #else
-            .price = 0,
-            .importance = 1,
-            .pocket = POCKET_KEY_ITEMS,
-        #endif
+    #if I_KEY_FOSSILS >= GEN_4
+        .price = 1000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2012,14 +2012,14 @@ const struct Item gItems[] =
     {
         .name = _("Root Fossil"),
         .description = sRootFossilDesc,
-        #if I_KEY_FOSSILS >= GEN_4
-            .price = 7000,
-            .pocket = POCKET_ITEMS,
-        #else
-            .price = 0,
-            .importance = 1,
-            .pocket = POCKET_KEY_ITEMS,
-        #endif
+    #if I_KEY_FOSSILS >= GEN_4
+        .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2029,14 +2029,14 @@ const struct Item gItems[] =
     {
         .name = _("Claw Fossil"),
         .description = sClawFossilDesc,
-        #if I_KEY_FOSSILS >= GEN_4
-            .price = 7000,
-            .pocket = POCKET_ITEMS,
-        #else
-            .price = 0,
-            .importance = 1,
-            .pocket = POCKET_KEY_ITEMS,
-        #endif
+    #if I_KEY_FOSSILS >= GEN_4
+        .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2045,7 +2045,14 @@ const struct Item gItems[] =
     [ITEM_ARMOR_FOSSIL] =
     {
         .name = _("Armor Fossil"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sArmorFossilDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2056,7 +2063,14 @@ const struct Item gItems[] =
     [ITEM_SKULL_FOSSIL] =
     {
         .name = _("Skull Fossil"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sSkullFossilDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2067,7 +2081,14 @@ const struct Item gItems[] =
     [ITEM_COVER_FOSSIL] =
     {
         .name = _("Cover Fossil"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sCoverFossilDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2078,7 +2099,14 @@ const struct Item gItems[] =
     [ITEM_PLUME_FOSSIL] =
     {
         .name = _("Plume Fossil"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sPlumeFossilDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2089,7 +2117,14 @@ const struct Item gItems[] =
     [ITEM_JAW_FOSSIL] =
     {
         .name = _("Jaw Fossil"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sJawFossilDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2100,7 +2135,14 @@ const struct Item gItems[] =
     [ITEM_SAIL_FOSSIL] =
     {
         .name = _("Sail Fossil"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 7000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sSailFossilDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2111,7 +2153,14 @@ const struct Item gItems[] =
     [ITEM_FOSSILIZED_BIRD] =
     {
         .name = _("FosslzedBird"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 5000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sFossilizedBirdDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2122,7 +2171,14 @@ const struct Item gItems[] =
     [ITEM_FOSSILIZED_FISH] =
     {
         .name = _("FosslzedFish"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 5000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sFossilizedFishDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2133,7 +2189,14 @@ const struct Item gItems[] =
     [ITEM_FOSSILIZED_DRAKE] =
     {
         .name = _("FosslzedDrke"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 5000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sFossilizedDrakeDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2144,7 +2207,14 @@ const struct Item gItems[] =
     [ITEM_FOSSILIZED_DINO] =
     {
         .name = _("FosslzedDino"),
+    #if I_KEY_FOSSILS >= GEN_4
         .price = 5000,
+        .pocket = POCKET_ITEMS,
+    #else
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #endif
         .description = sFossilizedDinoDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,

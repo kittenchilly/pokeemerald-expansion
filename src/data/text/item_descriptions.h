@@ -902,59 +902,59 @@ static const u8 sStrangeSouvenirDesc[] = _(
 
 // Fossils
 static const u8 sHelixFossilDesc[] = _(
-    "A piece of an\n"
-    "ancient marine\n"
-    "Pokémon's seashell.");
+    "Part of a seashell\n"
+    "of an ancient sea-\n"
+    "dwelling Pokémon.");
 
 static const u8 sDomeFossilDesc[] = _(
-    "A piece of an\n"
-    "ancient marine\n"
-    "Pokémon's shell.");
+    "Part of a carapace\n"
+    "of an ancient sea-\n"
+    "dwelling Pokémon.");
 
 static const u8 sOldAmberDesc[] = _(
-    "A stone containing\n"
+    "Piece of amber with\n"
     "the genes of an\n"
     "ancient Pokémon.");
 
 static const u8 sRootFossilDesc[] = _(
-    "A fossil of an\n"
-    "ancient, seafloor-\n"
+    "Part of a root\n"
+    "of an ancient sea-\n"
     "dwelling Pokémon.");
 
 static const u8 sClawFossilDesc[] = _(
-    "A fossil of an\n"
-    "ancient, seafloor-\n"
+    "Part of a claw\n"
+    "of an ancient sea-\n"
     "dwelling Pokémon.");
 
 static const u8 sArmorFossilDesc[] = _(
-    "A piece of a\n"
-    "prehistoric Poké-\n"
-    "mon's head.");
+    "Part of a collar\n"
+    "of an ancient land-\n"
+    "roaming Pokémon.");
 
 static const u8 sSkullFossilDesc[] = _(
-    "A piece of a\n"
-    "prehistoric Poké-\n"
-    "mon's head.");
+    "Part of the head\n"
+    "of an ancient land-\n"
+    "roaming Pokémon.");
 
 static const u8 sCoverFossilDesc[] = _(
-    "A piece of a\n"
-    "prehistoric Poké-\n"
-    "mon's back.");
+    "Part of the back\n"
+    "of an ancient sea-\n"
+    "dwelling Pokémon.");
 
 static const u8 sPlumeFossilDesc[] = _(
-    "A piece of a\n"
-    "prehistoric Poké-\n"
-    "mon's wing.");
+    "Part of a wing\n"
+    "of an ancient sky-\n"
+    "soaring Pokémon.");
 
 static const u8 sJawFossilDesc[] = _(
-    "A piece of a prehis-\n"
-    "toric Pokémon's\n"
-    "large jaw.");
+    "Part of the jaw\n"
+    "of an ancient land-\n"
+    "roaming Pokémon.");
 
 static const u8 sSailFossilDesc[] = _(
-    "A piece of a prehis-\n"
-    "toric Pokémon's\n"
-    "skin sail.");
+    "Part of a sail\n"
+    "of an ancient land-\n"
+    "roaming Pokémon.");
 
 static const u8 sFossilizedBirdDesc[] = _(
     "A fossil of an\n"
