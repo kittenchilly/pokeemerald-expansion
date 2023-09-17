@@ -1554,7 +1554,7 @@ const struct Item gItems[] =
     [ITEM_POKE_DOLL] =
     {
         .name = _("Poké Doll"),
-        .price = 100,
+        .price = 300,
         .description = sPokeDollDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,

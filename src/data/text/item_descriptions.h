@@ -720,19 +720,19 @@ static const u8 sGuardSpecDesc[] = _(
 
 // Escape Items
 static const u8 sPokeDollDesc[] = _(
-    "Use to flee from\n"
-    "any battle with\n"
-    "a wild Pokémon.");
+    "Guarantees escape\n"
+    "from any battle\n"
+    "with wild Pokémon.");
 
 static const u8 sFluffyTailDesc[] = _(
-    "Use to flee from\n"
-    "any battle with\n"
-    "a wild Pokémon.");
+    "Guarantees escape\n"
+    "from any battle\n"
+    "with wild Pokémon.");
 
 static const u8 sPokeToyDesc[] = _(
-    "Use to flee from\n"
-    "any battle with\n"
-    "a wild Pokémon.");
+    "Guarantees escape\n"
+    "from any battle\n"
+    "with wild Pokémon.");
 
 static const u8 sMaxMushroomsDesc[] = _(
     "Boosts all stats\n"
