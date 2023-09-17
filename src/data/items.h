@@ -1432,14 +1432,14 @@ const struct Item gItems[] =
     {
         .name = _("Escape Rope"),
         .description = sEscapeRopeDesc,
-        #if I_KEY_ESCAPE_ROPE >= GEN_8
-            .price = 0,
-            .importance = 1,
-            .pocket = POCKET_KEY_ITEMS,
-        #else
-            .price = 1000,
-            .pocket = POCKET_ITEMS,
-        #endif
+    #if I_KEY_ESCAPE_ROPE >= GEN_8
+        .price = 0,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+    #else
+        .price = 1000,
+        .pocket = POCKET_ITEMS,
+    #endif
         .type = ITEM_USE_FIELD,
         .fieldUseFunc = ItemUseOutOfBattle_EscapeRope,
         .flingPower = 30,
@@ -1566,7 +1566,7 @@ const struct Item gItems[] =
     [ITEM_FLUFFY_TAIL] =
     {
         .name = _("Fluffy Tail"),
-        .price = 100,
+        .price = 300,
         .description = sFluffyTailDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -1578,7 +1578,7 @@ const struct Item gItems[] =
     [ITEM_POKE_TOY] =
     {
         .name = _("Poké Toy"),
-        .price = 100,
+        .price = 300,
         .description = sPokeToyDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -4908,11 +4908,11 @@ const struct Item gItems[] =
         .name = _("Soul Dew"),
         .price = 0,
         .holdEffect = HOLD_EFFECT_SOUL_DEW,
-        #if B_SOUL_DEW_BOOST >= GEN_7
-            .holdEffectParam = 20,
-        #else
-            .holdEffectParam = 50,
-        #endif
+    #if B_SOUL_DEW_BOOST >= GEN_7
+        .holdEffectParam = 20,
+    #else
+        .holdEffectParam = 50,
+    #endif
         .description = sSoulDewDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -6487,13 +6487,13 @@ const struct Item gItems[] =
     {
         .name = _("Sitrus Berry"),
         .price = 20,
-        #if I_SITRUS_BERRY_HEAL >= GEN_4
-            .holdEffect = HOLD_EFFECT_RESTORE_PCT_HP,
-            .holdEffectParam = 25,
-        #else
-            .holdEffect = HOLD_EFFECT_RESTORE_HP,
-            .holdEffectParam = 30,
-        #endif
+    #if I_SITRUS_BERRY_HEAL >= GEN_4
+        .holdEffect = HOLD_EFFECT_RESTORE_PCT_HP,
+        .holdEffectParam = 25,
+    #else
+        .holdEffect = HOLD_EFFECT_RESTORE_HP,
+        .holdEffectParam = 30,
+    #endif
         .description = sSitrusBerryDesc,
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_PARTY_MENU,
