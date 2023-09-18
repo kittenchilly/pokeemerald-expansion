@@ -1234,7 +1234,7 @@
 #define ITEM_DISTORTION_SLATE 1621
 #define ITEM_DS_SOUNDS 1622
 
-//PLA, a lot of ingredients we probably should add, and recipes which actually dont show up in PLA's bag so probably dont need (but they do share a sprite)
+//PLA, a lot of ingredients we probably should add
 #define ITEM_TIME_BALM 1622
 #define ITEM_SPACE_BALM 1623
 #define ITEM_MYSTERIOUS_BALM 1624
@@ -1347,7 +1347,7 @@
 #define ITEM_GRISEOUS_CORE 1767
 #define ITEM_BLANK_PLATE 1768
 #define ITEM_CRAFTING_KIT 1769
-//recipes 5
+//removed recipes 5
 #define ITEM_STRANGE_BALL 1772
 //pokedex (hisui)
 #define ITEM_OLD_VERSE_1 1774
