@@ -8030,11 +8030,13 @@ extern const u32 gItemIconPalette_FossilizedDrake[];
 extern const u32 gItemIcon_FossilizedDino[];
 extern const u32 gItemIconPalette_FossilizedDino[];
 // Mulch
-extern const u32 gItemIcon_Mulch[];
+extern const u32 gItemIcon_Mulch1[];
 extern const u32 gItemIconPalette_GrowthMulch[];
+extern const u32 gItemIcon_Mulch2[];
 extern const u32 gItemIconPalette_DampMulch[];
 extern const u32 gItemIcon_StableMulch[];
 extern const u32 gItemIconPalette_StableMulch[];
+extern const u32 gItemIcon_Mulch3[];
 extern const u32 gItemIconPalette_GooeyMulch[];
 extern const u32 gItemIconPalette_RichMulch[];
 extern const u32 gItemIconPalette_SurpriseMulch[];

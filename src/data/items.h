@@ -2054,7 +2054,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sArmorFossilDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2072,7 +2071,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sSkullFossilDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2090,7 +2088,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sCoverFossilDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2108,7 +2105,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sPlumeFossilDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2126,7 +2122,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sJawFossilDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2144,7 +2139,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sSailFossilDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2162,7 +2156,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sFossilizedBirdDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2180,7 +2173,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sFossilizedFishDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2198,7 +2190,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sFossilizedDrakeDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2216,7 +2207,6 @@ const struct Item gItems[] =
         .pocket = POCKET_KEY_ITEMS,
     #endif
         .description = sFossilizedDinoDesc,
-        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 100,
@@ -2227,7 +2217,7 @@ const struct Item gItems[] =
     [ITEM_GROWTH_MULCH] =
     {
         .name = _("Growth Mulch"),
-        .price = 200,
+        .price = 400,
         .description = sGrowthMulchDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2238,7 +2228,7 @@ const struct Item gItems[] =
     [ITEM_DAMP_MULCH] =
     {
         .name = _("Damp Mulch"),
-        .price = 200,
+        .price = 400,
         .description = sDampMulchDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2249,7 +2239,7 @@ const struct Item gItems[] =
     [ITEM_STABLE_MULCH] =
     {
         .name = _("Stable Mulch"),
-        .price = 200,
+        .price = 400,
         .description = sStableMulchDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2260,7 +2250,7 @@ const struct Item gItems[] =
     [ITEM_GOOEY_MULCH] =
     {
         .name = _("Gooey Mulch"),
-        .price = 200,
+        .price = 400,
         .description = sGooeyMulchDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2271,7 +2261,7 @@ const struct Item gItems[] =
     [ITEM_RICH_MULCH] =
     {
         .name = _("Rich Mulch"),
-        .price = 200,
+        .price = 400,
         .description = sRichMulchDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2282,7 +2272,7 @@ const struct Item gItems[] =
     [ITEM_SURPRISE_MULCH] =
     {
         .name = _("SurprseMulch"),
-        .price = 200,
+        .price = 400,
         .description = sSurpriseMulchDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2293,7 +2283,7 @@ const struct Item gItems[] =
     [ITEM_BOOST_MULCH] =
     {
         .name = _("Boost Mulch"),
-        .price = 200,
+        .price = 400,
         .description = sBoostMulchDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2304,7 +2294,7 @@ const struct Item gItems[] =
     [ITEM_AMAZE_MULCH] =
     {
         .name = _("Amaze Mulch"),
-        .price = 200,
+        .price = 400,
         .description = sAmazeMulchDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,

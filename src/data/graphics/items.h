@@ -455,18 +455,26 @@ const u32 gItemIconPalette_FossilizedDino[] = INCBIN_U32("graphics/items/icon_pa
 
 // Mulch
 
-const u32 gItemIcon_Mulch[] = INCBIN_U32("graphics/items/icons/mulch.4bpp.lz");
+const u32 gItemIcon_Mulch1[] = INCBIN_U32("graphics/items/icons/mulch1.4bpp.lz");
 const u32 gItemIconPalette_GrowthMulch[] = INCBIN_U32("graphics/items/icon_palettes/growth_mulch.gbapal.lz");
+
+const u32 gItemIcon_Mulch2[] = INCBIN_U32("graphics/items/icons/mulch2.4bpp.lz");
 const u32 gItemIconPalette_DampMulch[] = INCBIN_U32("graphics/items/icon_palettes/damp_mulch.gbapal.lz");
 
 const u32 gItemIcon_StableMulch[] = INCBIN_U32("graphics/items/icons/stable_mulch.4bpp.lz");
 const u32 gItemIconPalette_StableMulch[] = INCBIN_U32("graphics/items/icon_palettes/stable_mulch.gbapal.lz");
 
 const u32 gItemIconPalette_GooeyMulch[] = INCBIN_U32("graphics/items/icon_palettes/gooey_mulch.gbapal.lz");
+
+const u32 gItemIcon_Mulch3[] = INCBIN_U32("graphics/items/icons/mulch3.4bpp.lz");
 const u32 gItemIconPalette_RichMulch[] = INCBIN_U32("graphics/items/icon_palettes/rich_mulch.gbapal.lz");
+
 const u32 gItemIconPalette_SurpriseMulch[] = INCBIN_U32("graphics/items/icon_palettes/surprise_mulch.gbapal.lz");
+
 const u32 gItemIconPalette_BoostMulch[] = INCBIN_U32("graphics/items/icon_palettes/boost_mulch.gbapal.lz");
+
 const u32 gItemIconPalette_AmazeMulch[] = INCBIN_U32("graphics/items/icon_palettes/amaze_mulch.gbapal.lz");
+
 
 // Apricorns
 

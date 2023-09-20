@@ -979,43 +979,43 @@ static const u8 sFossilizedDinoDesc[] = _(
 // Mulch
 static const u8 sGrowthMulchDesc[] = _(
     "A fertilizer that\n"
-    "accelerates the\n"
+    "speeds up the\n"
     "growth of Berries.");
 
 static const u8 sDampMulchDesc[] = _(
     "A fertilizer that\n"
-    "decelerates the\n"
-    "growth of Berries.");
+    "causes Berry soil\n"
+    "to dry out slower.");
 
 static const u8 sStableMulchDesc[] = _(
     "A fertilizer that\n"
-    "ups the life time\n"
-    "of Berry trees.");
+    "ups the time that\n"
+    "ripe Berries last.");
 
 static const u8 sGooeyMulchDesc[] = _(
     "A fertilizer that\n"
-    "makes more Berries\n"
-    "regrow after fall.");
+    "makes withered\n"
+    "plants regrow.");
 
 static const u8 sRichMulchDesc[] = _(
     "A fertilizer that\n"
-    "ups the number of\n"
-    "Berries harvested.");
+    "increases the\n"
+    "Berries harvest.");
 
 static const u8 sSurpriseMulchDesc[] = _(
     "A fertilizer that\n"
-    "ups the chance of\n"
-    "Berry mutations.");
+    "causes mutations\n"
+    "on Berry combos.");
 
 static const u8 sBoostMulchDesc[] = _(
     "A fertilizer that\n"
-    "ups the dry speed\n"
-    "of soft soil.");
+    "causes Berry soil\n"
+    "to dry out faster.");
 
 static const u8 sAmazeMulchDesc[] = _(
-    "A fertilizer Rich\n"
-    "Surprising and\n"
-    "Boosting as well.");
+    "A fertilizer that\n"
+    "combines Rich,\n"
+    "Surprise, and Boost.");
 
 // Apricorns
 static const u8 sRedApricornDesc[] = _(
