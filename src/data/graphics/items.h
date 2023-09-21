@@ -651,16 +651,10 @@ const u32 gItemIconPalette_PeatBlock[] = INCBIN_U32("graphics/items/icon_palette
 
 // Nectars
 
-const u32 gItemIcon_RedNectar[] = INCBIN_U32("graphics/items/icons/red_nectar.4bpp.lz");
+const u32 gItemIcon_Nectar[] = INCBIN_U32("graphics/items/icons/nectar.4bpp.lz");
 const u32 gItemIconPalette_RedNectar[] = INCBIN_U32("graphics/items/icon_palettes/red_nectar.gbapal.lz");
-
-const u32 gItemIcon_YellowNectar[] = INCBIN_U32("graphics/items/icons/yellow_nectar.4bpp.lz");
 const u32 gItemIconPalette_YellowNectar[] = INCBIN_U32("graphics/items/icon_palettes/yellow_nectar.gbapal.lz");
-
-const u32 gItemIcon_PinkNectar[] = INCBIN_U32("graphics/items/icons/pink_nectar.4bpp.lz");
 const u32 gItemIconPalette_PinkNectar[] = INCBIN_U32("graphics/items/icon_palettes/pink_nectar.gbapal.lz");
-
-const u32 gItemIcon_PurpleNectar[] = INCBIN_U32("graphics/items/icons/purple_nectar.4bpp.lz");
 const u32 gItemIconPalette_PurpleNectar[] = INCBIN_U32("graphics/items/icon_palettes/purple_nectar.gbapal.lz");
 
 // Plates

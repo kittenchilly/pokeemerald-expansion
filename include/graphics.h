@@ -8158,13 +8158,10 @@ extern const u32 gItemIconPalette_LinkingCord[];
 extern const u32 gItemIcon_PeatBlock[];
 extern const u32 gItemIconPalette_PeatBlock[];
 // Nectars
-extern const u32 gItemIcon_RedNectar[];
+extern const u32 gItemIcon_Nectar[];
 extern const u32 gItemIconPalette_RedNectar[];
-extern const u32 gItemIcon_YellowNectar[];
 extern const u32 gItemIconPalette_YellowNectar[];
-extern const u32 gItemIcon_PinkNectar[];
 extern const u32 gItemIconPalette_PinkNectar[];
-extern const u32 gItemIcon_PurpleNectar[];
 extern const u32 gItemIconPalette_PurpleNectar[];
 // Plates
 extern const u32 gItemIcon_FlamePlate[];

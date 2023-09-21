@@ -266,10 +266,10 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_RIBBON_SWEET] = {gItemIcon_RibbonSweet, gItemIconPalette_RibbonSweet},
     [ITEM_EVERSTONE] = {gItemIcon_Everstone, gItemIconPalette_Everstone},
     // Nectars
-    [ITEM_RED_NECTAR] = {gItemIcon_RedNectar, gItemIconPalette_RedNectar},
-    [ITEM_YELLOW_NECTAR] = {gItemIcon_YellowNectar, gItemIconPalette_YellowNectar},
-    [ITEM_PINK_NECTAR] = {gItemIcon_PinkNectar, gItemIconPalette_PinkNectar},
-    [ITEM_PURPLE_NECTAR] = {gItemIcon_PurpleNectar, gItemIconPalette_PurpleNectar},
+    [ITEM_RED_NECTAR] = {gItemIcon_Nectar, gItemIconPalette_RedNectar},
+    [ITEM_YELLOW_NECTAR] = {gItemIcon_Nectar, gItemIconPalette_YellowNectar},
+    [ITEM_PINK_NECTAR] = {gItemIcon_Nectar, gItemIconPalette_PinkNectar},
+    [ITEM_PURPLE_NECTAR] = {gItemIcon_Nectar, gItemIconPalette_PurpleNectar},
     // Plates
     [ITEM_FLAME_PLATE] = {gItemIcon_FlamePlate, gItemIconPalette_FlamePlate},
     [ITEM_SPLASH_PLATE] = {gItemIcon_SplashPlate, gItemIconPalette_SplashPlate},
