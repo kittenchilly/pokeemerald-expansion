@@ -3004,7 +3004,7 @@ const struct Item gItems[] =
     [ITEM_FLAME_PLATE] =
     {
         .name = _("Flame Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sFlamePlateDesc,
@@ -3018,7 +3018,7 @@ const struct Item gItems[] =
     [ITEM_SPLASH_PLATE] =
     {
         .name = _("Splash Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sSplashPlateDesc,
@@ -3032,7 +3032,7 @@ const struct Item gItems[] =
     [ITEM_ZAP_PLATE] =
     {
         .name = _("Zap Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sZapPlateDesc,
@@ -3046,7 +3046,7 @@ const struct Item gItems[] =
     [ITEM_MEADOW_PLATE] =
     {
         .name = _("Meadow Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sMeadowPlateDesc,
@@ -3060,7 +3060,7 @@ const struct Item gItems[] =
     [ITEM_ICICLE_PLATE] =
     {
         .name = _("Icicle Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sIciclePlateDesc,
@@ -3074,7 +3074,7 @@ const struct Item gItems[] =
     [ITEM_FIST_PLATE] =
     {
         .name = _("Fist Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sFistPlateDesc,
@@ -3088,7 +3088,7 @@ const struct Item gItems[] =
     [ITEM_TOXIC_PLATE] =
     {
         .name = _("Toxic Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sToxicPlateDesc,
@@ -3102,7 +3102,7 @@ const struct Item gItems[] =
     [ITEM_EARTH_PLATE] =
     {
         .name = _("Earth Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sEarthPlateDesc,
@@ -3116,7 +3116,7 @@ const struct Item gItems[] =
     [ITEM_SKY_PLATE] =
     {
         .name = _("Sky Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sSkyPlateDesc,
@@ -3130,7 +3130,7 @@ const struct Item gItems[] =
     [ITEM_MIND_PLATE] =
     {
         .name = _("Mind Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sMindPlateDesc,
@@ -3144,7 +3144,7 @@ const struct Item gItems[] =
     [ITEM_INSECT_PLATE] =
     {
         .name = _("Insect Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sInsectPlateDesc,
@@ -3158,7 +3158,7 @@ const struct Item gItems[] =
     [ITEM_STONE_PLATE] =
     {
         .name = _("Stone Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sStonePlateDesc,
@@ -3172,7 +3172,7 @@ const struct Item gItems[] =
     [ITEM_SPOOKY_PLATE] =
     {
         .name = _("Spooky Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sSpookyPlateDesc,
@@ -3186,7 +3186,7 @@ const struct Item gItems[] =
     [ITEM_DRACO_PLATE] =
     {
         .name = _("Draco Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sDracoPlateDesc,
@@ -3200,7 +3200,7 @@ const struct Item gItems[] =
     [ITEM_DREAD_PLATE] =
     {
         .name = _("Dread Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sDreadPlateDesc,
@@ -3214,7 +3214,7 @@ const struct Item gItems[] =
     [ITEM_IRON_PLATE] =
     {
         .name = _("Iron Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sIronPlateDesc,
@@ -3228,7 +3228,7 @@ const struct Item gItems[] =
     [ITEM_PIXIE_PLATE] =
     {
         .name = _("Pixie Plate"),
-        .price = 1000,
+        .price = 0,
         .holdEffect = HOLD_EFFECT_PLATE,
         .holdEffectParam = 20,
         .description = sPixiePlateDesc,

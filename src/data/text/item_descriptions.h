@@ -1427,8 +1427,8 @@ static const u8 sIronPlateDesc[] = _(
     "Steel-type moves.");
 
 static const u8 sPixiePlateDesc[] = _(
-    "A stone tablet that\n"
-    "boosts the power of\n"
+    "A tablet that ups\n"
+    "the power of\n"
     "Fairy-type moves.");
 
 // Drives
