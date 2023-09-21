@@ -2388,7 +2388,7 @@ const struct Item gItems[] =
     [ITEM_GALARICA_TWIG] =
     {
         .name = _("GalaricaTwig"),
-        .price = 40,
+        .price = 20,
         .description = sGalaricaTwigDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2399,7 +2399,7 @@ const struct Item gItems[] =
     [ITEM_ARMORITE_ORE] =
     {
         .name = _("Armorite Ore"),
-        .price = 40,
+        .price = 20,
         .description = sArmoriteOreDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,

@@ -1019,37 +1019,37 @@ static const u8 sAmazeMulchDesc[] = _(
 
 // Apricorns
 static const u8 sRedApricornDesc[] = _(
-    "A red apricorn.\n"
-    "It assails your\n"
-    "nostrils.");
+    "A red Apricorn.\n"
+    "It has a pungent\n"
+    "scent.");
 
 static const u8 sBlueApricornDesc[] = _(
-    "A blue apricorn.\n"
-    "It smells a bit\n"
-    "like grass.");
+    "A blue Apricorn.\n"
+    "It has a slightly\n"
+    "grassy smell to it.");
 
 static const u8 sYellowApricornDesc[] = _(
-    "A yellow apricorn.\n"
-    "It has an invigor-\n"
-    "ating scent.");
+    "A yellow Apricorn.\n"
+    "It has a light,\n"
+    "refreshing scent.");
 
 static const u8 sGreenApricornDesc[] = _(
-    "A green apricorn.\n"
-    "It has a strange,\n"
-    "aromatic scent.");
+    "A green Apricorn.\n"
+    "It has a strange\n"
+    "and aromatic scent.");
 
 static const u8 sPinkApricornDesc[] = _(
-    "A pink apricorn.\n"
-    "It has a nice,\n"
+    "A pink Apricorn.\n"
+    "It has a pleasantly\n"
     "sweet scent.");
 
 static const u8 sWhiteApricornDesc[] = _(
-    "A white apricorn.\n"
-    "It doesn't smell\n"
-    "like anything.");
+    "A white Apricorn.\n"
+    "It doesn't have\n"
+    "any aroma at all.");
 
 static const u8 sBlackApricornDesc[] = _(
-    "A black apricorn.\n"
+    "A black Apricorn.\n"
     "It has an inde-\n"
     "scribable scent.");
 
@@ -1064,14 +1064,14 @@ static const u8 sGalaricaTwigDesc[] = _(
     "Galarica.");
 
 static const u8 sArmoriteOreDesc[] = _(
-    "A rare ore. Can be\n"
-    "found in the Isle\n"
-    "of Armor at Galar.");
+    "A rare ore that can\n"
+    "be found on Galar's\n"
+    "Isle of Armor.");
 
 static const u8 sDyniteOreDesc[] = _(
-    "A mysterious ore.\n"
-    "It can be found in\n"
-    "Galar's Max Lair.");
+    "A mysterious ore\n"
+    "that can be found\n"
+    "in Galar's Max Lair.");
 
 // Mail
 static const u8 sOrangeMailDesc[] = _(

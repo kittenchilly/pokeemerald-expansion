@@ -130,10 +130,10 @@ const u32 gItemIconPalette_HealPowder[] = INCBIN_U32("graphics/items/icon_palett
 const u32 gItemIcon_RevivalHerb[] = INCBIN_U32("graphics/items/icons/revival_herb.4bpp.lz");
 const u32 gItemIconPalette_RevivalHerb[] = INCBIN_U32("graphics/items/icon_palettes/revival_herb.gbapal.lz");
 
-const u32 gItemIcon_Antidote[] = INCBIN_U32("graphics/items/icons/antidote.4bpp.lz");
-const u32 gItemIconPalette_Antidote[] = INCBIN_U32("graphics/items/icon_palettes/antidote.gbapal.lz");
 
 const u32 gItemIcon_StatusHeal[] = INCBIN_U32("graphics/items/icons/status_heal.4bpp.lz");
+const u32 gItemIconPalette_Antidote[] = INCBIN_U32("graphics/items/icon_palettes/antidote.gbapal.lz");
+
 const u32 gItemIconPalette_ParalyzeHeal[] = INCBIN_U32("graphics/items/icon_palettes/paralyze_heal.gbapal.lz");
 
 const u32 gItemIconPalette_BurnHeal[] = INCBIN_U32("graphics/items/icon_palettes/burn_heal.gbapal.lz");
@@ -478,25 +478,13 @@ const u32 gItemIconPalette_AmazeMulch[] = INCBIN_U32("graphics/items/icon_palett
 
 // Apricorns
 
-const u32 gItemIcon_RedApricorn[] = INCBIN_U32("graphics/items/icons/red_apricorn.4bpp.lz");
+const u32 gItemIcon_Apricorn[] = INCBIN_U32("graphics/items/icons/apricorn.4bpp.lz");
 const u32 gItemIconPalette_RedApricorn[] = INCBIN_U32("graphics/items/icon_palettes/red_apricorn.gbapal.lz");
-
-const u32 gItemIcon_BlueApricorn[] = INCBIN_U32("graphics/items/icons/blue_apricorn.4bpp.lz");
 const u32 gItemIconPalette_BlueApricorn[] = INCBIN_U32("graphics/items/icon_palettes/blue_apricorn.gbapal.lz");
-
-const u32 gItemIcon_YellowApricorn[] = INCBIN_U32("graphics/items/icons/yellow_apricorn.4bpp.lz");
 const u32 gItemIconPalette_YellowApricorn[] = INCBIN_U32("graphics/items/icon_palettes/yellow_apricorn.gbapal.lz");
-
-const u32 gItemIcon_GreenApricorn[] = INCBIN_U32("graphics/items/icons/green_apricorn.4bpp.lz");
 const u32 gItemIconPalette_GreenApricorn[] = INCBIN_U32("graphics/items/icon_palettes/green_apricorn.gbapal.lz");
-
-const u32 gItemIcon_PinkApricorn[] = INCBIN_U32("graphics/items/icons/pink_apricorn.4bpp.lz");
 const u32 gItemIconPalette_PinkApricorn[] = INCBIN_U32("graphics/items/icon_palettes/pink_apricorn.gbapal.lz");
-
-const u32 gItemIcon_WhiteApricorn[] = INCBIN_U32("graphics/items/icons/white_apricorn.4bpp.lz");
 const u32 gItemIconPalette_WhiteApricorn[] = INCBIN_U32("graphics/items/icon_palettes/white_apricorn.gbapal.lz");
-
-const u32 gItemIcon_BlackApricorn[] = INCBIN_U32("graphics/items/icons/black_apricorn.4bpp.lz");
 const u32 gItemIconPalette_BlackApricorn[] = INCBIN_U32("graphics/items/icon_palettes/black_apricorn.gbapal.lz");
 
 const u32 gItemIcon_WishingPiece[] = INCBIN_U32("graphics/items/icons/wishing_piece.4bpp.lz");
