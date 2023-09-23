@@ -15,7 +15,7 @@
 #endif
 
 #if I_TYPE_BOOST_POWER >= GEN_4 // For non Pokémon-specific type-boosting held items.
-    #define TYPE_BOOST_PARAM 20 
+    #define TYPE_BOOST_PARAM 20
 #else
     #define TYPE_BOOST_PARAM 10
 #endif
@@ -2717,7 +2717,7 @@ const struct Item gItems[] =
     [ITEM_GALARICA_CUFF] =
     {
         .name = _("GalaricaCuff"),
-        .price = 6000,
+        .price = 3000,
         .description = sGalaricaCuffDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
@@ -2728,7 +2728,7 @@ const struct Item gItems[] =
     [ITEM_GALARICA_WREATH] =
     {
         .name = _("GalrcaWreath"),
-        .price = 6000,
+        .price = 3000,
         .description = sGalaricaWreathDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
@@ -2808,7 +2808,7 @@ const struct Item gItems[] =
     [ITEM_REAPER_CLOTH] =
     {
         .name = _("Reaper Cloth"),
-        .price = 2000,
+        .price = 3000,
         .description = sReaperClothDesc,
         .pocket = POCKET_ITEMS,
         .type = EVO_HELD_ITEM_TYPE,
@@ -2819,7 +2819,7 @@ const struct Item gItems[] =
     [ITEM_PRISM_SCALE] =
     {
         .name = _("Prism Scale"),
-        .price = 2000,
+        .price = 3000,
         .description = sPrismScaleDesc,
         .pocket = POCKET_ITEMS,
         .type = EVO_HELD_ITEM_TYPE,
