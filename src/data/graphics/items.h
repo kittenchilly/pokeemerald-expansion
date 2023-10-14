@@ -680,16 +680,10 @@ const u32 gItemIconPalette_PixiePlate[] = INCBIN_U32("graphics/items/icon_palett
 
 // Drives
 
-const u32 gItemIcon_DouseDrive[] = INCBIN_U32("graphics/items/icons/douse_drive.4bpp.lz");
+const u32 gItemIcon_Drive[] = INCBIN_U32("graphics/items/icons/drive.4bpp.lz");
 const u32 gItemIconPalette_DouseDrive[] = INCBIN_U32("graphics/items/icon_palettes/douse_drive.gbapal.lz");
-
-const u32 gItemIcon_ShockDrive[] = INCBIN_U32("graphics/items/icons/shock_drive.4bpp.lz");
 const u32 gItemIconPalette_ShockDrive[] = INCBIN_U32("graphics/items/icon_palettes/shock_drive.gbapal.lz");
-
-const u32 gItemIcon_BurnDrive[] = INCBIN_U32("graphics/items/icons/burn_drive.4bpp.lz");
 const u32 gItemIconPalette_BurnDrive[] = INCBIN_U32("graphics/items/icon_palettes/burn_drive.gbapal.lz");
-
-const u32 gItemIcon_ChillDrive[] = INCBIN_U32("graphics/items/icons/chill_drive.4bpp.lz");
 const u32 gItemIconPalette_ChillDrive[] = INCBIN_U32("graphics/items/icon_palettes/chill_drive.gbapal.lz");
 
 // Memories

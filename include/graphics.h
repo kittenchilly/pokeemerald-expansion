@@ -8219,13 +8219,10 @@ extern const u32 gItemIconPalette_DreadPlate[];
 extern const u32 gItemIconPalette_IronPlate[];
 extern const u32 gItemIconPalette_PixiePlate[];
 // Drives
-extern const u32 gItemIcon_DouseDrive[];
+extern const u32 gItemIcon_Drive[];
 extern const u32 gItemIconPalette_DouseDrive[];
-extern const u32 gItemIcon_ShockDrive[];
 extern const u32 gItemIconPalette_ShockDrive[];
-extern const u32 gItemIcon_BurnDrive[];
 extern const u32 gItemIconPalette_BurnDrive[];
-extern const u32 gItemIcon_ChillDrive[];
 extern const u32 gItemIconPalette_ChillDrive[];
 // Memories
 extern const u32 gItemIcon_FireMemory[];

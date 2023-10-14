@@ -289,10 +289,10 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_IRON_PLATE] = {gItemIcon_Plate, gItemIconPalette_IronPlate},
     [ITEM_PIXIE_PLATE] = {gItemIcon_Plate, gItemIconPalette_PixiePlate},
     // Drives
-    [ITEM_DOUSE_DRIVE] = {gItemIcon_DouseDrive, gItemIconPalette_DouseDrive},
-    [ITEM_SHOCK_DRIVE] = {gItemIcon_ShockDrive, gItemIconPalette_ShockDrive},
-    [ITEM_BURN_DRIVE] = {gItemIcon_BurnDrive, gItemIconPalette_BurnDrive},
-    [ITEM_CHILL_DRIVE] = {gItemIcon_ChillDrive, gItemIconPalette_ChillDrive},
+    [ITEM_DOUSE_DRIVE] = {gItemIcon_Drive, gItemIconPalette_DouseDrive},
+    [ITEM_SHOCK_DRIVE] = {gItemIcon_Drive, gItemIconPalette_ShockDrive},
+    [ITEM_BURN_DRIVE] = {gItemIcon_Drive, gItemIconPalette_BurnDrive},
+    [ITEM_CHILL_DRIVE] = {gItemIcon_Drive, gItemIconPalette_ChillDrive},
     // Memories
     [ITEM_FIRE_MEMORY] = {gItemIcon_FireMemory, gItemIconPalette_FireMemory},
     [ITEM_WATER_MEMORY] = {gItemIcon_WaterMemory, gItemIconPalette_WaterMemory},
