@@ -103,6 +103,7 @@ struct DisableStruct
     u8 toxicSpikesDone:1;
     u8 stickyWebDone:1;
     u8 stealthRockDone:1;
+    u8 syrupBombTimer;
 };
 
 struct ProtectStruct
@@ -149,6 +150,7 @@ struct ProtectStruct
     u16 shellTrap:1;
     u16 silkTrapped:1;
     u16 eatMirrorHerb:1;
+    u16 activateOpportunist:2; // 2 - to copy stats. 1 - stats copied (do not repeat). 0 - no stats to copy
     u32 physicalDmg;
     u32 specialDmg;
     u8 physicalBattlerId;
@@ -726,7 +728,7 @@ STATIC_ASSERT(sizeof(((struct BattleStruct *)0)->palaceFlags) * 8 >= MAX_BATTLER
 #define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
 #define BATTLER_DAMAGED(battlerId) ((gSpecialStatuses[battlerId].physicalDmg != 0 || gSpecialStatuses[battlerId].specialDmg != 0))
 
-#define IS_BATTLER_OF_TYPE(battlerId, type)((gBattleMons[battlerId].type1 == type || gBattleMons[battlerId].type2 == type || (gBattleMons[battlerId].type3 != TYPE_MYSTERY && gBattleMons[battlerId].type3 == type)))
+#define IS_BATTLER_OF_TYPE(battlerId, type)((GetBattlerType(battlerId, 0) == type || GetBattlerType(battlerId, 1) == type || (GetBattlerType(battlerId, 2) != TYPE_MYSTERY && GetBattlerType(battlerId, 2) == type)))
 #define SET_BATTLER_TYPE(battlerId, type)           \
 {                                                   \
     gBattleMons[battlerId].type1 = type;            \
@@ -901,7 +903,7 @@ struct MonSpritesGfx
     u16 *buffer;
 };
 
-struct TotemBoost
+struct QueuedStatBoost
 {
     u8 stats;   // bitfield for each battle stat that is set if the stat changes
     s8 statChanges[NUM_BATTLE_STATS - 1];    // highest bit being set decreases the stat
@@ -920,7 +922,7 @@ extern u16 gBattle_WIN0H;
 extern u16 gBattle_WIN0V;
 extern u16 gBattle_WIN1H;
 extern u16 gBattle_WIN1V;
-extern u8 gDisplayedStringBattle[400];
+extern u8 gDisplayedStringBattle[425];
 extern u8 gBattleTextBuff1[TEXT_BUFF_ARRAY_COUNT];
 extern u8 gBattleTextBuff2[TEXT_BUFF_ARRAY_COUNT];
 extern u8 gBattleTextBuff3[30]; //to handle stupidly large z move names
@@ -1014,7 +1016,7 @@ extern u32 gFieldStatuses;
 extern struct FieldTimer gFieldTimers;
 extern u8 gBattlerAbility;
 extern u16 gPartnerSpriteId;
-extern struct TotemBoost gTotemBoosts[MAX_BATTLERS_COUNT];
+extern struct QueuedStatBoost gQueuedStatBoosts[MAX_BATTLERS_COUNT];
 
 extern void (*gPreBattleCallback1)(void);
 extern void (*gBattleMainFunc)(void);
