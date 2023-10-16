@@ -1196,17 +1196,17 @@ static bool32 NoTargetPresent(u8 battler, u32 move)
 
     switch (GetBattlerMoveTargetType(battler, move))
     {
-    case MOVE_TARGET_SELECTED:
-    case MOVE_TARGET_DEPENDS:
-    case MOVE_TARGET_RANDOM:
+    case MOVE_TARGET_NORMAL:
+    case MOVE_TARGET_SCRIPTED:
+    case MOVE_TARGET_RANDOM_NORMAL:
         if (!IsBattlerAlive(gBattlerTarget))
             return TRUE;
         break;
-    case MOVE_TARGET_BOTH:
+    case MOVE_TARGET_ALL_ADJACENT_FOES:
         if (!IsBattlerAlive(gBattlerTarget) && !IsBattlerAlive(BATTLE_PARTNER(gBattlerTarget)))
             return TRUE;
         break;
-    case MOVE_TARGET_FOES_AND_ALLY:
+    case MOVE_TARGET_ALL_ADJACENT:
         if (!IsBattlerAlive(gBattlerTarget) && !IsBattlerAlive(BATTLE_PARTNER(gBattlerTarget)) && !IsBattlerAlive(BATTLE_PARTNER(gBattlerAttacker)))
             return TRUE;
         break;
@@ -1783,7 +1783,7 @@ static void Cmd_accuracycheck(void)
                 gBattleStruct->blunderPolicy = TRUE;    // Only activates from missing through acc/evasion checks
 
             if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE &&
-                (moveTarget == MOVE_TARGET_BOTH || moveTarget == MOVE_TARGET_FOES_AND_ALLY))
+                (moveTarget == MOVE_TARGET_ALL_ADJACENT_FOES || moveTarget == MOVE_TARGET_ALL_ADJACENT))
                 gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_ATK;
             else
                 gBattleCommunication[MISS_TYPE] = B_MSG_MISSED;
@@ -1824,15 +1824,15 @@ static void Cmd_ppreduce(void)
     {
         switch (GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove))
         {
-        case MOVE_TARGET_FOES_AND_ALLY:
+        case MOVE_TARGET_ALL_ADJACENT:
             for (i = 0; i < gBattlersCount; i++)
             {
                 if (i != gBattlerAttacker && IsBattlerAlive(i))
                     ppToDeduct += (GetBattlerAbility(i) == ABILITY_PRESSURE);
             }
             break;
-        case MOVE_TARGET_BOTH:
-        case MOVE_TARGET_OPPONENTS_FIELD:
+        case MOVE_TARGET_ALL_ADJACENT_FOES:
+        case MOVE_TARGET_FOE_SIDE:
             for (i = 0; i < gBattlersCount; i++)
             {
                 if (GetBattlerSide(i) != GetBattlerSide(gBattlerAttacker) && IsBattlerAlive(i))
@@ -2176,9 +2176,9 @@ static void Cmd_attackanimation(void)
             return;
         }
 
-        if ((moveTarget & MOVE_TARGET_BOTH
-             || moveTarget & MOVE_TARGET_FOES_AND_ALLY
-             || moveTarget & MOVE_TARGET_DEPENDS)
+        if ((moveTarget & MOVE_TARGET_ALL_ADJACENT_FOES
+             || moveTarget & MOVE_TARGET_ALL_ADJACENT
+             || moveTarget & MOVE_TARGET_SCRIPTED)
             && gBattleScripting.animTargetsHit)
         {
             gBattlescriptCurrInstr = cmd->nextInstr;
@@ -5179,7 +5179,7 @@ static u32 GetNextTarget(u32 moveTarget)
         if (i != gBattlerAttacker
             && IsBattlerAlive(i)
             && !(gBattleStruct->targetsDone[gBattlerAttacker] & gBitTable[i])
-            && (GetBattlerSide(i) != GetBattlerSide(gBattlerAttacker) || moveTarget == MOVE_TARGET_FOES_AND_ALLY))
+            && (GetBattlerSide(i) != GetBattlerSide(gBattlerAttacker) || moveTarget == MOVE_TARGET_ALL_ADJACENT))
                 break;
     }
     return i;
@@ -5714,8 +5714,8 @@ static void Cmd_moveend(void)
             if (!(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
                 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE
                 && !gProtectStructs[gBattlerAttacker].chargingTurn
-                && (moveTarget == MOVE_TARGET_BOTH
-                    || moveTarget == MOVE_TARGET_FOES_AND_ALLY)
+                && (moveTarget == MOVE_TARGET_ALL_ADJACENT_FOES
+                    || moveTarget == MOVE_TARGET_ALL_ADJACENT)
                 && !(gHitMarker & HITMARKER_NO_ATTACKSTRING))
             {
                 u32 nextTarget = GetNextTarget(moveTarget);
@@ -10864,7 +10864,7 @@ static void Cmd_jumpifnexttargetvalid(void)
 
     for (gBattlerTarget++; gBattlerTarget < gBattlersCount; gBattlerTarget++)
     {
-        if (gBattlerTarget == gBattlerAttacker && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_USER))
+        if (gBattlerTarget == gBattlerAttacker && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_SELF))
             continue;
         if (IsBattlerAlive(gBattlerTarget))
             break;
@@ -13520,7 +13520,7 @@ static void Cmd_selectfirstvalidtarget(void)
 
     for (gBattlerTarget = 0; gBattlerTarget < gBattlersCount; gBattlerTarget++)
     {
-        if (gBattlerTarget == gBattlerAttacker && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_USER))
+        if (gBattlerTarget == gBattlerAttacker && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_SELF))
             continue;
         if (IsBattlerAlive(gBattlerTarget))
             break;
@@ -15689,12 +15689,12 @@ bool32 IsMoveAffectedByParentalBond(u32 move, u32 battler)
             switch (GetBattlerMoveTargetType(battler, move))
             {
             // Both foes are alive, spread move strikes once
-            case MOVE_TARGET_BOTH:
+            case MOVE_TARGET_ALL_ADJACENT_FOES:
                 if (CountAliveMonsInBattle(BATTLE_ALIVE_SIDE, gBattlerTarget) >= 2)
                     return FALSE;
                 break;
             // Either both foes or one foe and its ally are alive; spread move strikes once
-            case MOVE_TARGET_FOES_AND_ALLY:
+            case MOVE_TARGET_ALL_ADJACENT:
                 if (CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_BATTLER, gBattlerAttacker) >= 2)
                     return FALSE;
                 break;

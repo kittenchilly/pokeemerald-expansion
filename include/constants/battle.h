@@ -478,16 +478,22 @@
 // Indicator for the party summary bar to display an empty slot.
 #define HP_EMPTY_SLOT 0xFFFF
 
-#define MOVE_TARGET_SELECTED            0
-#define MOVE_TARGET_DEPENDS             (1 << 0)
-#define MOVE_TARGET_USER_OR_SELECTED    (1 << 1)
-#define MOVE_TARGET_RANDOM              (1 << 2)
-#define MOVE_TARGET_BOTH                (1 << 3)
-#define MOVE_TARGET_USER                (1 << 4)
-#define MOVE_TARGET_FOES_AND_ALLY       (1 << 5)
-#define MOVE_TARGET_OPPONENTS_FIELD     (1 << 6)
-#define MOVE_TARGET_ALLY                (1 << 7)
-#define MOVE_TARGET_ALL_BATTLERS        ((1 << 8) | MOVE_TARGET_USER)
+#define MOVE_TARGET_ADJACENT_ALLY             0
+#define MOVE_TARGET_ADJACENT_ALLY_OR_SELF    (1 << 0)
+#define MOVE_TARGET_ADJACENT_FOE             (1 << 1)
+#define MOVE_TARGET_ADJACENT_FOE_OR_SELF     (1 << 2)
+#define MOVE_TARGET_ALL                      (1 << 3)
+#define MOVE_TARGET_ALL_ADJACENT             (1 << 4)
+#define MOVE_TARGET_ALL_ADJACENT_FOES        (1 << 5)
+#define MOVE_TARGET_ALLIES                   (1 << 6)
+#define MOVE_TARGET_ALLY_SIDE                (1 << 7)
+#define MOVE_TARGET_ALLY_TEAM                (1 << 8)
+#define MOVE_TARGET_ANY                      (1 << 9)
+#define MOVE_TARGET_FOE_SIDE                 (1 << 10)
+#define MOVE_TARGET_NORMAL                   (1 << 11)
+#define MOVE_TARGET_RANDOM_NORMAL            (1 << 12)
+#define MOVE_TARGET_SCRIPTED                 (1 << 13)
+#define MOVE_TARGET_SELF                     (1 << 14)
 
 // For the second argument of GetMoveTarget, when no target override is needed
 #define NO_TARGET_OVERRIDE 0

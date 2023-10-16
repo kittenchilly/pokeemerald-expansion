@@ -5378,14 +5378,14 @@ static void SetMoveTargetPosition(u16 move)
 {
     switch (GetBattlerMoveTargetType(gBattlerAttacker, move))
     {
-    case MOVE_TARGET_USER_OR_SELECTED:
-    case MOVE_TARGET_USER:
+    case MOVE_TARGET_ADJACENT_FOE_OR_SELF:
+    case MOVE_TARGET_SELF:
         gBattlerTarget = B_POSITION_PLAYER_RIGHT;
         break;
-    case MOVE_TARGET_SELECTED:
-    case MOVE_TARGET_RANDOM:
-    case MOVE_TARGET_BOTH:
-    case MOVE_TARGET_FOES_AND_ALLY:
+    case MOVE_TARGET_NORMAL:
+    case MOVE_TARGET_RANDOM_NORMAL:
+    case MOVE_TARGET_ALL_ADJACENT_FOES:
+    case MOVE_TARGET_ALL_ADJACENT:
     default:
         gBattlerTarget = B_POSITION_OPPONENT_RIGHT;
         break;

@@ -60,7 +60,7 @@ DOUBLE_BATTLE_TEST("Magic Bounce bounces back moves hitting both foes at two foe
 {
     GIVEN {
         ASSUME(gBattleMoves[MOVE_LEER].effect == EFFECT_DEFENSE_DOWN);
-        ASSUME(gBattleMoves[MOVE_LEER].target == MOVE_TARGET_BOTH);
+        ASSUME(gBattleMoves[MOVE_LEER].target == MOVE_TARGET_ALL_ADJACENT_FOES);
         PLAYER(SPECIES_ABRA);
         PLAYER(SPECIES_KADABRA);
         OPPONENT(SPECIES_ESPEON) { Ability(ABILITY_MAGIC_BOUNCE); }

@@ -56,7 +56,7 @@ DOUBLE_BATTLE_TEST("Stamina activates correctly for every battler with the abili
     PARAMETRIZE {abilityLeft = ABILITY_STAMINA, abilityRight = ABILITY_STAMINA; }
 
     GIVEN {
-        ASSUME(gBattleMoves[MOVE_EARTHQUAKE].target == MOVE_TARGET_FOES_AND_ALLY);
+        ASSUME(gBattleMoves[MOVE_EARTHQUAKE].target == MOVE_TARGET_ALL_ADJACENT);
         PLAYER(SPECIES_WOBBUFFET) { Ability(abilityLeft); Speed(10); }
         PLAYER(SPECIES_WOBBUFFET) { Ability(abilityRight); Speed(5); }
         OPPONENT(SPECIES_WOBBUFFET) {Speed(20); }

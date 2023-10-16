@@ -550,9 +550,9 @@ static void OpponentHandleChooseMove(u32 battler)
                 {
                     u16 chosenMove = moveInfo->moves[chosenMoveId];
 
-                    if (GetBattlerMoveTargetType(battler, chosenMove) & (MOVE_TARGET_USER_OR_SELECTED | MOVE_TARGET_USER))
+                    if (GetBattlerMoveTargetType(battler, chosenMove) & (MOVE_TARGET_ADJACENT_FOE_OR_SELF | MOVE_TARGET_SELF))
                         gBattlerTarget = battler;
-                    if (GetBattlerMoveTargetType(battler, chosenMove) & MOVE_TARGET_BOTH)
+                    if (GetBattlerMoveTargetType(battler, chosenMove) & MOVE_TARGET_ALL_ADJACENT_FOES)
                     {
                         gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
                         if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
@@ -582,7 +582,7 @@ static void OpponentHandleChooseMove(u32 battler)
             move = moveInfo->moves[chosenMoveId];
         } while (move == MOVE_NONE);
 
-        if (GetBattlerMoveTargetType(battler, move) & (MOVE_TARGET_USER_OR_SELECTED | MOVE_TARGET_USER))
+        if (GetBattlerMoveTargetType(battler, move) & (MOVE_TARGET_ADJACENT_FOE_OR_SELF | MOVE_TARGET_SELF))
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, (chosenMoveId) | (battler << 8));
         else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
         {
@@ -591,7 +591,7 @@ static void OpponentHandleChooseMove(u32 battler)
             } while (!CanTargetBattler(battler, target, move));
 
             // Don't bother to loop through table if the move can't attack ally
-            if (B_WILD_NATURAL_ENEMIES == TRUE && !(gBattleMoves[move].target & MOVE_TARGET_BOTH))
+            if (B_WILD_NATURAL_ENEMIES == TRUE && !(gBattleMoves[move].target & MOVE_TARGET_ALL_ADJACENT_FOES))
             {
                 u16 i, speciesAttacker, speciesTarget, isPartnerEnemy = FALSE;
                 static const u16 naturalEnemies[][2] =

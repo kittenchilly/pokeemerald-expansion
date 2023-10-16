@@ -364,9 +364,9 @@ static void PlayerPartnerHandleChooseMove(u32 battler)
     }
     else
     {
-        if (gBattleMoves[moveInfo->moves[chosenMoveId]].target & (MOVE_TARGET_USER | MOVE_TARGET_USER_OR_SELECTED))
+        if (gBattleMoves[moveInfo->moves[chosenMoveId]].target & (MOVE_TARGET_SELF | MOVE_TARGET_ADJACENT_FOE_OR_SELF))
             gBattlerTarget = battler;
-        if (gBattleMoves[moveInfo->moves[chosenMoveId]].target & MOVE_TARGET_BOTH)
+        if (gBattleMoves[moveInfo->moves[chosenMoveId]].target & MOVE_TARGET_ALL_ADJACENT_FOES)
         {
             gBattlerTarget = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
             if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])

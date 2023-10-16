@@ -214,7 +214,7 @@ void DoMoveAnim(u16 move)
     gBattleAnimAttacker = gBattlerAttacker;
     gBattleAnimTarget = gBattlerTarget;
     // Make sure the anim target of moves hitting everyone is at the opposite side.
-    if (GetBattlerMoveTargetType(gBattlerAttacker, move) & MOVE_TARGET_FOES_AND_ALLY && IsDoubleBattle())
+    if (GetBattlerMoveTargetType(gBattlerAttacker, move) & MOVE_TARGET_ALL_ADJACENT && IsDoubleBattle())
     {
         while (GetBattlerSide(gBattleAnimAttacker) == GetBattlerSide(gBattleAnimTarget))
         {
@@ -441,13 +441,13 @@ static u8 GetBattleAnimMoveTargets(u8 battlerArgIndex, u8 *targets)
     u32 battler = gBattleAnimArgs[battlerArgIndex];
     switch (GetBattlerMoveTargetType(gBattleAnimAttacker, gAnimMoveIndex))
     {
-    case MOVE_TARGET_FOES_AND_ALLY:
+    case MOVE_TARGET_ALL_ADJACENT:
         if (IS_ALIVE_AND_PRESENT(BATTLE_PARTNER(BATTLE_OPPOSITE(battler)))) {
             targets[idx++] = BATTLE_PARTNER(BATTLE_OPPOSITE(battler));
             numTargets++;
         }
         // fallthrough
-    case MOVE_TARGET_BOTH:
+    case MOVE_TARGET_ALL_ADJACENT_FOES:
         if (IS_ALIVE_AND_PRESENT(battler)) {
             targets[idx++] = battler;
             numTargets++;

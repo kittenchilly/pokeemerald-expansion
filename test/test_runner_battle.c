@@ -1896,16 +1896,16 @@ s32 MoveGetTarget(s32 battlerId, u32 moveId, struct MoveContext *ctx, u32 source
     else
     {
         const struct BattleMove *move = &gBattleMoves[moveId];
-        if (move->target == MOVE_TARGET_RANDOM
-         || move->target == MOVE_TARGET_BOTH
-         || move->target == MOVE_TARGET_DEPENDS
-         || move->target == MOVE_TARGET_FOES_AND_ALLY
-         || move->target == MOVE_TARGET_OPPONENTS_FIELD
-         || move->target == MOVE_TARGET_ALL_BATTLERS)
+        if (move->target == MOVE_TARGET_RANDOM_NORMAL
+         || move->target == MOVE_TARGET_ALL_ADJACENT_FOES
+         || move->target == MOVE_TARGET_SCRIPTED
+         || move->target == MOVE_TARGET_ALL_ADJACENT
+         || move->target == MOVE_TARGET_FOE_SIDE
+         || move->target == MOVE_TARGET_ALL)
         {
             target = BATTLE_OPPOSITE(battlerId);
         }
-        else if (move->target == MOVE_TARGET_SELECTED)
+        else if (move->target == MOVE_TARGET_NORMAL)
         {
             // In AI Doubles not specified target allows any target for EXPECT_MOVE.
             if (GetBattleTest()->type != BATTLE_TEST_AI_DOUBLES)
@@ -1915,11 +1915,11 @@ s32 MoveGetTarget(s32 battlerId, u32 moveId, struct MoveContext *ctx, u32 source
 
             target = BATTLE_OPPOSITE(battlerId);
         }
-        else if (move->target == MOVE_TARGET_USER)
+        else if (move->target == MOVE_TARGET_SELF)
         {
             target = battlerId;
         }
-        else if (move->target == MOVE_TARGET_ALLY)
+        else if (move->target == MOVE_TARGET_ADJACENT_ALLY)
         {
             target = BATTLE_PARTNER(battlerId);
         }

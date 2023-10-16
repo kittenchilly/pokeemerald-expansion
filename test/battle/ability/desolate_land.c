@@ -34,7 +34,7 @@ DOUBLE_BATTLE_TEST("Desolate Land blocks damaging Water-type moves and prints th
     GIVEN {
         ASSUME(gBattleMoves[MOVE_SURF].power != 0);
         ASSUME(gBattleMoves[MOVE_SURF].type == TYPE_WATER);
-        ASSUME(gBattleMoves[MOVE_SURF].target == MOVE_TARGET_FOES_AND_ALLY);
+        ASSUME(gBattleMoves[MOVE_SURF].target == MOVE_TARGET_ALL_ADJACENT);
         PLAYER(SPECIES_GROUDON) {Item(ITEM_RED_ORB); {Speed(5);}}
         PLAYER(SPECIES_WOBBUFFET) {Speed(5);}
         OPPONENT(SPECIES_WOBBUFFET) {Speed(10);}

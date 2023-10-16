@@ -7,10 +7,10 @@ ASSUMPTIONS
     ASSUME(gBattleMoves[MOVE_THUNDERBOLT].type == TYPE_ELECTRIC);
     ASSUME(gBattleMoves[MOVE_TACKLE].power != 0);
     ASSUME(gBattleMoves[MOVE_AIR_CUTTER].power != 0);
-    ASSUME(gBattleMoves[MOVE_AIR_CUTTER].target == MOVE_TARGET_BOTH);
+    ASSUME(gBattleMoves[MOVE_AIR_CUTTER].target == MOVE_TARGET_ALL_ADJACENT_FOES);
     ASSUME(gBattleMoves[MOVE_AIR_CUTTER].windMove == TRUE);
     ASSUME(gBattleMoves[MOVE_PETAL_BLIZZARD].power != 0);
-    ASSUME(gBattleMoves[MOVE_PETAL_BLIZZARD].target == MOVE_TARGET_FOES_AND_ALLY);
+    ASSUME(gBattleMoves[MOVE_PETAL_BLIZZARD].target == MOVE_TARGET_ALL_ADJACENT);
     ASSUME(gBattleMoves[MOVE_PETAL_BLIZZARD].windMove == TRUE);
     ASSUME(gBattleMoves[MOVE_TACKLE].windMove == FALSE);
 }

@@ -278,9 +278,9 @@ DOUBLE_BATTLE_TEST("Wide Guard protects self and ally from multi-target moves")
     PARAMETRIZE { move = MOVE_HYPER_VOICE; } // 2 foes
 
     GIVEN {
-        ASSUME(gBattleMoves[MOVE_TACKLE].target == MOVE_TARGET_SELECTED);
-        ASSUME(gBattleMoves[MOVE_SURF].target == MOVE_TARGET_FOES_AND_ALLY);
-        ASSUME(gBattleMoves[MOVE_HYPER_VOICE].target == MOVE_TARGET_BOTH);
+        ASSUME(gBattleMoves[MOVE_TACKLE].target == MOVE_TARGET_NORMAL);
+        ASSUME(gBattleMoves[MOVE_SURF].target == MOVE_TARGET_ALL_ADJACENT);
+        ASSUME(gBattleMoves[MOVE_HYPER_VOICE].target == MOVE_TARGET_ALL_ADJACENT_FOES);
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
@@ -357,8 +357,8 @@ DOUBLE_BATTLE_TEST("Crafty Shield protects self and ally from status moves")
     PARAMETRIZE { move = MOVE_TACKLE; targetOpponent = opponentRight; }
 
     GIVEN {
-        ASSUME(gBattleMoves[MOVE_LEER].target == MOVE_TARGET_BOTH);
-        ASSUME(gBattleMoves[MOVE_HYPER_VOICE].target == MOVE_TARGET_BOTH);
+        ASSUME(gBattleMoves[MOVE_LEER].target == MOVE_TARGET_ALL_ADJACENT_FOES);
+        ASSUME(gBattleMoves[MOVE_HYPER_VOICE].target == MOVE_TARGET_ALL_ADJACENT_FOES);
         ASSUME(gBattleMoves[MOVE_HYPER_VOICE].split == SPLIT_SPECIAL);
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WOBBUFFET);

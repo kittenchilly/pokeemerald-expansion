@@ -264,18 +264,18 @@ u16 ChooseMoveAndTargetInBattlePalace(u32 battler)
     if (moveInfo->moves[chosenMoveId] == MOVE_CURSE)
     {
         if (moveInfo->monType1 != TYPE_GHOST && moveInfo->monType2 != TYPE_GHOST && moveInfo->monType3 != TYPE_GHOST)
-            moveTarget = MOVE_TARGET_USER;
+            moveTarget = MOVE_TARGET_SELF;
         else
-            moveTarget = MOVE_TARGET_SELECTED;
+            moveTarget = MOVE_TARGET_NORMAL;
     }
     else
     {
         moveTarget = GetBattlerMoveTargetType(battler, moveInfo->moves[chosenMoveId]);
     }
 
-    if (moveTarget & MOVE_TARGET_USER)
+    if (moveTarget & MOVE_TARGET_SELF)
         chosenMoveId |= (battler << 8);
-    else if (moveTarget == MOVE_TARGET_SELECTED)
+    else if (moveTarget == MOVE_TARGET_NORMAL)
         chosenMoveId |= GetBattlePalaceTarget(battler);
     else
         chosenMoveId |= (GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(battler))) << 8);
@@ -296,20 +296,20 @@ static u8 GetBattlePalaceMoveGroup(u8 battler, u16 move)
 {
     switch (GetBattlerMoveTargetType(battler, move))
     {
-    case MOVE_TARGET_SELECTED:
-    case MOVE_TARGET_USER_OR_SELECTED:
-    case MOVE_TARGET_RANDOM:
-    case MOVE_TARGET_BOTH:
-    case MOVE_TARGET_FOES_AND_ALLY:
+    case MOVE_TARGET_NORMAL:
+    case MOVE_TARGET_ADJACENT_FOE_OR_SELF:
+    case MOVE_TARGET_RANDOM_NORMAL:
+    case MOVE_TARGET_ALL_ADJACENT_FOES:
+    case MOVE_TARGET_ALL_ADJACENT:
         if (IS_MOVE_STATUS(move))
             return PALACE_MOVE_GROUP_SUPPORT;
         else
             return PALACE_MOVE_GROUP_ATTACK;
         break;
-    case MOVE_TARGET_DEPENDS:
-    case MOVE_TARGET_OPPONENTS_FIELD:
+    case MOVE_TARGET_SCRIPTED:
+    case MOVE_TARGET_FOE_SIDE:
         return PALACE_MOVE_GROUP_SUPPORT;
-    case MOVE_TARGET_USER:
+    case MOVE_TARGET_SELF:
         return PALACE_MOVE_GROUP_DEFENSE;
     default:
         return PALACE_MOVE_GROUP_ATTACK;
