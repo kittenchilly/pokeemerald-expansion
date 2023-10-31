@@ -188,7 +188,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectMemento                 @ EFFECT_MEMENTO
 	.4byte BattleScript_EffectHit                     @ EFFECT_FACADE
 	.4byte BattleScript_EffectFocusPunch              @ EFFECT_FOCUS_PUNCH
-	.4byte BattleScript_EffectSmellingsalt            @ EFFECT_SMELLINGSALT
+	.4byte BattleScript_EffectSmellingsalt            @ EFFECT_SMELLING_SALTS
 	.4byte BattleScript_EffectFollowMe                @ EFFECT_FOLLOW_ME
 	.4byte BattleScript_EffectNaturePower             @ EFFECT_NATURE_POWER
 	.4byte BattleScript_EffectCharge                  @ EFFECT_CHARGE
@@ -454,7 +454,8 @@ BattleScript_SyrupBombActivates::
 	return
 
 BattleScript_SyrupBombEndTurn::
-	playstatchangeanimation BS_ATTACKER, BIT_SPEED, STAT_CHANGE_NEGATIVE
+	flushtextbox
+	playanimation BS_ATTACKER, B_ANIM_SYRUP_BOMB_SPEED_DROP
 	setstatchanger STAT_SPEED, 1, TRUE
 	statbuffchange STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_SyrupBombTurnDmgEnd
 	printfromtable gStatDownStringIds
@@ -1468,6 +1469,7 @@ BattleScript_StrengthSapHp:
 	jumpifstatus3 BS_ATTACKER, STATUS3_HEAL_BLOCK, BattleScript_MoveEnd
 	jumpiffullhp BS_ATTACKER, BattleScript_MoveEnd
 	manipulatedamage DMG_BIG_ROOT
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
 	printstring STRINGID_PKMNENERGYDRAINED
@@ -7344,7 +7346,7 @@ BattleScript_StealthRockFree::
 	printstring STRINGID_PKMNBLEWAWAYSTEALTHROCK
 	waitmessage B_WAIT_TIME_LONG
 	return
-	
+
 BattleScript_SteelsurgeFree::
 	printstring STRINGID_PKMNBLEWAWAYSHARPSTEEL
 	waitmessage B_WAIT_TIME_LONG
@@ -9102,6 +9104,7 @@ BattleScript_WeakArmorActivates::
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_FELL_EMPTY, BattleScript_WeakArmorActivatesSpeed
 	pause B_WAIT_TIME_SHORTEST
 	printfromtable gStatDownStringIds
+	bichalfword gMoveResultFlags, MOVE_RESULT_MISSED @ Set by statbuffchange when stat can't be decreased
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_WeakArmorActivatesSpeed
 BattleScript_WeakArmorDefAnim:
@@ -9110,12 +9113,17 @@ BattleScript_WeakArmorDefAnim:
 	printstring STRINGID_TARGETABILITYSTATLOWER
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_WeakArmorActivatesSpeed:
+.if B_WEAK_ARMOR_SPEED >= GEN_7
 	setstatchanger STAT_SPEED, 2, FALSE
+.else
+	setstatchanger STAT_SPEED, 1, FALSE
+.endif
 	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_WeakArmorActivatesEnd
 	jumpifbyte CMP_LESS_THAN, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_WeakArmorSpeedAnim
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_EMPTY, BattleScript_WeakArmorActivatesEnd
 	pause B_WAIT_TIME_SHORTEST
 	printstring STRINGID_TARGETSTATWONTGOHIGHER
+	bichalfword gMoveResultFlags, MOVE_RESULT_MISSED
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_WeakArmorActivatesEnd
 BattleScript_WeakArmorSpeedAnim:

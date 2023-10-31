@@ -5146,8 +5146,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
              && TARGET_TURN_DAMAGED
              && IsBattlerAlive(battler)
              && IS_MOVE_PHYSICAL(gCurrentMove)
-             && (CompareStat(battler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN) // Don't activate if speed cannot be raised
-               || CompareStat(battler, STAT_DEF, MIN_STAT_STAGE, CMP_GREATER_THAN))) // Don't activate if defense cannot be lowered
+             && (CompareStat(battler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN) // Don't activate if both Speed and Defense cannot be raised.
+               || CompareStat(battler, STAT_DEF, MIN_STAT_STAGE, CMP_GREATER_THAN)))
             {
                 if (gBattleMoves[gCurrentMove].effect == EFFECT_HIT_ESCAPE && CanBattlerSwitch(gBattlerAttacker))
                     gProtectStructs[battler].disableEjectPack = TRUE;  // Set flag for target
@@ -8007,17 +8007,25 @@ u8 IsMonDisobedient(void)
             return 0;
         if (B_OBEDIENCE_MECHANICS < GEN_8 && !IsOtherTrainer(gBattleMons[gBattlerAttacker].otId, gBattleMons[gBattlerAttacker].otName))
             return 0;
-        if (FlagGet(FLAG_BADGE08_GET))
+        if (FlagGet(FLAG_BADGE08_GET)) // Rain Badge, ignore obedience altogether
             return 0;
 
         obedienceLevel = 10;
 
-        if (FlagGet(FLAG_BADGE02_GET))
+        if (FlagGet(FLAG_BADGE01_GET)) // Stone Badge
+            obedienceLevel = 20;
+        if (FlagGet(FLAG_BADGE02_GET)) // Knuckle Badge
             obedienceLevel = 30;
-        if (FlagGet(FLAG_BADGE04_GET))
+        if (FlagGet(FLAG_BADGE03_GET)) // Dynamo Badge
+            obedienceLevel = 40;
+        if (FlagGet(FLAG_BADGE04_GET)) // Heat Badge
             obedienceLevel = 50;
-        if (FlagGet(FLAG_BADGE06_GET))
+        if (FlagGet(FLAG_BADGE05_GET)) // Balance Badge
+            obedienceLevel = 60;
+        if (FlagGet(FLAG_BADGE06_GET)) // Feather Badge
             obedienceLevel = 70;
+        if (FlagGet(FLAG_BADGE07_GET)) // Mind Badge
+            obedienceLevel = 80;
     }
 
     if (B_OBEDIENCE_MECHANICS >= GEN_8
@@ -8547,7 +8555,7 @@ static inline u32 CalcMoveBasePower(u32 move, u32 battlerAtk, u32 battlerDef, u3
         if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP || abilityDef == ABILITY_COMATOSE)
             basePower *= 2;
         break;
-    case EFFECT_SMELLINGSALT:
+    case EFFECT_SMELLING_SALTS:
         if (gBattleMons[battlerDef].status1 & STATUS1_PARALYSIS)
             basePower *= 2;
         break;
