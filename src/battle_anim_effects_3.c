@@ -5583,9 +5583,9 @@ void AnimTask_GetWeather(u8 taskId)
     bool32 utilityUmbrellaAffected = GetBattlerHoldEffect(gBattleAnimAttacker, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA;
 
     gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_NONE;
-    if (gWeatherMoveAnim & B_WEATHER_SUN && !utilityUmbrellaAffected)
+    if (gWeatherMoveAnim & B_WEATHER_SUN_ANY && !utilityUmbrellaAffected)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SUN;
-    else if (gWeatherMoveAnim & B_WEATHER_RAIN && !utilityUmbrellaAffected)
+    else if (gWeatherMoveAnim & B_WEATHER_RAIN_ANY && !utilityUmbrellaAffected)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_RAIN;
     else if (gWeatherMoveAnim & B_WEATHER_SANDSTORM)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SANDSTORM;

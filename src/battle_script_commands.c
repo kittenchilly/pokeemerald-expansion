@@ -1574,7 +1574,7 @@ static bool32 AccuracyCalcHelper(u16 move)
 
     if (WEATHER_HAS_EFFECT)
     {
-        if ((IsBattlerWeatherAffected(gBattlerTarget, B_WEATHER_RAIN) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE)))
+        if ((IsBattlerWeatherAffected(gBattlerTarget, B_WEATHER_RAIN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE)))
         {
             // thunder/hurricane ignore acc checks in rain unless target is holding utility umbrella
             JumpIfMoveFailed(7, move);
@@ -1642,7 +1642,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
 
     moveAcc = gBattleMoves[move].accuracy;
     // Check Thunder and Hurricane on sunny weather.
-    if (IsBattlerWeatherAffected(battlerDef, B_WEATHER_SUN)
+    if (IsBattlerWeatherAffected(battlerDef, B_WEATHER_SUN_ANY)
       && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
         moveAcc = 50;
     // Check Wonder Skin.
@@ -8202,7 +8202,7 @@ u32 IsFlowerVeilProtected(u32 battler)
 
 u32 IsLeafGuardProtected(u32 battler)
 {
-    if (IsBattlerWeatherAffected(battler, B_WEATHER_SUN))
+    if (IsBattlerWeatherAffected(battler, B_WEATHER_SUN_ANY))
         return GetBattlerAbility(battler) == ABILITY_LEAF_GUARD;
     else
         return 0;
@@ -13470,7 +13470,7 @@ static void Cmd_recoverbasedonsunlight(void)
         {
             if (!(gBattleWeather & B_WEATHER_ANY) || !WEATHER_HAS_EFFECT || GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
                 gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerAttacker) / 2;
-            else if (gBattleWeather & B_WEATHER_SUN)
+            else if (gBattleWeather & B_WEATHER_SUN_ANY)
                 gBattleMoveDamage = 20 * GetNonDynamaxMaxHP(gBattlerAttacker) / 30;
             else // not sunny weather
                 gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerAttacker) / 4;

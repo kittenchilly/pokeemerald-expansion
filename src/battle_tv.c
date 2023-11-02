@@ -1758,9 +1758,9 @@ u8 GetBattlerMoveSlotId(u8 battlerId, u16 moveId)
 
 static void AddPointsBasedOnWeather(u16 weatherFlags, u16 moveId, u8 moveSlot)
 {
-    if (weatherFlags & B_WEATHER_RAIN)
+    if (weatherFlags & B_WEATHER_RAIN_ANY)
         AddMovePoints(PTS_RAIN, moveId, moveSlot, 0);
-    else if (weatherFlags & B_WEATHER_SUN)
+    else if (weatherFlags & B_WEATHER_SUN_ANY)
         AddMovePoints(PTS_SUN, moveId, moveSlot, 0);
     else if (weatherFlags & B_WEATHER_SANDSTORM)
         AddMovePoints(PTS_SANDSTORM, moveId, moveSlot, 0);

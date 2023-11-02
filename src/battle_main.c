@@ -4596,9 +4596,9 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, u32 holdEffect)
     // weather abilities
     if (WEATHER_HAS_EFFECT)
     {
-        if (ability == ABILITY_SWIFT_SWIM       && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
+        if (ability == ABILITY_SWIFT_SWIM       && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN_ANY)
             speed *= 2;
-        else if (ability == ABILITY_CHLOROPHYLL && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
+        else if (ability == ABILITY_CHLOROPHYLL && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN_ANY)
             speed *= 2;
         else if (ability == ABILITY_SAND_RUSH   && gBattleWeather & B_WEATHER_SANDSTORM)
             speed *= 2;
@@ -4613,7 +4613,7 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, u32 holdEffect)
         speed *= 2;
     else if (ability == ABILITY_SLOW_START && gDisableStructs[battler].slowStartTimer != 0)
         speed /= 2;
-    else if (ability == ABILITY_PROTOSYNTHESIS && gBattleWeather & B_WEATHER_SUN && highestStat == STAT_SPEED)
+    else if (ability == ABILITY_PROTOSYNTHESIS && gBattleWeather & B_WEATHER_SUN_ANY && highestStat == STAT_SPEED)
         speed = (speed * 150) / 100;
     else if (ability == ABILITY_QUARK_DRIVE && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && highestStat == STAT_SPEED)
         speed = (speed * 150) / 100;
@@ -5601,11 +5601,11 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
     {
         if (WEATHER_HAS_EFFECT)
         {
-            if (gBattleWeather & B_WEATHER_RAIN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+            if (gBattleWeather & B_WEATHER_RAIN_ANY && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
                 gBattleStruct->dynamicMoveType = TYPE_WATER | F_DYNAMIC_TYPE_2;
             else if (gBattleWeather & B_WEATHER_SANDSTORM)
                 gBattleStruct->dynamicMoveType = TYPE_ROCK | F_DYNAMIC_TYPE_2;
-            else if (gBattleWeather & B_WEATHER_SUN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+            else if (gBattleWeather & B_WEATHER_SUN_ANY && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
                 gBattleStruct->dynamicMoveType = TYPE_FIRE | F_DYNAMIC_TYPE_2;
             else if (gBattleWeather & (B_WEATHER_HAIL |B_WEATHER_SNOW))
                 gBattleStruct->dynamicMoveType = TYPE_ICE | F_DYNAMIC_TYPE_2;

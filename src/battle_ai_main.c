@@ -898,7 +898,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                     RETURN_SCORE_MINUS(10);
                 break;
             case ABILITY_LEAF_GUARD:
-                if ((AI_GetWeather(aiData) & B_WEATHER_SUN)
+                if ((AI_GetWeather(aiData) & B_WEATHER_SUN_ANY)
                   && aiData->holdEffects[battlerDef] != HOLD_EFFECT_UTILITY_UMBRELLA
                   && IsNonVolatileStatusMoveEffect(moveEffect))
                     RETURN_SCORE_MINUS(10);
@@ -1595,12 +1595,12 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-8);
             break;
         case EFFECT_SUNNY_DAY:
-            if (weather & (B_WEATHER_SUN | B_WEATHER_PRIMAL_ANY)
+            if (weather & (B_WEATHER_SUN_ANY | B_WEATHER_PRIMAL_ANY)
              || IsMoveEffectWeather(aiData->partnerMove))
                 ADJUST_SCORE(-8);
             break;
         case EFFECT_RAIN_DANCE:
-            if (weather & (B_WEATHER_RAIN | B_WEATHER_PRIMAL_ANY)
+            if (weather & (B_WEATHER_RAIN_ANY | B_WEATHER_PRIMAL_ANY)
              || IsMoveEffectWeather(aiData->partnerMove))
                 ADJUST_SCORE(-8);
             break;
@@ -1829,7 +1829,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_MORNING_SUN:
         case EFFECT_SYNTHESIS:
         case EFFECT_MOONLIGHT:
-            if ((AI_GetWeather(aiData) & (B_WEATHER_RAIN | B_WEATHER_SANDSTORM | B_WEATHER_HAIL)))
+            if ((AI_GetWeather(aiData) & (B_WEATHER_RAIN_ANY | B_WEATHER_SANDSTORM | B_WEATHER_HAIL)))
                 ADJUST_SCORE(-3);
             else if (AtMaxHp(battlerAtk))
                 ADJUST_SCORE(-10);
@@ -3619,7 +3619,7 @@ static s32 AI_CheckViability(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
               || HasMoveEffect(EFFECT_SNORE, battlerAtk)
               || aiData->abilities[battlerAtk] == ABILITY_SHED_SKIN
               || aiData->abilities[battlerAtk] == ABILITY_EARLY_BIRD
-              || (AI_GetWeather(aiData) & B_WEATHER_RAIN && gWishFutureKnock.weatherDuration != 1 && aiData->abilities[battlerAtk] == ABILITY_HYDRATION && aiData->holdEffects[battlerAtk] != HOLD_EFFECT_UTILITY_UMBRELLA))
+              || (AI_GetWeather(aiData) & B_WEATHER_RAIN_ANY && gWishFutureKnock.weatherDuration != 1 && aiData->abilities[battlerAtk] == ABILITY_HYDRATION && aiData->holdEffects[battlerAtk] != HOLD_EFFECT_UTILITY_UMBRELLA))
             {
                 ADJUST_SCORE(2);
             }
@@ -4322,12 +4322,12 @@ static s32 AI_CheckViability(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
                 switch (aiData->abilities[battlerDef])
                 {
                 case ABILITY_SWIFT_SWIM:
-                    if (AI_GetWeather(aiData) & B_WEATHER_RAIN)
+                    if (AI_GetWeather(aiData) & B_WEATHER_RAIN_ANY)
                         ADJUST_SCORE(3); // Slow 'em down
                     break;
                 case ABILITY_CHLOROPHYLL:
                 case ABILITY_FLOWER_GIFT:
-                    if (AI_GetWeather(aiData) & B_WEATHER_SUN)
+                    if (AI_GetWeather(aiData) & B_WEATHER_SUN_ANY)
                         ADJUST_SCORE(3); // Slow 'em down
                     break;
                 }

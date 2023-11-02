@@ -255,6 +255,7 @@
 #define STATUS_FIELD_PSYCHIC_TERRAIN                (1 << 9)
 #define STATUS_FIELD_ION_DELUGE                     (1 << 10)
 #define STATUS_FIELD_FAIRY_LOCK                     (1 << 11)
+
 #define STATUS_FIELD_TERRAIN_PERMANENT              (1 << 12)   // Overworld thunderstorm generates electric terrain
 
 #define STATUS_FIELD_TERRAIN_ANY        (STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_PSYCHIC_TERRAIN)
@@ -273,28 +274,23 @@
 #define MOVE_RESULT_NO_EFFECT             (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE | MOVE_RESULT_FAILED)
 
 // Battle Weather flags
-#define B_WEATHER_NONE                0
-#define B_WEATHER_RAIN_TEMPORARY      (1 << 0)
+#define B_WEATHER_NONE                 0
+#define B_WEATHER_RAIN                (1 << 0)
 #define B_WEATHER_RAIN_DOWNPOUR       (1 << 1)  // unused
-#define B_WEATHER_RAIN_PERMANENT      (1 << 2)
-#define B_WEATHER_RAIN_PRIMAL         (1 << 3)
-#define B_WEATHER_RAIN                (B_WEATHER_RAIN_TEMPORARY | B_WEATHER_RAIN_DOWNPOUR | B_WEATHER_RAIN_PERMANENT | B_WEATHER_RAIN_PRIMAL)
-#define B_WEATHER_SANDSTORM_TEMPORARY (1 << 4)
-#define B_WEATHER_SANDSTORM_PERMANENT (1 << 5)
-#define B_WEATHER_SANDSTORM           (B_WEATHER_SANDSTORM_TEMPORARY | B_WEATHER_SANDSTORM_PERMANENT)
-#define B_WEATHER_SUN_TEMPORARY       (1 << 6)
-#define B_WEATHER_SUN_PERMANENT       (1 << 7)
-#define B_WEATHER_SUN_PRIMAL          (1 << 8)
-#define B_WEATHER_SUN                 (B_WEATHER_SUN_TEMPORARY | B_WEATHER_SUN_PERMANENT | B_WEATHER_SUN_PRIMAL)
-#define B_WEATHER_HAIL_TEMPORARY      (1 << 9)
-#define B_WEATHER_HAIL_PERMANENT      (1 << 10)
-#define B_WEATHER_HAIL                (B_WEATHER_HAIL_TEMPORARY | B_WEATHER_HAIL_PERMANENT)
-#define B_WEATHER_STRONG_WINDS        (1 << 11)
-#define B_WEATHER_ANY                 (B_WEATHER_RAIN | B_WEATHER_SANDSTORM | B_WEATHER_SUN | B_WEATHER_HAIL | B_WEATHER_STRONG_WINDS | B_WEATHER_SNOW)
+#define B_WEATHER_RAIN_PRIMAL         (1 << 2)
+#define B_WEATHER_RAIN_ANY            (B_WEATHER_RAIN | B_WEATHER_RAIN_DOWNPOUR | B_WEATHER_RAIN_PRIMAL)
+#define B_WEATHER_SANDSTORM           (1 << 3)
+#define B_WEATHER_SUN                 (1 << 4)
+#define B_WEATHER_SUN_PRIMAL          (1 << 5)
+#define B_WEATHER_SUN_ANY             (B_WEATHER_SUN | B_WEATHER_SUN_PRIMAL)
+#define B_WEATHER_HAIL                (1 << 6)
+#define B_WEATHER_SNOW                (1 << 7)
+#define B_WEATHER_STRONG_WINDS        (1 << 8)
+
+#define B_WEATHER_PERMANENT           (1 << 9) // Doesn't set a weather, but is used with other weathers to make them permanent
+
+#define B_WEATHER_ANY                 (B_WEATHER_RAIN_ANY | B_WEATHER_SANDSTORM | B_WEATHER_SUN_ANY | B_WEATHER_HAIL | B_WEATHER_SNOW | B_WEATHER_STRONG_WINDS)
 #define B_WEATHER_PRIMAL_ANY          (B_WEATHER_RAIN_PRIMAL | B_WEATHER_SUN_PRIMAL | B_WEATHER_STRONG_WINDS)
-#define B_WEATHER_SNOW_TEMPORARY      (1 << 12)
-#define B_WEATHER_SNOW_PERMANENT      (1 << 13)
-#define B_WEATHER_SNOW                (B_WEATHER_SNOW_TEMPORARY | B_WEATHER_SNOW_PERMANENT)
 
 // Battle Weather as enum
 #define ENUM_WEATHER_NONE                 0
@@ -302,10 +298,10 @@
 #define ENUM_WEATHER_SUN                  2
 #define ENUM_WEATHER_SANDSTORM            3
 #define ENUM_WEATHER_HAIL                 4
-#define ENUM_WEATHER_SUN_PRIMAL           5
-#define ENUM_WEATHER_RAIN_PRIMAL          6
-#define ENUM_WEATHER_STRONG_WINDS         7
-#define ENUM_WEATHER_SNOW                 8
+#define ENUM_WEATHER_SNOW                 5
+#define ENUM_WEATHER_SUN_PRIMAL           6
+#define ENUM_WEATHER_RAIN_PRIMAL          7
+#define ENUM_WEATHER_STRONG_WINDS         8
 
 // Move Effects
 #define MOVE_EFFECT_SLEEP               1

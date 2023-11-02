@@ -1591,12 +1591,12 @@ bool32 IsMoveEncouragedToHit(u32 battlerAtk, u32 battlerDef, u32 move)
 
     // discouraged from hitting
     weather = AI_GetWeather(AI_DATA);
-    if ((weather & B_WEATHER_SUN)
+    if ((weather & B_WEATHER_SUN_ANY)
       && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
         return FALSE;
 
     // increased accuracy but don't always hit
-    if ((((weather & B_WEATHER_RAIN) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
+    if ((((weather & B_WEATHER_RAIN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
             || (((weather & (B_WEATHER_HAIL | B_WEATHER_SNOW)) && move == MOVE_BLIZZARD)))
         || (gBattleMoves[move].effect == EFFECT_VITAL_THROW)
         || (B_MINIMIZE_DMG_ACC >= GEN_6 && (gStatuses3[battlerDef] & STATUS3_MINIMIZED) && gBattleMoves[move].minimizeDoubleDamage)
@@ -1689,7 +1689,7 @@ bool32 ShouldSetHail(u32 battler, u32 ability, u32 holdEffect)
 bool32 ShouldSetRain(u32 battlerAtk, u32 atkAbility, u32 holdEffect)
 {
     u32 weather = AI_GetWeather(AI_DATA);
-    if (weather & B_WEATHER_RAIN)
+    if (weather & B_WEATHER_RAIN_ANY)
         return FALSE;
 
     if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
@@ -1711,7 +1711,7 @@ bool32 ShouldSetRain(u32 battlerAtk, u32 atkAbility, u32 holdEffect)
 bool32 ShouldSetSun(u32 battlerAtk, u32 atkAbility, u32 holdEffect)
 {
     u32 weather = AI_GetWeather(AI_DATA);
-    if (weather & B_WEATHER_SUN)
+    if (weather & B_WEATHER_SUN_ANY)
         return FALSE;
 
     if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
@@ -2368,7 +2368,7 @@ bool32 IsChargingMove(u32 battlerAtk, u32 effect)
     switch (effect)
     {
     case EFFECT_SOLAR_BEAM:
-        if (AI_GetWeather(AI_DATA) & B_WEATHER_SUN)
+        if (AI_GetWeather(AI_DATA) & B_WEATHER_SUN_ANY)
             return FALSE;
     case EFFECT_SKULL_BASH:
     case EFFECT_METEOR_BEAM:
