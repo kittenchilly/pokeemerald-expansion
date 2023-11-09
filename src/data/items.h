@@ -14,6 +14,12 @@
     #define GEM_BOOST_PARAM 50
 #endif
 
+#if I_TYPE_BOOST_POWER >= GEN_4 // For non Pokémon-specific type-boosting held items.
+    #define TYPE_BOOST_PARAM 20
+#else
+    #define TYPE_BOOST_PARAM 10
+#endif
+
 const struct Item gItems[] =
 {
     [ITEM_NONE] =
@@ -4838,11 +4844,7 @@ const struct Item gItems[] =
         .name = _("Soul Dew"),
         .price = 0,
         .holdEffect = HOLD_EFFECT_SOUL_DEW,
-        #if B_SOUL_DEW_BOOST >= GEN_7
-            .holdEffectParam = 20,
-        #else
-            .holdEffectParam = 50,
-        #endif
+        .holdEffectParam = B_SOUL_DEW_BOOST >= GEN_7 ? 20 : 50,
         .description = sSoulDewDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5169,7 +5171,7 @@ const struct Item gItems[] =
         .name = _("Silk Scarf"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_NORMAL_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sSilkScarfDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5182,7 +5184,7 @@ const struct Item gItems[] =
         .name = _("Charcoal"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_FIRE_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sCharcoalDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5195,7 +5197,7 @@ const struct Item gItems[] =
         .name = _("Mystic Water"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_WATER_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sMysticWaterDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5208,7 +5210,7 @@ const struct Item gItems[] =
         .name = _("Magnet"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_ELECTRIC_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sMagnetDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5221,7 +5223,7 @@ const struct Item gItems[] =
         .name = _("Miracle Seed"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_GRASS_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sMiracleSeedDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5234,7 +5236,7 @@ const struct Item gItems[] =
         .name = _("Never-MeltIce"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_ICE_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sNeverMeltIceDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5247,7 +5249,7 @@ const struct Item gItems[] =
         .name = _("Black Belt"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_FIGHTING_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sBlackBeltDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5260,7 +5262,7 @@ const struct Item gItems[] =
         .name = _("Poison Barb"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_POISON_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sPoisonBarbDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5273,7 +5275,7 @@ const struct Item gItems[] =
         .name = _("Soft Sand"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_GROUND_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sSoftSandDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5286,7 +5288,7 @@ const struct Item gItems[] =
         .name = _("Sharp Beak"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_FLYING_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sSharpBeakDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5299,7 +5301,7 @@ const struct Item gItems[] =
         .name = _("Twisted Spoon"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_PSYCHIC_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sTwistedSpoonDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5312,7 +5314,7 @@ const struct Item gItems[] =
         .name = _("Silver Powder"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_BUG_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sSilverPowderDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5325,7 +5327,7 @@ const struct Item gItems[] =
         .name = _("Hard Stone"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_ROCK_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sHardStoneDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5338,7 +5340,7 @@ const struct Item gItems[] =
         .name = _("Spell Tag"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_GHOST_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sSpellTagDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5351,7 +5353,7 @@ const struct Item gItems[] =
         .name = _("Dragon Fang"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_DRAGON_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sDragonFangDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5364,7 +5366,7 @@ const struct Item gItems[] =
         .name = _("Black Glasses"),
         .price = 1000,
         .holdEffect = HOLD_EFFECT_DARK_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sBlackGlassesDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5377,7 +5379,7 @@ const struct Item gItems[] =
         .name = _("Metal Coat"),
         .price = 2000,
         .holdEffect = HOLD_EFFECT_STEEL_POWER,
-        .holdEffectParam = 20,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = sMetalCoatDesc,
         .pocket = POCKET_ITEMS,
         .type = EVO_HELD_ITEM_TYPE,
@@ -6039,8 +6041,8 @@ const struct Item gItems[] =
         .holdEffectParam = 10,
         .description = sRazorFangDesc,
         .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .type = EVO_HELD_ITEM_TYPE,
+        .fieldUseFunc = EVO_HELD_ITEM_FIELD_FUNC,
         .flingPower = 30,
     },
 
@@ -9642,5 +9644,175 @@ const struct Item gItems[] =
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 10,
+    },
+
+    [ITEM_FAIRY_FEATHER] =
+    {
+        .name = _("Fairy Feather"),
+        .price = 1000,
+        .holdEffect = HOLD_EFFECT_FAIRY_POWER,
+        .holdEffectParam = TYPE_BOOST_PARAM,
+        .description = sFairyFeatherDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 10,
+    },
+
+    [ITEM_SYRUPY_APPLE] =
+    {
+        .name = _("Syrupy Apple"),
+        .price = 2200,
+        .description = sSyrupyAppleDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_EvolutionStone,
+        .flingPower = 30,
+    },
+
+    [ITEM_UNREMARKABLE_TEACUP] =
+    {
+        .name = _("UnrmkblTeacup"),
+        .price = 1600,
+        .description = sUnremarkableTeacupDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_EvolutionStone,
+        .flingPower = 80,
+    },
+
+    [ITEM_MASTERPIECE_TEACUP] =
+    {
+        .name = _("MstrpceTeacup"),
+        .price = 38000,
+        .description = sMasterpieceTeacupDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_EvolutionStone,
+        .flingPower = 80,
+    },
+
+    [ITEM_CORNERSTONE_MASK] =
+    {
+        .name = _("CornrstneMask"),
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_MASK,
+        .description = sCornerstoneMaskDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .secondaryId = TYPE_ROCK,
+    },
+
+    [ITEM_WELLSPRING_MASK] =
+    {
+        .name = _("WellsprngMask"),
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_MASK,
+        .description = sWellspringMaskDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .secondaryId = TYPE_WATER,
+    },
+
+    [ITEM_HEARTHFLAME_MASK] =
+    {
+        .name = _("HrthflameMask"),
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_MASK,
+        .description = sHearthflameMaskDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .secondaryId = TYPE_FIRE,
+    },
+
+    [ITEM_HEALTH_MOCHI] =
+    {
+        .name = _("Health Mochi"),
+        .price = 500,
+        .description = sHealthMochiDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .flingPower = 30,
+    },
+
+    [ITEM_MUSCLE_MOCHI] =
+    {
+        .name = _("Muscle Mochi"),
+        .price = 500,
+        .description = sMuscleMochiDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .flingPower = 30,
+    },
+
+    [ITEM_RESIST_MOCHI] =
+    {
+        .name = _("Resist Mochi"),
+        .price = 500,
+        .description = sResistMochiDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .flingPower = 30,
+    },
+
+    [ITEM_GENIUS_MOCHI] =
+    {
+        .name = _("Genius Mochi"),
+        .price = 500,
+        .description = sGeniusMochiDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .flingPower = 30,
+    },
+
+    [ITEM_CLEVER_MOCHI] =
+    {
+        .name = _("Clever Mochi"),
+        .price = 500,
+        .description = sCleverMochiDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .flingPower = 30,
+    },
+
+    [ITEM_SWIFT_MOCHI] =
+    {
+        .name = _("Swift Mochi"),
+        .price = 500,
+        .description = sSwiftMochiDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .flingPower = 30,
+    },
+
+    [ITEM_FRESH_START_MOCHI] =
+    {
+        .name = _("FrshStrtMochi"),
+        .price = 300,
+        .description = sFreshStartMochiDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_ResetEVs,
+        .flingPower = 30,
+    },
+
+    [ITEM_GLIMMERING_CHARM] =
+    {
+        .name = _("GlmmringCharm"),
+        .price = 0,
+        .importance = 1,
+        .description = sGlimmeringCharmDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 };

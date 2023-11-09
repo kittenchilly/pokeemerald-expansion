@@ -163,7 +163,7 @@
 
 #define LEVEL_UP_MOVE_ID   0x01FF
 #define LEVEL_UP_MOVE_LV   0xFE00
-#define LEVEL_UP_END       0xFFFF
+#define LEVEL_UP_MOVE_END  0xFFFF
 
 #define MAX_LEVEL_UP_MOVES       20
 
@@ -191,8 +191,12 @@
 #define FRIENDSHIP_200_TO_254  5
 #define FRIENDSHIP_MAX         6
 
-// Friendship value that the majority of species use. This was changed in Generation 8 to 50.
+// Friendship value that the majority of species use.
+#if P_UPDATED_FRIENDSHIP >= GEN_8
+#define STANDARD_FRIENDSHIP 50
+#else
 #define STANDARD_FRIENDSHIP 70
+#endif
 
 #define MAX_FRIENDSHIP  255
 #define MAX_SHEEN       255
@@ -269,7 +273,7 @@
 #define EVO_MAPSEC                        25     // Pokémon levels up on specified mapsec
 #define EVO_ITEM_MALE                     26     // specified item is used on a male Pokémon
 #define EVO_ITEM_FEMALE                   27     // specified item is used on a female Pokémon
-#define EVO_LEVEL_RAIN                    28     // Pokémon reaches the specified level while it's raining
+#define EVO_LEVEL_RAIN                    28     // Pokémon reaches the specified level during rain in the overworld
 #define EVO_SPECIFIC_MON_IN_PARTY         29     // Pokémon levels up with a specified Pokémon in party
 #define EVO_LEVEL_DARK_TYPE_MON_IN_PARTY  30     // Pokémon reaches the specified level with a Dark Type Pokémon in party
 #define EVO_TRADE_SPECIFIC_MON            31     // Pokémon is traded for a specified Pokémon
@@ -283,8 +287,13 @@
 #define EVO_ITEM_NIGHT                    39     // specified item is used on Pokémon, is night
 #define EVO_ITEM_DAY                      40     // specified item is used on Pokémon, is day
 #define EVO_ITEM_HOLD                     41     // Pokémon levels up, holds specified item
+#define EVO_LEVEL_FOG                     42     // Pokémon reaches the specified level during fog in the overworld
+#define EVO_MOVE_TWO_SEGMENT              43     // Pokémon levels up, knows specified move, has a personality value with a modulus of 0
+#define EVO_MOVE_THREE_SEGMENT            44     // Pokémon levels up, knows specified move, has a personality value with a modulus of 1-9
+#define EVO_LEVEL_FAMILY_OF_THREE         45     // Pokémon reaches the specified level with a personality value with a modulus of 0
+#define EVO_LEVEL_FAMILY_OF_FOUR          46     // Pokémon reaches the specified level with a personality value with a modulus of 1-9
 
-#define EVOS_PER_MON 10
+#define EVOS_PER_MON 11
 
 // Evolution 'modes,' for GetEvolutionTargetSpecies
 #define EVO_MODE_NORMAL            0
@@ -326,6 +335,7 @@
 #define SPECIES_FLAG_ALL_PERFECT_IVS    (1 << 8)
 #define SPECIES_FLAG_CANNOT_BE_TRADED   (1 << 9)
 #define SPECIES_FLAG_ULTRA_BURST        (1 << 10)
+#define SPECIES_FLAG_PARADOX            (1 << 11)
 
 #define LEGENDARY_PERFECT_IV_COUNT 3
 
