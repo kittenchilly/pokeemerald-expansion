@@ -7134,12 +7134,28 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                 if (gEvolutionTable[species][i].param <= level)
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;
                 break;
+            case EVO_LEVEL_FAMILY_OF_FOUR:
+                if (gEvolutionTable[species][i].param <= level && (personality % 100) != 0)
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                break;
+            case EVO_LEVEL_FAMILY_OF_THREE:
+                if (gEvolutionTable[species][i].param <= level && (personality % 100) == 0)
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                break;
             case EVO_BEAUTY:
                 if (gEvolutionTable[species][i].param <= beauty)
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;
                 break;
             case EVO_MOVE:
                 if (MonKnowsMove(mon, gEvolutionTable[species][i].param))
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                break;
+            case EVO_MOVE_TWO_SEGMENT:
+                if (MonKnowsMove(mon, gEvolutionTable[species][i].param) && (personality % 100) != 0)
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                break;
+            case EVO_MOVE_THREE_SEGMENT:
+                if (MonKnowsMove(mon, gEvolutionTable[species][i].param) && (personality % 100) == 0)
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;
                 break;
             case EVO_FRIENDSHIP_MOVE_TYPE:
@@ -9048,6 +9064,13 @@ u16 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, u16 method, u32 
                         }
                     }
                     break;
+                case FORM_CHANGE_ITEM_USE_MULTICHOICE:
+                    if (arg == formChanges[i].param1)
+                    {
+                        if (formChanges[i].param2 == gSpecialVar_Result)
+                            targetSpecies = formChanges[i].targetSpecies;
+                    }
+                    break;
                 case FORM_CHANGE_MOVE:
                     if (BoxMonKnowsMove(boxMon, formChanges[i].param1) != formChanges[i].param2)
                         targetSpecies = formChanges[i].targetSpecies;
@@ -9264,6 +9287,24 @@ u32 GetMonFriendshipScore(struct Pokemon *pokemon)
         return FRIENDSHIP_1_TO_49;
 
     return FRIENDSHIP_NONE;
+}
+
+u32 GetMonAffectionHearts(struct Pokemon *pokemon)
+{
+    u32 friendship = GetMonData(pokemon, MON_DATA_FRIENDSHIP, NULL);
+
+    if (friendship == MAX_FRIENDSHIP)
+        return AFFECTION_FIVE_HEARTS;
+    if (friendship >= 220)
+        return AFFECTION_FOUR_HEARTS;
+    if (friendship >= 180)
+        return AFFECTION_THREE_HEARTS;
+    if (friendship >= 130)
+        return AFFECTION_TWO_HEARTS;
+    if (friendship >= 80)
+        return AFFECTION_ONE_HEART;
+
+    return AFFECTION_NO_HEARTS;
 }
 
 void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality)
