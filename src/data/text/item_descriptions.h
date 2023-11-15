@@ -1550,14 +1550,14 @@ static const u8 sRustedShieldDesc[] = _(
 
 // Colored Orbs
 static const u8 sRedOrbDesc[] = _(
-    "A red, glowing orb\n"
-    "said to contain an\n"
-    "ancient power.");
+    "A shiny red orb\n"
+    "that is connected\n"
+    "to a Hoenn legend.");
 
 static const u8 sBlueOrbDesc[] = _(
-    "A blue, glowing orb\n"
-    "said to contain an\n"
-    "ancient power.");
+    "A shiny blue orb\n"
+    "that is connected\n"
+    "to a Hoenn legend.");
 
 // Mega Stones
 static const u8 sVenusauriteDesc[] = _(
