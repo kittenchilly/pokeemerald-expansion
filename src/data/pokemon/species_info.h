@@ -1902,7 +1902,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
         PALETTES(Pichu),
         ICON(Pichu, 1),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_PIKACHU}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_PIKACHU}),
     },
 
     [SPECIES_PICHU_SPIKY_EARED] =
@@ -2888,7 +2888,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Cleffa, 0),
         .footprint = gMonFootprint_Cleffa,
         LEARNSETS(Cleffa),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_CLEFAIRY}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_CLEFAIRY}),
     },
 #endif //P_GEN_2_CROSS_EVOS
 
@@ -3212,7 +3212,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Igglybuff, 1),
         .footprint = gMonFootprint_Igglybuff,
         LEARNSETS(Igglybuff),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_JIGGLYPUFF}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_JIGGLYPUFF}),
     },
 #endif //P_GEN_2_CROSS_EVOS
 
@@ -3416,7 +3416,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Golbat, 2),
         .footprint = gMonFootprint_Golbat,
         LEARNSETS(Golbat),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_CROBAT}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_CROBAT}),
     },
 
 #if P_GEN_2_CROSS_EVOS
@@ -4194,7 +4194,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(MeowthAlolan, 2),
         LEARNSETS(MeowthAlolan),
         .isAlolanForm = TRUE,
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_PERSIAN_ALOLAN}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_PERSIAN_ALOLAN}),
     },
 
     [SPECIES_PERSIAN_ALOLAN] =
@@ -8830,7 +8830,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Chansey, 0),
         .footprint = gMonFootprint_Chansey,
         LEARNSETS(Chansey),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_BLISSEY}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_BLISSEY}),
     },
 
 #if P_GEN_2_CROSS_EVOS
@@ -10790,8 +10790,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_JOLTEON},
                                 {EVO_ITEM, ITEM_WATER_STONE, SPECIES_VAPOREON},
                                 {EVO_ITEM, ITEM_FIRE_STONE, SPECIES_FLAREON},
-                                {EVO_FRIENDSHIP_DAY, 0, SPECIES_ESPEON},
-                                {EVO_FRIENDSHIP_NIGHT, 0, SPECIES_UMBREON},
+                                {EVO_LEVEL_UP_FRIENDSHIP_DAY, 0, SPECIES_ESPEON},
+                                {EVO_LEVEL_UP_FRIENDSHIP_NIGHT, 0, SPECIES_UMBREON},
                                 {EVO_SPECIFIC_MAP, MAP_PETALBURG_WOODS, SPECIES_LEAFEON},
                                 {EVO_ITEM, ITEM_LEAF_STONE, SPECIES_LEAFEON},
                                 {EVO_SPECIFIC_MAP, MAP_SHOAL_CAVE_LOW_TIDE_ICE_ROOM, SPECIES_GLACEON},
@@ -11696,7 +11696,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Munchlax, 3),
         .footprint = gMonFootprint_Munchlax,
         LEARNSETS(Munchlax),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_SNORLAX}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_SNORLAX}),
     },
 #endif //P_GEN_4_CROSS_EVOS
 
@@ -13416,7 +13416,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Togepi, 0),
         .footprint = gMonFootprint_Togepi,
         LEARNSETS(Togepi),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_TOGETIC}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_TOGETIC}),
     },
 
     [SPECIES_TOGETIC] =
@@ -13861,7 +13861,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Azurill, 0),
         .footprint = gMonFootprint_Azurill,
         LEARNSETS(Azurill),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_MARILL}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_MARILL}),
     },
 #endif //P_GEN_3_CROSS_EVOS
 
@@ -21866,7 +21866,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Budew, 1),
         .footprint = gMonFootprint_Budew,
         LEARNSETS(Budew),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP_DAY, 0, SPECIES_ROSELIA}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP_DAY, 0, SPECIES_ROSELIA}),
     },
 #endif //P_GEN_4_CROSS_EVOS
 
@@ -24435,7 +24435,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Chingling, 1),
         .footprint = gMonFootprint_Chingling,
         LEARNSETS(Chingling),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP_NIGHT, 0, SPECIES_CHIMECHO}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP_NIGHT, 0, SPECIES_CHIMECHO}),
     },
 #endif //P_GEN_4_CROSS_EVOS
 
@@ -28411,7 +28411,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Buneary, 2),
         .footprint = gMonFootprint_Buneary,
         LEARNSETS(Buneary),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_LOPUNNY}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_LOPUNNY}),
     },
 
 #define LOPUNNY_MISC_INFO                                       \
@@ -29133,7 +29133,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Riolu, 2),
         .footprint = gMonFootprint_Riolu,
         LEARNSETS(Riolu),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP_DAY, 0, SPECIES_LUCARIO}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP_DAY, 0, SPECIES_LUCARIO}),
     },
 
 #define LUCARIO_MISC_INFO                                       \
@@ -32585,7 +32585,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Woobat, 0),
         .footprint = gMonFootprint_Woobat,
         LEARNSETS(Woobat),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_SWOOBAT}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_SWOOBAT}),
     },
 
     [SPECIES_SWOOBAT] =
@@ -33319,7 +33319,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Swadloon, 1),
         .footprint = gMonFootprint_Swadloon,
         LEARNSETS(Swadloon),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_LEAVANNY}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_LEAVANNY}),
     },
 
     [SPECIES_LEAVANNY] =
@@ -46738,7 +46738,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(TypeNull, 0),
         .footprint = gMonFootprint_Type_Null,
         LEARNSETS(TypeNull),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_SILVALLY_NORMAL}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP, 0, SPECIES_SILVALLY_NORMAL}),
     },
 
 #define SILVALLY_SPECIES_INFO(type, palette)                                            \
@@ -52275,7 +52275,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         ICON(Snom, 0),
         .footprint = gMonFootprint_Snom,
         LEARNSETS(Snom),
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP_NIGHT, 0, SPECIES_FROSMOTH}),
+        .evolutions = EVOLUTION({EVO_LEVEL_UP_FRIENDSHIP_NIGHT, 0, SPECIES_FROSMOTH}),
     },
 
     [SPECIES_FROSMOTH] =

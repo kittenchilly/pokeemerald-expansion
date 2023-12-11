@@ -250,14 +250,72 @@
 #define BODY_COLOR_WHITE    8
 #define BODY_COLOR_PINK     9
 
-#define F_SUMMARY_SCREEN_FLIP_SPRITE 0x80
+#define F_SUMMARY_SCREEN_FLIP_SPRITE 0x8      0
+
+#define EVOLUTIONS_END                          0xFFFF // Not an actual evolution, used to mark the end of an evolution array.
+#define EVO_NONE                                0xFFFE // Not an actual evolution, used to generate offspring that can't evolve into the specified species, like regional forms.
+#define EVO_LEVEL_UP_FRIENDSHIP                 1      // Pokémon levels up with friendship ≥ 220
+#define EVO_LEVEL_UP_FRIENDSHIP_DAY             2      // Pokémon levels up during the day with friendship ≥ 220
+#define EVO_LEVEL_UP_FRIENDSHIP_NIGHT           3
+#define EVO_LEVEL_UP                            4
+#define EVO_TRADE                               5
+#define EVO_TRADE_HELD_ITEM                     6
+#define EVO_TRADE_SPECIFIC_MON                  7
+#define EVO_USE_ITEM                            8
+#define EVO_LEVEL_UP_ATK_GT_DEF                 9
+#define EVO_LEVEL_UP_ATK_EQ_DEF                10
+#define EVO_LEVEL_UP_ATK_LT_DEF                11
+#define EVO_LEVEL_UP_PRSNLTY_LT_5              12
+#define EVO_LEVEL_UP_PRSNLTY_GEQ_5             13
+#define EVO_LEVEL_UP_NINJASK                   14
+#define EVO_LEVEL_UP_SHEDINJA                  15
+#define EVO_LEVEL_UP_BEAUTY                    16
+#define EVO_USE_ITEM_MALE                      17
+#define EVO_USE_ITEM_FEMALE                    18
+#define EVO_LEVEL_UP_HELD_ITEM_DAY             19
+#define EVO_LEVEL_UP_HELD_ITEM_NIGHT           20
+#define EVO_LEVEL_UP_KNOW_MOVE                 21
+#define EVO_LEVEL_UP_WITH_TEAMMATE             22
+#define EVO_LEVEL_UP_MALE                      23
+#define EVO_LEVEL_UP_FEMALE                    24
+#define EVO_LEVEL_UP_ELECTRIC                  25
+#define EVO_LEVEL_UP_FOREST                    26
+#define EVO_LEVEL_UP_COLD                      27
+#define EVO_LEVEL_UP_INVERTED                  28
+#define EVO_LEVEL_UP_AFFECTION_50_MOVE_TYPE    29
+#define EVO_LEVEL_UP_MOVE_TYPE                 30
+#define EVO_LEVEL_UP_WEATHER                   31
+#define EVO_LEVEL_UP_DAY                       32
+#define EVO_LEVEL_UP_NIGHT                     33
+#define EVO_LEVEL_UP_FORM_FEMALE               34
+#define EVO_UNUSED                             35
+#define EVO_LEVEL_UP_VERSION                   36
+#define EVO_LEVEL_UP_VERSION_DAY               37
+#define EVO_LEVEL_UP_VERSION_NIGHT             38
+#define EVO_LEVEL_UP_SUMMIT                    39
+#define EVO_LEVEL_UP_DUSK                      40
+#define EVO_LEVEL_UP_WORMHOLE                  41
+#define EVO_USE_ITEM_WORMHOLE                  42
+#define EVO_CRITICAL_HITS_IN_BATTLE            43
+#define EVO_HP_LOST_IN_BATTLE                  44
+#define EVO_SPIN                               45
+#define EVO_LEVEL_UP_NATURE_AMPED              46
+#define EVO_LEVEL_UP_NATURE_LOW_KEY            47
+#define EVO_TOWER_OF_DARKNESS                  48
+#define EVO_TOWER_OF_WATER                     49
+#define EVO_LEVEL_UP_WALK_STEPS_WITH           50
+#define EVO_LEVEL_UP_UNION_CIRCLE              51
+#define EVO_LEVEL_UP_IN_BATTLE_PRSNLTY_EQ_100  52
+#define EVO_LEVEL_UP_IN_BATTLE_PRSNLTY_ELSE    53
+#define EVO_LEVEL_UP_COLLECT_999               54
+#define EVO_LEVEL_UP_DEFEAT_EQUALS             55
+#define EVO_LEVEL_UP_USE_MOVE_SPECIAL          56
+#define EVO_LEVEL_UP_KNOW_MOVE_PRSNLTY_ELSE    57
+#define EVO_LEVEL_UP_KNOW_MOVE_PRSNLTY_100     58
+#define EVO_LEVEL_UP_RECOIL_DAMAGE_MALE        59
+#define EVO_LEVEL_UP_RECOIL_DAMAGE_FEMALE      60
 
 // Evolution types
-#define EVOLUTIONS_END                    0xFFFF // Not an actual evolution, used to mark the end of an evolution array.
-#define EVO_NONE                          0xFFFE // Not an actual evolution, used to generate offspring that can't evolve into the specified species, like regional forms.
-#define EVO_FRIENDSHIP                    1      // Pokémon levels up with friendship ≥ 220
-#define EVO_FRIENDSHIP_DAY                2      // Pokémon levels up during the day with friendship ≥ 220
-#define EVO_FRIENDSHIP_NIGHT              3      // Pokémon levels up at night with friendship ≥ 220
 #define EVO_LEVEL                         4      // Pokémon reaches the specified level
 #define EVO_TRADE                         5      // Pokémon is traded
 #define EVO_TRADE_ITEM                    6      // Pokémon is traded while it's holding the specified item

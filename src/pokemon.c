@@ -3824,11 +3824,11 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
 
             switch (evolutions[i].method)
             {
-            case EVO_FRIENDSHIP:
+            case EVO_LEVEL_UP_FRIENDSHIP:
                 if (friendship >= FRIENDSHIP_EVO_THRESHOLD)
                     targetSpecies = evolutions[i].targetSpecies;
                 break;
-            case EVO_FRIENDSHIP_DAY:
+            case EVO_LEVEL_UP_FRIENDSHIP_DAY:
                 if (GetTimeOfDay() != TIME_NIGHT && friendship >= FRIENDSHIP_EVO_THRESHOLD)
                     targetSpecies = evolutions[i].targetSpecies;
                 break;
@@ -3836,7 +3836,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                 if (GetTimeOfDay() != TIME_NIGHT && evolutions[i].param <= level)
                     targetSpecies = evolutions[i].targetSpecies;
                 break;
-            case EVO_FRIENDSHIP_NIGHT:
+            case EVO_LEVEL_UP_FRIENDSHIP_NIGHT:
                 if (GetTimeOfDay() == TIME_NIGHT && friendship >= FRIENDSHIP_EVO_THRESHOLD)
                     targetSpecies = evolutions[i].targetSpecies;
                 break;

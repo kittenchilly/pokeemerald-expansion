@@ -6633,14 +6633,14 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
 
         switch (evolutions[i].method)
         {
-        case EVO_FRIENDSHIP:
+        case EVO_LEVEL_UP_FRIENDSHIP:
             ConvertIntToDecimalStringN(gStringVar2, 220, STR_CONV_MODE_LEADING_ZEROS, 3); //friendship value
             StringExpandPlaceholders(gStringVar4, sText_EVO_FRIENDSHIP );
             break;
-        case EVO_FRIENDSHIP_DAY:
+        case EVO_LEVEL_UP_FRIENDSHIP_DAY:
             StringExpandPlaceholders(gStringVar4, sText_EVO_FRIENDSHIP_DAY );
             break;
-        case EVO_FRIENDSHIP_NIGHT:
+        case EVO_LEVEL_UP_FRIENDSHIP_NIGHT:
             StringExpandPlaceholders(gStringVar4, sText_EVO_FRIENDSHIP_NIGHT );
             break;
         case EVO_LEVEL:
