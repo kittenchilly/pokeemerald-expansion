@@ -6370,6 +6370,16 @@ bool32 CanBeConfused(u32 battler)
     return TRUE;
 }
 
+bool32 CanBeInfatuated(u32 battlerAttacker, u32 battlerTarget)
+{
+    if ((gBattleMons[battlerTarget].status2 & STATUS2_INFATUATION)
+      || !AreBattlersOfOppositeGender(battlerTarget, battlerAttacker)
+      || GetBattlerAbility(battlerTarget) == ABILITY_OBLIVIOUS
+      || IsAbilityOnSide(battlerTarget, ABILITY_AROMA_VEIL))
+        return FALSE;
+    return TRUE;
+}
+
 // second argument is 1/X of current hp compared to max hp
 bool32 HasEnoughHpToEatBerry(u32 battler, u32 hpFraction, u32 itemId)
 {

@@ -38,12 +38,16 @@ bool32 DoesBattlerIgnoreAbilityChecks(u32 atkAbility, u32 move);
 u32 AI_GetWeather(struct AiLogicData *aiData);
 bool32 CanAIFaintTarget(u32 battlerAtk, u32 battlerDef, u32 numHits);
 bool32 CanIndexMoveFaintTarget(u32 battlerAtk, u32 battlerDef, u32 index, u32 numHits);
+bool32 AI_IsFlowerVeilProtected(u32 battlerId);
+bool32 AI_IsLeafGuardProtected(u32 battlerId);
+bool32 AI_IsShieldsDownProtected(u32 battlerId);
+bool32 AI_IsAbilityStatusProtected(u32 battlerId);
 bool32 AI_IsTerrainAffected(u32 battlerId, u32 flags);
-bool32 AI_IsBattlerGrounded(u32 battlerId);
+bool32 AI_IsBattlerGrounded(u32 battlerId, bool32 considerInverse);
 bool32 HasDamagingMove(u32 battlerId);
 bool32 HasDamagingMoveOfType(u32 battlerId, u32 type);
 u32 GetBattlerSecondaryDamage(u32 battlerId);
-bool32 BattlerWillFaintFromWeather(u32 battler, u32 ability);
+bool32 BattlerWillFaintFromWeather(u32 battler, u32 ability, u32 holdEffect);
 bool32 BattlerWillFaintFromSecondaryDamage(u32 battler, u32 ability);
 bool32 ShouldTryOHKO(u32 battlerAtk, u32 battlerDef, u32 atkAbility, u32 defAbility, u32 move);
 bool32 ShouldUseRecoilMove(u32 battlerAtk, u32 battlerDef, u32 recoilDmg, u32 moveIndex);
@@ -134,9 +138,6 @@ bool32 HasMagicCoatAffectedMove(u32 battler);
 bool32 HasSnatchAffectedMove(u32 battler);
 
 // status checks
-bool32 AI_CanBeBurned(u32 battler, u32 ability);
-bool32 AI_CanGetFrostbite(u32 battler, u32 ability);
-bool32 AI_CanBeConfused(u32 battlerAtk, u32 battlerDef, u32 move, u32 ability);
 bool32 AI_CanSleep(u32 battler, u32 ability);
 bool32 IsBattlerIncapacitated(u32 battler, u32 ability);
 bool32 AI_CanPutToSleep(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 partnerMove);
@@ -146,6 +147,7 @@ bool32 AI_CanParalyze(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, 
 bool32 AI_CanConfuse(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove);
 bool32 ShouldBurnSelf(u32 battler, u32 ability);
 bool32 AI_CanBurn(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove);
+bool32 AI_CanFreeze(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 partnerMove);
 bool32 AI_CanGiveFrostbite(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove);
 bool32 AI_CanBeInfatuated(u32 battlerAtk, u32 battlerDef, u32 defAbility);
 bool32 AnyPartyMemberStatused(u32 battlerId, bool32 checkSoundproof);
@@ -184,6 +186,7 @@ void IncreaseBurnScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score);
 void IncreaseParalyzeScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score);
 void IncreaseSleepScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score);
 void IncreaseConfusionScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score);
+void IncreaseFreezeScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score);
 void IncreaseFrostbiteScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score);
 
 s32 AI_CalcPartyMonDamage(u32 move, u32 battlerAtk, u32 battlerDef, struct BattlePokemon switchinCandidate, bool8 isPartyMonAttacker);

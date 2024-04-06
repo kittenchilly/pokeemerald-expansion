@@ -237,6 +237,7 @@ bool32 CanBeParalyzed(u32 battler);
 bool32 CanBeFrozen(u32 battler);
 bool32 CanGetFrostbite(u32 battler);
 bool32 CanBeConfused(u32 battler);
+bool32 CanBeInfatuated(u32 battlerAttacker, u32 battlerTarget);
 bool32 IsBattlerTerrainAffected(u32 battler, u32 terrainFlag);
 u32 GetBattlerAffectionHearts(u32 battler);
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);

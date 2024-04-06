@@ -459,7 +459,7 @@ static bool32 ShouldSwitchIfGameStatePrompt(u32 battler, bool32 emitResult)
                 if (IsBattlerAlive(BATTLE_PARTNER(battler))
                     && (gMovesInfo[AI_DATA->partnerMove].effect == EFFECT_MISTY_TERRAIN
                         || gMovesInfo[AI_DATA->partnerMove].effect == EFFECT_ELECTRIC_TERRAIN)
-                    && IsBattlerGrounded(battler)
+                    && AI_IsBattlerGrounded(battler, FALSE)
                     )
                     switchMon = FALSE;
 
@@ -479,7 +479,7 @@ static bool32 ShouldSwitchIfGameStatePrompt(u32 battler, bool32 emitResult)
                             if (IsValidForBattle(&party[i])
                                 && i != gBattlerPartyIndexes[battler]
                                 && i != gBattlerPartyIndexes[BATTLE_PARTNER(battler)]
-                                && IsBattlerGrounded(battler)
+                                && AI_IsBattlerGrounded(battler, FALSE)
                                 && (GetMonAbility(&party[i]) == ABILITY_MISTY_SURGE
                                     || GetMonAbility(&party[i]) == ABILITY_ELECTRIC_SURGE)) //Ally has Misty or Electric Surge
                                 {
@@ -505,7 +505,7 @@ static bool32 ShouldSwitchIfGameStatePrompt(u32 battler, bool32 emitResult)
                 || holdEffect == (HOLD_EFFECT_CURE_SLP | HOLD_EFFECT_CURE_STATUS)
                 || HasMove(battler, MOVE_SLEEP_TALK)
                 || (HasMoveEffect(battler, MOVE_SNORE) && AI_GetTypeEffectiveness(MOVE_SNORE, battler, opposingBattler) >= UQ_4_12(1.0))
-                || (IsBattlerGrounded(battler)
+                || (AI_IsBattlerGrounded(battler, FALSE)
                     && (HasMove(battler, MOVE_MISTY_TERRAIN) || HasMove(battler, MOVE_ELECTRIC_TERRAIN)))
                 )
                 switchMon = FALSE;
@@ -1292,12 +1292,12 @@ static u32 GetSwitchinHazardsDamage(u32 battler, struct BattlePokemon *battleMon
         // TODO: CanBePoisoned compatibility to avoid duplicate code
         if ((hazardFlags & SIDE_STATUS_TOXIC_SPIKES) && (defType1 != TYPE_POISON && defType2 != TYPE_POISON
             && defType1 != TYPE_STEEL && defType2 != TYPE_STEEL
-            && ability != ABILITY_IMMUNITY && ability != ABILITY_POISON_HEAL && ability != ABILITY_COMATOSE
+            && ability != ABILITY_IMMUNITY && ability != ABILITY_POISON_HEAL && ability != ABILITY_COMATOSE && ability != ABILITY_PURIFYING_SALT
             && status == 0
             && !(hazardFlags & SIDE_STATUS_SAFEGUARD)
-            && !(IsAbilityOnSide(battler, ABILITY_PASTEL_VEIL))
-            && !(IsBattlerTerrainAffected(battler, STATUS_FIELD_MISTY_TERRAIN))
-            && !(IsAbilityStatusProtected(battler))
+            && !(AI_IsAbilityOnSide(battler, ABILITY_PASTEL_VEIL))
+            && !(AI_IsTerrainAffected(battler, STATUS_FIELD_MISTY_TERRAIN))
+            && !(AI_IsAbilityStatusProtected(battler))
             && heldItemEffect != HOLD_EFFECT_CURE_PSN && heldItemEffect != HOLD_EFFECT_CURE_STATUS
             && IsMonGrounded(heldItemEffect, ability, defType1, defType2)))
         {
