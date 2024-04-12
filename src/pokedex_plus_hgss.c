@@ -4369,8 +4369,8 @@ static const u8 sContestCategoryToOamPaletteNum[CONTEST_CATEGORIES_COUNT] =
 {
     [CONTEST_CATEGORY_COOL] = 13,
     [CONTEST_CATEGORY_BEAUTY] = 14,
-    [CONTEST_CATEGORY_CUTE] = 14,
-    [CONTEST_CATEGORY_SMART] = 15,
+    [CONTEST_CATEGORY_CUTE] = B_UPDATED_TYPE_COLORS ? 15 : 14,
+    [CONTEST_CATEGORY_SMART] = B_UPDATED_TYPE_COLORS ? 13 : 15,
     [CONTEST_CATEGORY_TOUGH] = 13,
 };
 static void SetTypeIconPosAndPal(u8 typeId, u8 x, u8 y, u8 spriteArrayId)
