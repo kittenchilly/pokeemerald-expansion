@@ -467,7 +467,7 @@ extern const u32 gItemIconPalette_PewterCrunchies[];
 extern const u32 gItemIcon_RageCandyBar[];
 extern const u32 gItemIconPalette_RageCandyBar[];
 extern const u32 gItemIcon_LavaCookie[];
-extern const u32 gItemIconPalette_LavaCookieAndLetter[];
+extern const u32 gItemIconPalette_LavaCookie[];
 extern const u32 gItemIcon_OldGateau[];
 extern const u32 gItemIconPalette_OldGateau[];
 extern const u32 gItemIcon_Casteliacone[];

@@ -174,7 +174,7 @@ const u32 gItemIcon_RageCandyBar[] = INCBIN_U32("graphics/items/icons/rage_candy
 const u32 gItemIconPalette_RageCandyBar[] = INCBIN_U32("graphics/items/icon_palettes/rage_candy_bar.gbapal.lz");
 
 const u32 gItemIcon_LavaCookie[] = INCBIN_U32("graphics/items/icons/lava_cookie.4bpp.lz");
-const u32 gItemIconPalette_LavaCookieAndLetter[] = INCBIN_U32("graphics/items/icon_palettes/lava_cookie_and_letter.gbapal.lz");
+const u32 gItemIconPalette_LavaCookie[] = INCBIN_U32("graphics/items/icon_palettes/lava_cookie.gbapal.lz");
 
 const u32 gItemIcon_OldGateau[] = INCBIN_U32("graphics/items/icons/old_gateau.4bpp.lz");
 const u32 gItemIconPalette_OldGateau[] = INCBIN_U32("graphics/items/icon_palettes/old_gateau.gbapal.lz");

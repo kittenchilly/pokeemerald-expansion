@@ -1179,7 +1179,10 @@ const struct Item gItemsInfo[] =
         .name = HANDLE_EXPANDED_ITEM_NAME("PewtrCrnches", "Pewter Crunchies"),
         .pluralName = HANDLE_EXPANDED_ITEM_NAME("PewtrCrnches", "Pewter Crunchies"),
         .price = 250,
-        .description = sFullHealDesc,
+        .description = COMPOUND_STRING(
+            "Pewter City's\n"
+            "famous snack.\n"
+            "Cures any status."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -1194,7 +1197,10 @@ const struct Item gItemsInfo[] =
     {
         .name = HANDLE_EXPANDED_ITEM_NAME("RageCandyBar", "Rage Candy Bar"),
         .price = (I_PRICE >= GEN_7) ? 350 : 300,
-        .description = sFullHealDesc,
+        .description = COMPOUND_STRING(
+            "Mahogany Town's\n"
+            "famous candy.\n"
+            "Cures any status."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -1210,9 +1216,9 @@ const struct Item gItemsInfo[] =
         .name = _("Lava Cookie"),
         .price = (I_PRICE >= GEN_7) ? 350 : 200,
         .description = COMPOUND_STRING(
-            "A local specialty\n"
-            "that heals all\n"
-            "status problems."),
+            "Lavaridge Town's\n"
+            "local specialty.\n"
+            "Cures any status."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -1220,7 +1226,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_FullHeal,
         .flingPower = 30,
         .iconPic = gItemIcon_LavaCookie,
-        .iconPalette = gItemIconPalette_LavaCookieAndLetter,
+        .iconPalette = gItemIconPalette_LavaCookie,
     },
 
     [ITEM_OLD_GATEAU] =
@@ -1228,7 +1234,10 @@ const struct Item gItemsInfo[] =
         .name = _("Old Gateau"),
         .pluralName = _("Old Gateaux"),
         .price = (I_PRICE >= GEN_7) ? 350 : 200,
-        .description = sFullHealDesc,
+        .description = COMPOUND_STRING(
+            "A hidden gem found\n"
+            "in the Old Chateau.\n"
+            "Cures any status."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -1243,7 +1252,10 @@ const struct Item gItemsInfo[] =
     {
         .name = _("Casteliacone"),
         .price = (I_PRICE >= GEN_7) ? 350 : 100,
-        .description = sFullHealDesc,
+        .description = COMPOUND_STRING(
+            "Castelia City's\n"
+            "specialty ice cream.\n"
+            "Cures any status."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -1258,7 +1270,10 @@ const struct Item gItemsInfo[] =
     {
         .name = HANDLE_EXPANDED_ITEM_NAME("LumioseGlete", "Lumiose Galette"),
         .price = (I_PRICE >= GEN_7) ? 350 : 200,
-        .description = sFullHealDesc,
+        .description = COMPOUND_STRING(
+            "A popular treat\n"
+            "in Lumiose City.\n"
+            "Cures any status."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -1273,7 +1288,10 @@ const struct Item gItemsInfo[] =
     {
         .name = HANDLE_EXPANDED_ITEM_NAME("ShalourSable", "Shalour Sable"),
         .price = (I_PRICE >= GEN_7) ? 350 : 200,
-        .description = sFullHealDesc,
+        .description = COMPOUND_STRING(
+            "Shalour City's\n"
+            "famous shortbread.\n"
+            "Cures any status."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -1288,7 +1306,10 @@ const struct Item gItemsInfo[] =
     {
         .name = _("Big Malasada"),
         .price = 350,
-        .description = sFullHealDesc,
+        .description = COMPOUND_STRING(
+            "The Alola region's\n"
+            "famous fried bread.\n"
+            "Cures any status."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -12598,7 +12619,7 @@ const struct Item gItemsInfo[] =
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .iconPic = gItemIcon_Letter,
-        .iconPalette = gItemIconPalette_LavaCookieAndLetter,
+        .iconPalette = gItemIconPalette_LavaCookie,
     },
 
     [ITEM_DEVON_PARTS] =
