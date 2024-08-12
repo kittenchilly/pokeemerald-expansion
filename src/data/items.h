@@ -165,7 +165,7 @@ const struct Item gItemsInfo[] =
         .name = _("Poké Ball"),
         .price = 200,
         .description = COMPOUND_STRING(
-            "A tool used for\n"
+            "A device for\n"
             "catching wild\n"
             "Pokémon."),
         .pocket = POCKET_POKE_BALLS,
@@ -230,14 +230,14 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 20 : 200,
         .description = COMPOUND_STRING(
             "A rare Ball made\n"
-            "in commemoration\n"
-            "of some event."),
+            "to commemorate\n"
+            "a special occasion."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
         .secondaryId = ITEM_PREMIER_BALL - FIRST_BALL,
         .iconPic = gItemIcon_PremierBall,
-        .iconPalette = gItemIconPalette_LuxuryBall,
+        .iconPalette = gItemIconPalette_PremierBall,
     },
 
     [ITEM_HEAL_BALL] =
@@ -278,8 +278,8 @@ const struct Item gItemsInfo[] =
         .price = 1000,
         .description = COMPOUND_STRING(
             "A Ball that works\n"
-            "better on weaker\n"
-            "Pokémon."),
+            "better the lower\n"
+            "the Pokémon's level."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -293,9 +293,15 @@ const struct Item gItemsInfo[] =
         .name = _("Dive Ball"),
         .price = 1000,
         .description = COMPOUND_STRING(
+        #if B_DIVE_BALL_MODIFIER >= GEN_4
             "A Ball that works\n"
-            "better on Pokémon\n"
+            "well on Pokémon\n"
+            "living underwater."),
+        #else
+            "A Ball that works\n"
+            "well on Pokémon\n"
             "on the ocean floor."),
+        #endif
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -309,9 +315,9 @@ const struct Item gItemsInfo[] =
         .name = _("Dusk Ball"),
         .price = 1000,
         .description = COMPOUND_STRING(
-            "Works well if\n"
-            "used in a\n"
-            "dark place."),
+            "A Ball that works\n"
+            "well if used in the\n"
+            "dark or at night."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -325,15 +331,15 @@ const struct Item gItemsInfo[] =
         .name = _("Timer Ball"),
         .price = 1000,
         .description = COMPOUND_STRING(
-            "A Ball that gains\n"
-            "power in battles\n"
-            "taking many turns."),
+            "A Ball that gets\n"
+            "better the more\n"
+            "turns have passed."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
         .secondaryId = ITEM_TIMER_BALL - FIRST_BALL,
         .iconPic = gItemIcon_TimerBall,
-        .iconPalette = gItemIconPalette_RepeatBall,
+        .iconPalette = gItemIconPalette_TimerBall,
     },
 
     [ITEM_QUICK_BALL] =
@@ -341,9 +347,9 @@ const struct Item gItemsInfo[] =
         .name = _("Quick Ball"),
         .price = 1000,
         .description = COMPOUND_STRING(
-            "Works well if\n"
-            "used on the\n"
-            "first turn."),
+            "A Ball that works\n"
+            "well when used at\n"
+            "the start of battle."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -358,7 +364,7 @@ const struct Item gItemsInfo[] =
         .price = 1000,
         .description = COMPOUND_STRING(
             "A Ball that works\n"
-            "better on Pokémon\n"
+            "well on Pokémon\n"
             "caught before."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
@@ -373,9 +379,9 @@ const struct Item gItemsInfo[] =
         .name = _("Luxury Ball"),
         .price = (I_PRICE >= GEN_8) ? 3000 : 1000,
         .description = COMPOUND_STRING(
-            "A cozy Ball that\n"
+            "A comfy Ball that\n"
             "makes Pokémon\n"
-            "more friendly."),
+            "grow friendly."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -406,8 +412,8 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
             "A Ball that works\n"
-            "well on fished\n"
-            "up Pokémon."),
+            "well on Pokémon\n"
+            "hooked by a Rod."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -423,7 +429,7 @@ const struct Item gItemsInfo[] =
         .description = COMPOUND_STRING(
             "A Ball that works\n"
             "well on Moon\n"
-            "Stone users."),
+            "Stone evolvers."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -438,8 +444,8 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
             "A Ball that makes\n"
-            "a Pokémon friendly\n"
-            "when caught."),
+            "a caught Pokémon\n"
+            "instantly friendly."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -453,8 +459,8 @@ const struct Item gItemsInfo[] =
         .name = _("Love Ball"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
-            "Works well on\n"
-            "Pokémon of the\n"
+            "A Ball that works\n"
+            "well on Pokémon of\n"
             "opposite gender."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
@@ -469,9 +475,9 @@ const struct Item gItemsInfo[] =
         .name = _("Fast Ball"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
-            "Works well on\n"
-            "very fast\n"
-            "Pokémon."),
+            "A Ball that works\n"
+            "well on Pokémon\n"
+            "quick to run away."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -485,9 +491,9 @@ const struct Item gItemsInfo[] =
         .name = _("Heavy Ball"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
-            "Works well on\n"
-            "very heavy\n"
-            "Pokémon."),
+            "A Ball that works\n"
+            "better the heavier\n"
+            "the Pokémon is."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -503,11 +509,12 @@ const struct Item gItemsInfo[] =
         .description = COMPOUND_STRING(
         #if B_DREAM_BALL_MODIFIER >= GEN_8
             "A Ball that works\n"
-            "well on sleeping\n"
-            "Pokémon."),
+            "well on Pokémon\n"
+            "that are asleep."),
         #else
-            "A Poké Ball used in\n"
-            "the Entree Forest."),
+            "A special Ball that\n"
+            "appeared in the\n"
+            "Entree Forest."),
         #endif
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
@@ -522,9 +529,9 @@ const struct Item gItemsInfo[] =
         .name = _("Safari Ball"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "A special Ball that\n"
-            "is used only in the\n"
-            "Safari Zone."),
+            "A special Ball used\n"
+            "in the Safari Zone\n"
+            "and Great Marsh."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -539,8 +546,8 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE < GEN_3 || I_PRICE >= GEN_9) ? 0 : 300,
         .description = COMPOUND_STRING(
             "A special Ball used\n"
-            "in the Bug-Catching\n"
-            "Contest."),
+            "during the Bug-\n"
+            "Catching Contest."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -554,8 +561,8 @@ const struct Item gItemsInfo[] =
         .name = _("Park Ball"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "A special Ball for\n"
-            "the Pal Park."),
+            "A special Ball used\n"
+            "in the Pal Park."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -569,8 +576,9 @@ const struct Item gItemsInfo[] =
         .name = _("Beast Ball"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "A Ball designed to\n"
-            "catch Ultra Beasts."),
+            "A Ball that is\n"
+            "not very good at\n"
+            "catching Pokémon."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -585,8 +593,8 @@ const struct Item gItemsInfo[] =
         .price = 0,
         .description = COMPOUND_STRING(
             "A rare Ball made\n"
-            "in commemoration\n"
-            "of some event."),
+            "to commemorate\n"
+            "a special occasion."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
