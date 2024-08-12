@@ -215,22 +215,17 @@ const u32 gItemIconPalette_PPMax[] = INCBIN_U32("graphics/items/icon_palettes/pp
 
 // EV Feathers
 
-const u32 gItemIcon_HealthFeather[] = INCBIN_U32("graphics/items/icons/health_feather.4bpp.lz");
+const u32 gItemIcon_EVFeather[] = INCBIN_U32("graphics/items/icons/ev_feather.4bpp.lz");
 const u32 gItemIconPalette_HealthFeather[] = INCBIN_U32("graphics/items/icon_palettes/health_feather.gbapal.lz");
 
-const u32 gItemIcon_MuscleFeather[] = INCBIN_U32("graphics/items/icons/muscle_feather.4bpp.lz");
 const u32 gItemIconPalette_MuscleFeather[] = INCBIN_U32("graphics/items/icon_palettes/muscle_feather.gbapal.lz");
 
-const u32 gItemIcon_ResistFeather[] = INCBIN_U32("graphics/items/icons/resist_feather.4bpp.lz");
 const u32 gItemIconPalette_ResistFeather[] = INCBIN_U32("graphics/items/icon_palettes/resist_feather.gbapal.lz");
 
-const u32 gItemIcon_GeniusFeather[] = INCBIN_U32("graphics/items/icons/genius_feather.4bpp.lz");
 const u32 gItemIconPalette_GeniusFeather[] = INCBIN_U32("graphics/items/icon_palettes/genius_feather.gbapal.lz");
 
-const u32 gItemIcon_CleverFeather[] = INCBIN_U32("graphics/items/icons/clever_feather.4bpp.lz");
 const u32 gItemIconPalette_CleverFeather[] = INCBIN_U32("graphics/items/icon_palettes/clever_feather.gbapal.lz");
 
-const u32 gItemIcon_SwiftFeather[] = INCBIN_U32("graphics/items/icons/swift_feather.4bpp.lz");
 const u32 gItemIconPalette_SwiftFeather[] = INCBIN_U32("graphics/items/icon_palettes/swift_feather.gbapal.lz");
 
 // Ability Modifiers
