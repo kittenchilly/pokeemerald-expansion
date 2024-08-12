@@ -105,6 +105,7 @@ const u32 gItemIcon_Revive[] = INCBIN_U32("graphics/items/icons/revive.4bpp.lz")
 const u32 gItemIconPalette_Revive[] = INCBIN_U32("graphics/items/icon_palettes/revive.gbapal.lz");
 
 const u32 gItemIcon_MaxRevive[] = INCBIN_U32("graphics/items/icons/max_revive.4bpp.lz");
+const u32 gItemIconPalette_MaxRevive[] = INCBIN_U32("graphics/items/icon_palettes/max_revive.gbapal.lz");
 
 const u32 gItemIcon_FreshWater[] = INCBIN_U32("graphics/items/icons/fresh_water.4bpp.lz");
 const u32 gItemIconPalette_FreshWater[] = INCBIN_U32("graphics/items/icon_palettes/fresh_water.gbapal.lz");
@@ -129,10 +130,9 @@ const u32 gItemIconPalette_HealPowder[] = INCBIN_U32("graphics/items/icon_palett
 const u32 gItemIcon_RevivalHerb[] = INCBIN_U32("graphics/items/icons/revival_herb.4bpp.lz");
 const u32 gItemIconPalette_RevivalHerb[] = INCBIN_U32("graphics/items/icon_palettes/revival_herb.gbapal.lz");
 
-const u32 gItemIcon_Antidote[] = INCBIN_U32("graphics/items/icons/antidote.4bpp.lz");
+const u32 gItemIcon_StatusHeal[] = INCBIN_U32("graphics/items/icons/status_heal.4bpp.lz");
 const u32 gItemIconPalette_Antidote[] = INCBIN_U32("graphics/items/icon_palettes/antidote.gbapal.lz");
 
-const u32 gItemIcon_StatusHeal[] = INCBIN_U32("graphics/items/icons/status_heal.4bpp.lz");
 const u32 gItemIconPalette_ParalyzeHeal[] = INCBIN_U32("graphics/items/icon_palettes/paralyze_heal.gbapal.lz");
 
 const u32 gItemIconPalette_BurnHeal[] = INCBIN_U32("graphics/items/icon_palettes/burn_heal.gbapal.lz");
@@ -156,7 +156,7 @@ const u32 gItemIconPalette_MaxElixir[] = INCBIN_U32("graphics/items/icon_palette
 const u32 gItemIcon_BerryJuice[] = INCBIN_U32("graphics/items/icons/berry_juice.4bpp.lz");
 const u32 gItemIconPalette_BerryJuice[] = INCBIN_U32("graphics/items/icon_palettes/berry_juice.gbapal.lz");
 
-const u32 gItemIcon_SacredAsh[] = INCBIN_U32("graphics/items/icons/sacred_ash.4bpp.lz");
+const u32 gItemIcon_AshPowder[] = INCBIN_U32("graphics/items/icons/ash_powder.4bpp.lz");
 const u32 gItemIconPalette_SacredAsh[] = INCBIN_U32("graphics/items/icon_palettes/sacred_ash.gbapal.lz");
 
 const u32 gItemIcon_SweetHeart[] = INCBIN_U32("graphics/items/icons/sweet_heart.4bpp.lz");
