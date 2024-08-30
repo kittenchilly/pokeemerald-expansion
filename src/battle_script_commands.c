@@ -2876,7 +2876,7 @@ void SetMoveEffect(bool32 primary, bool32 certain)
 
             if (i != gBattlersCount)
                 break;
-            if (!CanBeSlept(gEffectBattler, GetBattlerAbility(gEffectBattler)))
+            if (!CanFallAsleep(gEffectBattler, GetBattlerAbility(gEffectBattler)))
                 break;
 
             cancelMultiTurnMovesResult = CancelMultiTurnMoves(gEffectBattler);
@@ -3150,7 +3150,7 @@ void SetMoveEffect(bool32 primary, bool32 certain)
             switch (gBattleScripting.moveEffect)
             {
             case MOVE_EFFECT_CONFUSION:
-                if (!CanBeConfused(gEffectBattler))
+                if (!CanBeConfused(gEffectBattler, GetBattlerAbility(gEffectBattler)))
                 {
                     gBattlescriptCurrInstr++;
                 }
@@ -10024,7 +10024,7 @@ static void Cmd_various(void)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 2;
             else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_PARALYSIS) && CanBeParalyzed(gBattlerTarget, targetAbility))
                 gBattleCommunication[MULTISTRING_CHOOSER] = 3;
-            else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP) && CanBeSlept(gBattlerTarget, targetAbility))
+            else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP) && CanFallAsleep(gBattlerTarget, targetAbility))
                 gBattleCommunication[MULTISTRING_CHOOSER] = 4;
             else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_FROSTBITE) && CanGetFrostbite(gBattlerTarget))
                 gBattleCommunication[MULTISTRING_CHOOSER] = 5;
@@ -10451,7 +10451,7 @@ static void Cmd_various(void)
             gBattleStruct->skyDropTargets[gEffectBattler] = 0xFF;
 
             // If the target was in the middle of Outrage/Thrash/etc. when targeted by Sky Drop, confuse them on release and do proper animation
-            if (gBattleMons[gEffectBattler].status2 & STATUS2_LOCK_CONFUSE && CanBeConfused(gEffectBattler))
+            if (gBattleMons[gEffectBattler].status2 & STATUS2_LOCK_CONFUSE && CanBeConfused(gEffectBattler, GetBattlerAbility(gEffectBattler)))
             {
                 gBattleMons[gEffectBattler].status2 &= ~(STATUS2_LOCK_CONFUSE);
                 gBattlerAttacker = gEffectBattler;

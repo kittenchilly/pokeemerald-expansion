@@ -805,7 +805,7 @@ static bool32 AI_IsMoveEffectInPlus(u32 battlerAtk, u32 battlerDef, u32 move, s3
             {
                 case MOVE_EFFECT_POISON:
                 case MOVE_EFFECT_TOXIC:
-                    if (AI_CanPoison(battlerAtk, battlerDef, abilityDef, move, MOVE_NONE))
+                    if (AI_CanPoison(battlerAtk, battlerDef, abilityDef, BATTLE_PARTNER(battlerAtk), move, MOVE_NONE))
                         return TRUE;
                     break;
                 case MOVE_EFFECT_BURN:
@@ -813,11 +813,11 @@ static bool32 AI_IsMoveEffectInPlus(u32 battlerAtk, u32 battlerDef, u32 move, s3
                         return TRUE;
                     break;
                 case MOVE_EFFECT_FREEZE_OR_FROSTBITE:
-                    if (AI_CanGetFrostbite(battlerDef, abilityDef))
+                    if (AI_CanGiveFrostbite(battlerAtk, battlerDef, abilityDef, BATTLE_PARTNER(battlerAtk), move, MOVE_NONE))
                         return TRUE;
                     break;
                 case MOVE_EFFECT_PARALYSIS:
-                    if (AI_CanParalyze(battlerAtk, battlerDef, abilityDef, move, MOVE_NONE))
+                    if (AI_CanParalyze(battlerAtk, battlerDef, abilityDef, BATTLE_PARTNER(battlerAtk), move, MOVE_NONE))
                         return TRUE;
                     break;
                 case MOVE_EFFECT_CONFUSION:
@@ -1236,16 +1236,6 @@ bool32 CanTargetFaintAiWithMod(u32 battlerDef, u32 battlerAtk, s32 hpMod, s32 dm
     }
 
     return FALSE;
-}
-
-bool32 AI_IsAbilityOnSide(u32 battlerId, u32 ability)
-{
-    if (IsBattlerAlive(battlerId) && AI_DATA->abilities[battlerId] == ability)
-        return TRUE;
-    else if (IsBattlerAlive(BATTLE_PARTNER(battlerId)) && AI_DATA->abilities[BATTLE_PARTNER(battlerId)] == ability)
-        return TRUE;
-    else
-        return FALSE;
 }
 
 u32 AI_GetBattlerAbility(u32 battler)
@@ -2821,18 +2811,19 @@ bool32 IsBattlerIncapacitated(u32 battler, u32 ability)
     return FALSE;
 }
 
-bool32 AI_CanPutToSleep(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 partnerMove)
+bool32 AI_CanPutToSleep(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
 {
-    if (!CanBeSlept(battlerDef, defAbility)
+    if (!CanFallAsleep(battlerDef, defAbility)
+      || AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] == AI_EFFECTIVENESS_x0
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
-      || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))   // shouldn't try to sleep mon that partner is trying to make sleep
+      || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))   // shouldn't try to sleep mon that partner is trying to make sleep
         return FALSE;
     return TRUE;
 }
 
 bool32 ShouldPoisonSelf(u32 battler, u32 ability)
 {
-    if (CanBePoisoned(battler, battler, GetBattlerAbility(battler)) && (
+    if (CanBePoisoned(battler, battler, ability) && (
      ability == ABILITY_MARVEL_SCALE
       || ability == ABILITY_POISON_HEAL
       || ability == ABILITY_QUICK_FEET
@@ -2845,66 +2836,18 @@ bool32 ShouldPoisonSelf(u32 battler, u32 ability)
     return FALSE;
 }
 
-bool32 AI_CanPoison(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 partnerMove)
+bool32 AI_CanPoison(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
 {
-    if (!CanBePoisoned(battlerAtk, battlerDef, GetBattlerAbility(battlerDef))
+    if (!CanBePoisoned(battlerAtk, battlerDef, defAbility)
       || AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] == AI_EFFECTIVENESS_x0
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
-      || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))
+      || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))
         return FALSE;
     else if (defAbility != ABILITY_CORROSION && (IS_BATTLER_OF_TYPE(battlerDef, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerDef, TYPE_STEEL)))
         return FALSE;
     else if (IsValidDoubleBattle(battlerAtk) && AI_DATA->abilities[BATTLE_PARTNER(battlerDef)] == ABILITY_PASTEL_VEIL)
         return FALSE;
 
-    return TRUE;
-}
-
-bool32 AI_CanParalyze(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 partnerMove)
-{
-    if (!CanBeParalyzed(battlerDef, defAbility)
-      || AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] == AI_EFFECTIVENESS_x0
-      || gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_SAFEGUARD
-      || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
-      || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))
-        return FALSE;
-    return TRUE;
-}
-
-bool32 AI_CanBeConfused(u32 battlerAtk, u32 battlerDef, u32 move, u32 ability)
-{
-    if ((gBattleMons[battlerDef].status2 & STATUS2_CONFUSION)
-     || (ability == ABILITY_OWN_TEMPO && !DoesBattlerIgnoreAbilityChecks(AI_DATA->abilities[battlerAtk], move))
-     || (IsBattlerGrounded(battlerDef) && (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN))
-     || gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_SAFEGUARD
-     || DoesSubstituteBlockMove(battlerAtk, battlerDef, move))
-        return FALSE;
-    return TRUE;
-}
-
-bool32 AI_CanConfuse(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
-{
-    if (gMovesInfo[move].target == MOVE_TARGET_FOES_AND_ALLY
-     && AI_CanBeConfused(battlerAtk, battlerDef, move, defAbility)
-     && !AI_CanBeConfused(battlerAtk, BATTLE_PARTNER(battlerDef), move, AI_DATA->abilities[BATTLE_PARTNER(battlerDef)]))
-        return FALSE;
-
-    if (!AI_CanBeConfused(battlerAtk, battlerDef, move, defAbility)
-     || DoesPartnerHaveSameMoveEffect(battlerAtkPartner, battlerDef, move, partnerMove))
-        return FALSE;
-
-    return TRUE;
-}
-
-bool32 AI_CanGetFrostbite(u32 battler, u32 ability)
-{
-    if (ability == ABILITY_MAGMA_ARMOR
-      || ability == ABILITY_COMATOSE
-      || IS_BATTLER_OF_TYPE(battler, TYPE_ICE)
-      || gBattleMons[battler].status1 & STATUS1_ANY
-      || IsAbilityStatusProtected(battler)
-      || gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SAFEGUARD)
-        return FALSE;
     return TRUE;
 }
 
@@ -2928,31 +2871,55 @@ bool32 AI_CanBurn(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtk
       || AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] == AI_EFFECTIVENESS_x0
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))
-    {
         return FALSE;
-    }
+    return TRUE;
+}
+
+bool32 AI_CanFreeze(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
+{
+    if (!CanBeFrozen(battlerDef, defAbility)
+      || AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] == AI_EFFECTIVENESS_x0
+      || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
+      || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))
+        return FALSE;
     return TRUE;
 }
 
 bool32 AI_CanGiveFrostbite(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
 {
-    if (!AI_CanGetFrostbite(battlerDef, defAbility)
+    if (!CanGetFrostbite(battlerDef, defAbility)
       || AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] == AI_EFFECTIVENESS_x0
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))
-    {
         return FALSE;
-    }
     return TRUE;
 }
 
-bool32 AI_CanBeInfatuated(u32 battlerAtk, u32 battlerDef, u32 defAbility)
+bool32 AI_CanParalyze(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
 {
-    if ((gBattleMons[battlerDef].status2 & STATUS2_INFATUATION)
+    if (!CanBeParalyzed(battlerDef, defAbility)
       || AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] == AI_EFFECTIVENESS_x0
-      || defAbility == ABILITY_OBLIVIOUS
-      || !AreBattlersOfOppositeGender(battlerAtk, battlerDef)
-      || AI_IsAbilityOnSide(battlerDef, ABILITY_AROMA_VEIL))
+      || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
+      || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))
+        return FALSE;
+    return TRUE;
+}
+
+bool32 AI_CanConfuse(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
+{
+    if (!CanBeConfused(battlerDef, defAbility)
+      || AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] == AI_EFFECTIVENESS_x0
+      || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
+      || DoesPartnerHaveSameMoveEffect(battlerAtkPartner, battlerDef, move, partnerMove))
+        return FALSE;
+    return TRUE;
+}
+
+bool32 AI_CanInfatuate(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
+{
+    if (!CanBeInfatuated(battlerAtk, battlerDef, defAbility)
+      || AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] == AI_EFFECTIVENESS_x0
+      || DoesPartnerHaveSameMoveEffect(battlerAtkPartner, battlerDef, move, partnerMove))
         return FALSE;
     return TRUE;
 }
@@ -3704,57 +3671,141 @@ u32 IncreaseStatUpScoreContrary(u32 battlerAtk, u32 battlerDef, u32 statId)
     return IncreaseStatUpScoreInternal(battlerAtk, battlerDef, statId, FALSE);
 }
 
-void IncreasePoisonScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score)
+u32 IncreaseSleepScore(u32 battlerAtk, u32 battlerDef, u32 move)
 {
+    u32 tempScore = NO_INCREASE;
+
+    if (((AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT) && CanAIFaintTarget(battlerAtk, battlerDef, 0))
+            || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_SLP || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_STATUS)
+        return NO_INCREASE;
+
+    if (AI_CanPutToSleep(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, AI_DATA->partnerMove))
+        tempScore += DECENT_EFFECT;
+    else
+        return NO_INCREASE;
+
+    if ((HasMoveEffect(battlerAtk, EFFECT_DREAM_EATER) || HasMoveEffect(battlerAtk, EFFECT_NIGHTMARE))
+      && !(HasMoveEffect(battlerDef, EFFECT_SNORE) || HasMoveEffect(battlerDef, EFFECT_SLEEP_TALK)))
+        tempScore += WEAK_EFFECT;
+
+    if (HasMoveEffectANDArg(battlerAtk, EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_SLEEP)
+      || HasMoveEffectANDArg(BATTLE_PARTNER(battlerAtk), EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_SLEEP))
+        tempScore += WEAK_EFFECT;
+
+    return tempScore;
+}
+
+u32 IncreasePoisonScore(u32 battlerAtk, u32 battlerDef, u32 move)
+{
+    u32 tempScore = NO_INCREASE;
+
     if (((AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT) && CanAIFaintTarget(battlerAtk, battlerDef, 0))
             || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_PSN || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_STATUS)
-        return;
+        return NO_INCREASE;
 
-    if (AI_CanPoison(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], move, AI_DATA->partnerMove) && AI_DATA->hpPercents[battlerDef] > 20)
+    if (AI_CanPoison(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, AI_DATA->partnerMove) && AI_DATA->hpPercents[battlerDef] > 20)
     {
         if (!HasDamagingMove(battlerDef))
-            ADJUST_SCORE_PTR(DECENT_EFFECT);
+            tempScore += DECENT_EFFECT;
 
         if (AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_STALL && HasMoveEffect(battlerAtk, EFFECT_PROTECT))
-            ADJUST_SCORE_PTR(WEAK_EFFECT);    // stall tactic
+            tempScore += WEAK_EFFECT;    // stall tactic
 
         if (HasMoveEffectANDArg(battlerAtk, EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_PSN_ANY)
           || HasMoveEffect(battlerAtk, EFFECT_VENOM_DRENCH)
           || AI_DATA->abilities[battlerAtk] == ABILITY_MERCILESS)
-            ADJUST_SCORE_PTR(DECENT_EFFECT);
+            tempScore += DECENT_EFFECT;
         else
-            ADJUST_SCORE_PTR(WEAK_EFFECT);
+            tempScore += WEAK_EFFECT;
     }
+
+    return tempScore;
 }
 
-void IncreaseBurnScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score)
+
+u32 IncreaseBurnScore(u32 battlerAtk, u32 battlerDef, u32 move)
 {
+    u32 tempScore = NO_INCREASE;
+
     if (((AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT) && CanAIFaintTarget(battlerAtk, battlerDef, 0))
             || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_BRN || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_STATUS)
-        return;
+        return NO_INCREASE;
 
     if (AI_CanBurn(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, AI_DATA->partnerMove))
     {
-        ADJUST_SCORE_PTR(WEAK_EFFECT); // burning is good
+        tempScore += WEAK_EFFECT; // burning is good
         if (HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_PHYSICAL))
         {
             if (CanTargetFaintAi(battlerDef, battlerAtk))
-                ADJUST_SCORE_PTR(DECENT_EFFECT); // burning the target to stay alive is cool
+                tempScore += DECENT_EFFECT; // burning the target to stay alive is cool
         }
 
         if (HasMoveEffectANDArg(battlerAtk, EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_BURN)
           || HasMoveEffectANDArg(BATTLE_PARTNER(battlerAtk), EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_BURN))
-            ADJUST_SCORE_PTR(WEAK_EFFECT);
+            tempScore += WEAK_EFFECT;
     }
+
+    return tempScore;
 }
 
-void IncreaseParalyzeScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score)
+u32 IncreaseFreezeScore(u32 battlerAtk, u32 battlerDef, u32 move)
 {
+    u32 tempScore = NO_INCREASE;
+
+    if (((AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT) && CanAIFaintTarget(battlerAtk, battlerDef, 0))
+            || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_FRZ || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_FRZ)
+        return NO_INCREASE;
+
+    if (AI_CanFreeze(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, AI_DATA->partnerMove))
+        tempScore += DECENT_EFFECT;
+    else
+        return NO_INCREASE;
+
+    if (AI_DATA->abilities[battlerDef] == ABILITY_FLASH_FIRE)
+        tempScore += WEAK_EFFECT;
+
+    if (HasMoveEffectANDArg(battlerAtk, EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_FREEZE)
+      || HasMoveEffectANDArg(BATTLE_PARTNER(battlerAtk), EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_FREEZE))
+        tempScore += WEAK_EFFECT;
+
+    return tempScore;
+}
+
+u32 IncreaseFrostbiteScore(u32 battlerAtk, u32 battlerDef, u32 move)
+{
+    u32 tempScore = NO_INCREASE;
+
+    if (((AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT) && CanAIFaintTarget(battlerAtk, battlerDef, 0))
+            || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_FRZ || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_FRZ)
+        return NO_INCREASE;
+
+    if (AI_CanGiveFrostbite(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, AI_DATA->partnerMove))
+    {
+        tempScore += WEAK_EFFECT; // frostbite is good
+        if (HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_SPECIAL))
+        {
+            if (CanTargetFaintAi(battlerDef, battlerAtk))
+                tempScore += DECENT_EFFECT; // frostbiting the target to stay alive is cool
+        }
+
+        if (HasMoveEffectANDArg(battlerAtk, EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_FROSTBITE)
+          || HasMoveEffectANDArg(BATTLE_PARTNER(battlerAtk), EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_FROSTBITE))
+                            tempScore += DECENT_EFFECT; // frostbiting the target to stay alive is cool
+                tempScore += WEAK_EFFECT;
+    }
+
+    return tempScore;
+}
+
+u32 IncreaseParalyzeScore(u32 battlerAtk, u32 battlerDef, u32 move)
+{
+    u32 tempScore = NO_INCREASE;
+
     if (((AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT) && CanAIFaintTarget(battlerAtk, battlerDef, 0))
             || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_PAR || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_STATUS)
-        return;
+        return NO_INCREASE;
 
-    if (AI_CanParalyze(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], move, AI_DATA->partnerMove))
+    if (AI_CanParalyze(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, AI_DATA->partnerMove))
     {
         u32 atkSpeed = AI_DATA->speedStats[battlerAtk];
         u32 defSpeed = AI_DATA->speedStats[battlerDef];
@@ -3764,37 +3815,21 @@ void IncreaseParalyzeScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score)
           || (HasMoveWithMoveEffectExcept(battlerAtk, MOVE_EFFECT_FLINCH, EFFECT_FIRST_TURN_ONLY)) // filter out Fake Out
           || gBattleMons[battlerDef].status2 & STATUS2_INFATUATION
           || gBattleMons[battlerDef].status2 & STATUS2_CONFUSION)
-            ADJUST_SCORE_PTR(GOOD_EFFECT);
+            tempScore += GOOD_EFFECT;
         else
-            ADJUST_SCORE_PTR(DECENT_EFFECT);
+            tempScore += DECENT_EFFECT;
     }
+
+    return tempScore;
 }
 
-void IncreaseSleepScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score)
+u32 IncreaseConfusionScore(u32 battlerAtk, u32 battlerDef, u32 move)
 {
-    if (((AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT) && CanAIFaintTarget(battlerAtk, battlerDef, 0))
-            || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_SLP || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_STATUS)
-        return;
+    u32 tempScore = NO_INCREASE;
 
-    if (AI_CanPutToSleep(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], move, AI_DATA->partnerMove))
-        ADJUST_SCORE_PTR(DECENT_EFFECT);
-    else
-        return;
-
-    if ((HasMoveEffect(battlerAtk, EFFECT_DREAM_EATER) || HasMoveEffect(battlerAtk, EFFECT_NIGHTMARE))
-      && !(HasMoveEffect(battlerDef, EFFECT_SNORE) || HasMoveEffect(battlerDef, EFFECT_SLEEP_TALK)))
-        ADJUST_SCORE_PTR(WEAK_EFFECT);
-
-    if (HasMoveEffectANDArg(battlerAtk, EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_SLEEP)
-      || HasMoveEffectANDArg(BATTLE_PARTNER(battlerAtk), EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_SLEEP))
-        ADJUST_SCORE_PTR(WEAK_EFFECT);
-}
-
-void IncreaseConfusionScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score)
-{
     if (((AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT) && CanAIFaintTarget(battlerAtk, battlerDef, 0))
             || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_CONFUSION || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_CURE_STATUS)
-        return;
+        return NO_INCREASE;
 
     if (AI_CanConfuse(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, AI_DATA->partnerMove)
       && AI_DATA->holdEffects[battlerDef] != HOLD_EFFECT_CURE_CONFUSION
@@ -3803,30 +3838,12 @@ void IncreaseConfusionScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score
         if (gBattleMons[battlerDef].status1 & STATUS1_PARALYSIS
           || gBattleMons[battlerDef].status2 & STATUS2_INFATUATION
           || (AI_DATA->abilities[battlerAtk] == ABILITY_SERENE_GRACE && HasMoveWithMoveEffectExcept(battlerAtk, MOVE_EFFECT_FLINCH, EFFECT_FIRST_TURN_ONLY)))
-            ADJUST_SCORE_PTR(GOOD_EFFECT);
+            tempScore += GOOD_EFFECT;
         else
-            ADJUST_SCORE_PTR(DECENT_EFFECT);
+            tempScore += DECENT_EFFECT;
     }
-}
 
-void IncreaseFrostbiteScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score)
-{
-    if ((AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT) && CanAIFaintTarget(battlerAtk, battlerDef, 0))
-        return;
-
-    if (AI_CanGiveFrostbite(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, AI_DATA->partnerMove))
-    {
-        ADJUST_SCORE_PTR(WEAK_EFFECT); // frostbite is good
-        if (HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_SPECIAL))
-        {
-            if (CanTargetFaintAi(battlerDef, battlerAtk))
-                ADJUST_SCORE_PTR(DECENT_EFFECT); // frostbiting the target to stay alive is cool
-        }
-
-        if (HasMoveEffectANDArg(battlerAtk, EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_FROSTBITE)
-          || HasMoveEffectANDArg(BATTLE_PARTNER(battlerAtk), EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_FROSTBITE))
-            ADJUST_SCORE_PTR(WEAK_EFFECT);
-    }
+    return tempScore;
 }
 
 bool32 AI_MoveMakesContact(u32 ability, u32 holdEffect, u32 move)

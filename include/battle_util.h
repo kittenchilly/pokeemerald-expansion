@@ -258,13 +258,14 @@ bool32 MoveHasChargeTurnAdditionalEffect(u32 move);
 bool32 CanTargetPartner(u32 battlerAtk, u32 battlerDef);
 bool32 TargetFullyImmuneToCurrMove(u32 BattlerAtk, u32 battlerDef);
 
-bool32 CanBeSlept(u32 battler, u32 ability);
+bool32 CanFallAsleep(u32 battler, u32 ability);
 bool32 CanBePoisoned(u32 battlerAtk, u32 battlerDef, u32 defAbility);
 bool32 CanBeBurned(u32 battler, u32 ability);
+bool32 CanBeFrozen(u32 battler, u32 ability);
+bool32 CanGetFrostbite(u32 battler, u32 ability);
 bool32 CanBeParalyzed(u32 battler, u32 ability);
-bool32 CanBeFrozen(u32 battler);
-bool32 CanGetFrostbite(u32 battler);
-bool32 CanBeConfused(u32 battler);
+bool32 CanBeConfused(u32 battler, u32 ability);
+bool32 CanBeInfatuated(u32 battlerAtk, u32 battlerDef, u32 defAbility);
 bool32 IsBattlerTerrainAffected(u32 battler, u32 terrainFlag);
 u32 GetBattlerAffectionHearts(u32 battler);
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);

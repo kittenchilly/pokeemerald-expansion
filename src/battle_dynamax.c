@@ -763,7 +763,7 @@ void BS_SetMaxMoveEffect(void)
         {
             static const u8 sSnoozeEffects[] = {TRUE, FALSE};
             if (!(gStatuses3[gBattlerTarget] & STATUS3_YAWN)
-                && CanBeSlept(gBattlerTarget, GetBattlerAbility(gBattlerTarget))
+                && CanFallAsleep(gBattlerTarget, GetBattlerAbility(gBattlerTarget))
                 && RandomElement(RNG_G_MAX_SNOOZE, sSnoozeEffects)) // 50% chance of success
             {
                 gStatuses3[gBattlerTarget] |= STATUS3_YAWN_TURN(2);
@@ -885,7 +885,7 @@ void BS_TrySetStatus1(void)
             }
             break;
         case STATUS1_SLEEP:
-            if (CanBeSlept(gBattlerTarget, GetBattlerAbility(gBattlerTarget)))
+            if (CanFallAsleep(gBattlerTarget, GetBattlerAbility(gBattlerTarget)))
             {
                 if (B_SLEEP_TURNS >= GEN_5)
                     gBattleMons[gBattlerTarget].status1 |=  STATUS1_SLEEP_TURN((Random() % 3) + 2);
@@ -918,7 +918,7 @@ void BS_TrySetStatus2(void)
     switch (status2)
     {
         case STATUS2_CONFUSION:
-            if (CanBeConfused(gBattlerTarget))
+            if (CanBeConfused(gBattlerTarget, GetBattlerAbility(gBattlerTarget)))
             {
                 gBattleMons[gBattlerTarget].status2 |= STATUS2_CONFUSION_TURN(((Random()) % 4) + 2);
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
@@ -928,14 +928,7 @@ void BS_TrySetStatus2(void)
             break;
         case STATUS2_INFATUATION:
         {
-            u8 atkGender = GetGenderFromSpeciesAndPersonality(gBattleMons[gBattlerAttacker].species, gBattleMons[gBattlerAttacker].personality);
-            u8 defGender = GetGenderFromSpeciesAndPersonality(gBattleMons[gBattlerTarget].species, gBattleMons[gBattlerTarget].personality);
-            if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_INFATUATION)
-                && gBattleMons[gBattlerTarget].ability != ABILITY_OBLIVIOUS
-                && !IsAbilityOnSide(gBattlerTarget, ABILITY_AROMA_VEIL)
-                && atkGender != defGender
-                && atkGender != MON_GENDERLESS
-                && defGender != MON_GENDERLESS)
+            if (CanBeInfatuated(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerTarget)))
             {
                 gBattleMons[gBattlerTarget].status2 |= STATUS2_INFATUATED_WITH(gBattlerAttacker);
                 gBattleCommunication[MULTISTRING_CHOOSER] = 1;

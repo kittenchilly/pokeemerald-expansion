@@ -1110,7 +1110,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         default:
             break;  // check move damage
         case EFFECT_SLEEP:
-            if (!AI_CanPutToSleep(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+            if (!AI_CanPutToSleep(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_EXPLOSION:
@@ -1479,7 +1479,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             //fallthrough
         case EFFECT_POISON:
         case EFFECT_TOXIC:
-            if (!AI_CanPoison(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+            if (!AI_CanPoison(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_LIGHT_SCREEN:
@@ -1522,7 +1522,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_PARALYZE:
-            if (!AI_CanParalyze(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+            if (!AI_CanParalyze(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_SUBSTITUTE:
@@ -1723,7 +1723,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-2); // mainly to prevent looping between hail and snow
             break;
         case EFFECT_ATTRACT:
-            if (!AI_CanBeInfatuated(battlerAtk, battlerDef, aiData->abilities[battlerDef]))
+            if (!AI_CanInfatuate(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_SAFEGUARD:
@@ -1855,7 +1855,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_PSYCHO_SHIFT:
-            if (gBattleMons[battlerAtk].status1 & STATUS1_PSN_ANY && !AI_CanPoison(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+            if (gBattleMons[battlerAtk].status1 & STATUS1_PSN_ANY && !AI_CanPoison(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             else if (gBattleMons[battlerAtk].status1 & STATUS1_BURN && !AI_CanBurn(battlerAtk, battlerDef,
               aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
@@ -1863,9 +1863,9 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             else if (gBattleMons[battlerAtk].status1 & STATUS1_FROSTBITE && !AI_CanGiveFrostbite(battlerAtk, battlerDef,
               aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
-            else if (gBattleMons[battlerAtk].status1 & STATUS1_PARALYSIS && !AI_CanParalyze(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+            else if (gBattleMons[battlerAtk].status1 & STATUS1_PARALYSIS && !AI_CanParalyze(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
-            else if (gBattleMons[battlerAtk].status1 & STATUS1_SLEEP && !AI_CanPutToSleep(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+            else if (gBattleMons[battlerAtk].status1 & STATUS1_SLEEP && !AI_CanPutToSleep(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             else
                 ADJUST_SCORE(-10);    // attacker has no status to transmit
@@ -1924,7 +1924,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_REST:
-            if (!CanBeSlept(battlerAtk, aiData->abilities[battlerAtk]))
+            if (!CanFallAsleep(battlerAtk, aiData->abilities[battlerAtk]))
                 ADJUST_SCORE(-10);
             //fallthrough
         case EFFECT_RESTORE_HP:
@@ -2205,7 +2205,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_YAWN:
             if (gStatuses3[battlerDef] & STATUS3_YAWN)
                 ADJUST_SCORE(-10);
-            else if (!AI_CanPutToSleep(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+            else if (!AI_CanPutToSleep(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, BATTLE_PARTNER(battlerAtk), aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_SKILL_SWAP:
@@ -2435,19 +2435,19 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                         ADJUST_SCORE(-10);
                     break;
                 case MOVE_EFFECT_PARALYSIS:
-                    if (!AI_CanParalyze(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+                    if (!AI_CanParalyze(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                         ADJUST_SCORE(-10);
                     break;
                 case MOVE_EFFECT_POISON:
-                    if (!AI_CanPoison(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+                    if (!AI_CanPoison(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                         ADJUST_SCORE(-10);
                     break;
                 case MOVE_EFFECT_TOXIC:
-                    if (!AI_CanPoison(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove))
+                    if (!AI_CanPoison(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
                         ADJUST_SCORE(-10);
                     break;
                 case MOVE_EFFECT_FREEZE:
-                    if (!CanBeFrozen(battlerDef, TRUE)
+                    if (!AI_CanFreeze(battlerAtk, battlerDef, aiData->abilities[battlerDef], BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)
                      || MoveBlockedBySubstitute(move, battlerAtk, battlerDef))
                         ADJUST_SCORE(-10);
                     break;
@@ -3020,7 +3020,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             case EFFECT_SWAGGER:
                 if (gBattleMons[battlerAtkPartner].statStages[STAT_ATK] < MAX_STAT_STAGE
                  && HasMoveWithCategory(battlerAtkPartner, DAMAGE_CATEGORY_PHYSICAL)
-                 && (!AI_CanBeConfused(battlerAtk, battlerAtkPartner, move, atkPartnerAbility)
+                 && (!CanBeConfused(battlerAtkPartner, atkPartnerAbility)
                   || atkPartnerHoldEffect == HOLD_EFFECT_CURE_CONFUSION
                   || atkPartnerHoldEffect == HOLD_EFFECT_CURE_STATUS))
                 {
@@ -3030,7 +3030,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             case EFFECT_FLATTER:
                 if (gBattleMons[battlerAtkPartner].statStages[STAT_SPATK] < MAX_STAT_STAGE
                  && HasMoveWithCategory(battlerAtkPartner, DAMAGE_CATEGORY_SPECIAL)
-                 && (!AI_CanBeConfused(battlerAtk, battlerAtkPartner, move, atkPartnerAbility)
+                 && (!CanBeConfused(battlerAtkPartner, atkPartnerAbility)
                   || atkPartnerHoldEffect == HOLD_EFFECT_CURE_CONFUSION
                   || atkPartnerHoldEffect == HOLD_EFFECT_CURE_STATUS))
                 {
@@ -3331,7 +3331,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
     {
     case EFFECT_SLEEP:
     case EFFECT_YAWN:
-        IncreaseSleepScore(battlerAtk, battlerDef, move, &score);
+        ADJUST_SCORE(IncreaseSleepScore(battlerAtk, battlerDef, move));
         break;
     case EFFECT_ABSORB:
         if (aiData->holdEffects[battlerAtk] == HOLD_EFFECT_BIG_ROOT && effectiveness >= AI_EFFECTIVENESS_x1)
@@ -3562,7 +3562,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         break;
     case EFFECT_TOXIC:
     case EFFECT_POISON:
-        IncreasePoisonScore(battlerAtk, battlerDef, move, &score);
+        ADJUST_SCORE(IncreasePoisonScore(battlerAtk, battlerDef, move));
         break;
     case EFFECT_LIGHT_SCREEN:
     case EFFECT_REFLECT:
@@ -3575,7 +3575,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         }
         break;
     case EFFECT_REST:
-        if (!(CanBeSlept(battlerAtk, aiData->abilities[battlerAtk])))
+        if (!(CanFallAsleep(battlerAtk, aiData->abilities[battlerAtk])))
         {
             break;
         }
@@ -3610,10 +3610,10 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
             ADJUST_SCORE(GOOD_EFFECT);
         break;
     case EFFECT_CONFUSE:
-        IncreaseConfusionScore(battlerAtk, battlerDef, move, &score);
+        ADJUST_SCORE(IncreaseConfusionScore(battlerAtk, battlerDef, move));
         break;
     case EFFECT_PARALYZE:
-        IncreaseParalyzeScore(battlerAtk, battlerDef, move, &score);
+        ADJUST_SCORE(IncreaseParalyzeScore(battlerAtk, battlerDef, move));
         break;
     case EFFECT_SUBSTITUTE:
     case EFFECT_SHED_TAIL:
@@ -3944,7 +3944,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
             ADJUST_SCORE(DECENT_EFFECT);
         if (aiData->abilities[battlerDef] == ABILITY_CONTRARY)
             ADJUST_SCORE(GOOD_EFFECT);
-        IncreaseConfusionScore(battlerAtk, battlerDef, move, &score);
+        ADJUST_SCORE(IncreaseConfusionScore(battlerAtk, battlerDef, move));
         break;
     case EFFECT_FURY_CUTTER:
         if (!isDoubleBattle && aiData->holdEffects[battlerAtk] == HOLD_EFFECT_METRONOME)
@@ -3996,7 +3996,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
     case EFFECT_TORMENT:
         break;
     case EFFECT_WILL_O_WISP:
-        IncreaseBurnScore(battlerAtk, battlerDef, move, &score);
+        ADJUST_SCORE(IncreaseBurnScore(battlerAtk, battlerDef, move));
         break;
     case EFFECT_FOLLOW_ME:
         if (isDoubleBattle
@@ -4208,16 +4208,18 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
             ADJUST_SCORE(DECENT_EFFECT);
         break;
     case EFFECT_PSYCHO_SHIFT:
-        if (gBattleMons[battlerAtk].status1 & STATUS1_PSN_ANY)
-            IncreasePoisonScore(battlerAtk, battlerDef, move, &score);
+        if (gBattleMons[battlerAtk].status1 & STATUS1_SLEEP)
+            ADJUST_SCORE(IncreaseSleepScore(battlerAtk, battlerDef, move));
+        else if (gBattleMons[battlerAtk].status1 & STATUS1_PSN_ANY)
+            ADJUST_SCORE(IncreasePoisonScore(battlerAtk, battlerDef, move));
         else if (gBattleMons[battlerAtk].status1 & STATUS1_BURN)
-            IncreaseBurnScore(battlerAtk, battlerDef, move, &score);
-        else if (gBattleMons[battlerAtk].status1 & STATUS1_PARALYSIS)
-            IncreaseParalyzeScore(battlerAtk, battlerDef, move, &score);
-        else if (gBattleMons[battlerAtk].status1 & STATUS1_SLEEP)
-            IncreaseSleepScore(battlerAtk, battlerDef, move, &score);
+            ADJUST_SCORE(IncreaseBurnScore(battlerAtk, battlerDef, move));
+        else if (gBattleMons[battlerAtk].status1 & STATUS1_FREEZE)
+            ADJUST_SCORE(IncreaseFreezeScore(battlerAtk, battlerDef, move));
         else if (gBattleMons[battlerAtk].status1 & STATUS1_FROSTBITE)
-            IncreaseFrostbiteScore(battlerAtk, battlerDef, move, &score);
+            ADJUST_SCORE(IncreaseFrostbiteScore(battlerAtk, battlerDef, move));
+        else if (gBattleMons[battlerAtk].status1 & STATUS1_PARALYSIS)
+            ADJUST_SCORE(IncreaseParalyzeScore(battlerAtk, battlerDef, move));
         break;
     case EFFECT_GRUDGE:
         break;
@@ -4380,7 +4382,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         if (!(gFieldStatuses & STATUS_FIELD_GRAVITY))
         {
             if (HasSleepMoveWithLowAccuracy(battlerAtk, battlerDef)) // Has Gravity for a move like Hypnosis
-                IncreaseSleepScore(battlerAtk, battlerDef, move, &score);
+                ADJUST_SCORE(IncreaseSleepScore(battlerAtk, battlerDef, move));
             if (HasMoveWithLowAccuracy(battlerAtk, battlerDef, 90, FALSE, aiData->abilities[battlerAtk], aiData->abilities[battlerDef], aiData->holdEffects[battlerAtk], aiData->holdEffects[battlerDef]))
                 ADJUST_SCORE(DECENT_EFFECT);
         }
@@ -4397,17 +4399,17 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         switch (gFlingTable[aiData->items[battlerAtk]].effect)
         {
         case MOVE_EFFECT_BURN:
-            IncreaseBurnScore(battlerAtk, battlerDef, move, &score);
+            ADJUST_SCORE(IncreaseBurnScore(battlerAtk, battlerDef, move));
             break;
         case MOVE_EFFECT_FLINCH:
             score += ShouldTryToFlinch(battlerAtk, battlerDef, aiData->abilities[battlerAtk], aiData->abilities[battlerDef], move);
             break;
         case MOVE_EFFECT_PARALYSIS:
-            IncreaseParalyzeScore(battlerAtk, battlerDef, move, &score);
+            ADJUST_SCORE(IncreaseParalyzeScore(battlerAtk, battlerDef, move));
             break;
         case MOVE_EFFECT_POISON:
         case MOVE_EFFECT_TOXIC:
-            IncreasePoisonScore(battlerAtk, battlerDef, move, &score);
+            ADJUST_SCORE(IncreasePoisonScore(battlerAtk, battlerDef, move));
             break;
         case MOVE_EFFECT_FREEZE:
             if (AI_CanFreeze(battlerAtk, battlerDef))
@@ -4496,7 +4498,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
             ADJUST_SCORE(DECENT_EFFECT);
         break;
     case EFFECT_TOXIC_THREAD:
-        IncreasePoisonScore(battlerAtk, battlerDef, move, &score);
+        ADJUST_SCORE(IncreasePoisonScore(battlerAtk, battlerDef, move));
         ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_SPEED));
         break;
     case EFFECT_COUNTER:
@@ -4667,7 +4669,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
                         ADJUST_SCORE(DECENT_EFFECT);
                     break;
                 case MOVE_EFFECT_POISON:
-                    IncreasePoisonScore(battlerAtk, battlerDef, move, &score);
+                    ADJUST_SCORE(IncreasePoisonScore(battlerAtk, battlerDef, move));
                     break;
                 case MOVE_EFFECT_CLEAR_SMOG:
                     score += AI_TryToClearStats(battlerAtk, battlerDef, FALSE);
