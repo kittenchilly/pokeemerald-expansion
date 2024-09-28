@@ -2171,9 +2171,9 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 400 : 350,
         .holdEffectParam = 100,
         .description = COMPOUND_STRING(
-            "Repels weak wild\n"
-            "Pokémon for 100\n"
-            "steps."),
+            "Repels low-level\n"
+            "wild Pokémon for\n"
+            "100 steps."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Repel,
@@ -2188,9 +2188,9 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 700 : 500,
         .holdEffectParam = 200,
         .description = COMPOUND_STRING(
-            "Repels weak wild\n"
-            "Pokémon for 200\n"
-            "steps."),
+            "Repels low-level\n"
+            "wild Pokémon for\n"
+            "200 steps."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Repel,
@@ -2205,9 +2205,9 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 900 : 700,
         .holdEffectParam = 250,
         .description = COMPOUND_STRING(
-            "Repels weak wild\n"
-            "Pokémon for 250\n"
-            "steps."),
+            "Repels low-level\n"
+            "wild Pokémon for\n"
+            "250 steps."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Repel,
@@ -2222,8 +2222,8 @@ const struct Item gItemsInfo[] =
         .price = 400,
         .holdEffectParam = 100,
         .description = COMPOUND_STRING(
-            "Makes Pokémon more\n"
-            "likely to appear\n"
+            "A perfume that\n"
+            "lures rare Pokémon\n"
             "for 100 steps."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2240,8 +2240,8 @@ const struct Item gItemsInfo[] =
         .price = 700,
         .holdEffectParam = 200,
         .description = COMPOUND_STRING(
-            "Makes Pokémon more\n"
-            "likely to appear\n"
+            "A perfume that\n"
+            "lures rare Pokémon\n"
             "for 200 steps."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2258,8 +2258,8 @@ const struct Item gItemsInfo[] =
         .price = 900,
         .holdEffectParam = 250,
         .description = COMPOUND_STRING(
-            "Makes Pokémon more\n"
-            "likely to appear\n"
+            "A perfume that\n"
+            "lures rare Pokémon\n"
             "for 250 steps."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
