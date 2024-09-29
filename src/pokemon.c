@@ -912,7 +912,7 @@ static const u8 sGetMonDataEVConstants[] =
 // For stat-raising items
 static const u8 sStatsToRaise[] =
 {
-    STAT_ATK, STAT_ATK, STAT_DEF, STAT_SPEED, STAT_SPATK, STAT_SPDEF, STAT_ACC
+    STAT_ATK, STAT_ATK, STAT_DEF, STAT_SPEED, STAT_SPATK, STAT_SPDEF, STAT_ACC, STAT_EVASION
 };
 
 // 3 modifiers each for how much to change friendship for different ranges
@@ -4364,6 +4364,9 @@ u8 *UseStatIncreaseItem(u16 itemId)
             break;
         case ITEM1_X_ACCURACY:
             BufferStatRoseMessage(STAT_ACC);
+            break;
+        case ITEM1_AUX_EVASION:
+            BufferStatRoseMessage(STAT_EVASION);
             break;
     }
 

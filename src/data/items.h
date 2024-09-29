@@ -13861,6 +13861,7 @@ const struct Item gItemsInfo[] =
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
         .battleUsage = EFFECT_ITEM_CURE_STATUS,
+        .effect = gItemEffect_FullHeal,
         .flingPower = 30,
         .iconPic = gItemIcon_JubilifeMuffin,
         .iconPalette = gItemIconPalette_JubilifeMuffin,
@@ -13945,7 +13946,8 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        //.effect = currently missing
+        .battleUsage = EFFECT_ITEM_INCREASE_STAT,
+        .effect = gItemEffect_AuxEvasion,
         .iconPic = gItemIcon_AuxBottle,
         .iconPalette = gItemIconPalette_AuxEvasion,
     },

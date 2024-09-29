@@ -13,6 +13,7 @@
 #define ITEM1_X_SPATK           STAT_SPATK
 #define ITEM1_X_SPDEF           STAT_SPDEF
 #define ITEM1_X_ACCURACY        STAT_ACC
+#define ITEM1_AUX_EVASION       STAT_EVASION
 
 // field 3 masks
 #define ITEM3_CONFUSION         0x1

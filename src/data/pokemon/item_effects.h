@@ -390,6 +390,12 @@ const u8 gItemEffect_XSpecialDefense[8] = {
     STAT_BOOST_FRIENDSHIP_CHANGE,
 };
 
+const u8 gItemEffect_AuxEvasion[8] = {
+    [1] = ITEM1_AUX_EVASION,
+    [5] = ITEM5_FRIENDSHIP_LOW | ITEM5_FRIENDSHIP_MID,
+    STAT_BOOST_FRIENDSHIP_CHANGE,
+};
+
 const u8 gItemEffect_EvoItem[6] = {
     [4] = ITEM4_EVO_STONE,
 };
