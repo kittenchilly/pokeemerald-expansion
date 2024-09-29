@@ -25,6 +25,7 @@ gBattlescriptsForUsingItem::
 	.4byte BattleScript_ItemRestoreHP                @ EFFECT_ITEM_REVIVE
 	.4byte BattleScript_ItemRestorePP                @ EFFECT_ITEM_RESTORE_PP
 	.4byte BattleScript_ItemIncreaseAllStats         @ EFFECT_ITEM_INCREASE_ALL_STATS
+	.4byte BattleScript_ItemSetPowerTrick            @ EFFECT_ITEM_SET_POWER_TRICK
 
 	.align 2
 gBattlescriptsForSafariActions::
@@ -140,6 +141,15 @@ BattleScript_ItemRestorePP::
 BattleScript_ItemIncreaseAllStats::
 	call BattleScript_UseItemMessage
 	call BattleScript_AllStatsUp
+	end
+
+BattleScript_ItemSetPowerTrick::
+	call BattleScript_UseItemMessage
+	powertrick BS_ATTACKER
+	playmoveanimation BS_ATTACKER, MOVE_POWER_TRICK
+	waitanimation
+	printstring STRINGID_PKMNSWITCHEDATKANDDEF
+	waitmessage B_WAIT_TIME_LONG
 	end
 
 BattleScript_BallThrow::

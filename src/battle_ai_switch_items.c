@@ -2244,6 +2244,13 @@ static bool32 ShouldUseItem(u32 battler)
             if (gDisableStructs[battler].isFirstTurn && gSideTimers[battlerSide].mistTimer == 0)
                 shouldUse = TRUE;
             break;
+        case EFFECT_ITEM_SET_POWER_TRICK:
+            if (gStatuses3[battler] & STATUS3_POWER_TRICK
+            || gBattleMons[battler].attack > gBattleMons[battler].defense
+            || !(HasMoveWithCategory(battler, DAMAGE_CATEGORY_PHYSICAL)))
+                break;
+            shouldUse = TRUE;
+            break;
         case EFFECT_ITEM_REVIVE:
             gBattleStruct->itemPartyIndex[battler] = GetFirstFaintedPartyIndex(battler);
             if (gBattleStruct->itemPartyIndex[battler] != PARTY_SIZE) // Revive if possible.

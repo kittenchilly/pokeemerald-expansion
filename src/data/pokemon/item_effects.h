@@ -349,7 +349,7 @@ const u8 gItemEffect_GuardSpec[8] = {
 // The full constant is commented next to it
 
 const u8 gItemEffect_DireHit[8] = {
-    [0] = 1 << 5, // ITEM0_DIRE_HIT
+    [0] = ITEM0_DIRE_HIT,
     [5] = ITEM5_FRIENDSHIP_LOW | ITEM5_FRIENDSHIP_MID,
     STAT_BOOST_FRIENDSHIP_CHANGE,
 };
@@ -394,6 +394,10 @@ const u8 gItemEffect_AuxEvasion[8] = {
     [1] = ITEM1_AUX_EVASION,
     [5] = ITEM5_FRIENDSHIP_LOW | ITEM5_FRIENDSHIP_MID,
     STAT_BOOST_FRIENDSHIP_CHANGE,
+};
+
+const u8 gItemEffect_SwapSnack[8] = {
+    [0] = ITEM0_SWAP_SNACK,
 };
 
 const u8 gItemEffect_EvoItem[6] = {

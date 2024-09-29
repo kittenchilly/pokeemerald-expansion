@@ -14040,7 +14040,8 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        //.effect = currently missing
+        .battleUsage = EFFECT_ITEM_SET_POWER_TRICK,
+        .effect = gItemEffect_SwapSnack,
         .iconPic = gItemIcon_SwapSnack,
         .iconPalette = gItemIconPalette_SwapSnack,
     },

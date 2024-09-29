@@ -6605,7 +6605,7 @@ u8 GetItemEffectType(u16 item)
     if (itemEffect == NULL)
         return ITEM_EFFECT_NONE;
 
-    if ((itemEffect[0] & ITEM0_DIRE_HIT) || itemEffect[1] || (itemEffect[3] & ITEM3_GUARD_SPEC))
+    if ((itemEffect[0] & ITEM0_DIRE_HIT) || (itemEffect[0] & ITEM0_SWAP_SNACK) || itemEffect[1] || (itemEffect[3] & ITEM3_GUARD_SPEC))
         return ITEM_EFFECT_X_ITEM;
     else if (itemEffect[0] & ITEM0_SACRED_ASH)
         return ITEM_EFFECT_SACRED_ASH;
