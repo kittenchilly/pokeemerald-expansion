@@ -8,7 +8,6 @@
 rng_value_t gRngValue;
 rng_value_t gRng2Value;
 
-#if HQ_RANDOM == TRUE
 
 EWRAM_DATA static volatile bool8 sRngLoopUnlocked;
 
@@ -41,7 +40,8 @@ static void SFC32_Seed(struct Sfc32State *state, u32 seed, u8 stream)
 }
 
 /*This ASM implementation uses some shortcuts and is generally faster on the GBA.
-* It's not necessarily faster if inlined, or on other platforms. */
+* It's not necessarily faster if inlined, or on other platforms.
+* In addition, it's extremely non-portable. */
 u32 NAKED Random32(void)
 {
     asm(".thumb\n\
@@ -49,7 +49,7 @@ u32 NAKED Random32(void)
     mov r6, #11\n\
     ldr r5, =gRngValue\n\
     ldmia r5!, {r1, r2, r3, r4}\n\
-    @ e (result) = a + b + d++\n\
+    @ result = a + b + (d+=STREAM1)\n\
     add r1, r1, r2\n\
     add r0, r1, r4\n\
     add r4, r4, #" STR(STREAM1) "\n\
@@ -59,7 +59,7 @@ u32 NAKED Random32(void)
     @ b = c + (c << 3) [c * 9]\n\
     lsl r2, r3, #3\n\
     add r2, r2, r3\n\
-    @ c = rol(c, 21) + e\n\
+    @ c = rol(c, 21) + result\n\
     ror r3, r3, r6\n\
     add r3, r3, r0\n\
     sub r5, r5, #16\n\
@@ -90,6 +90,13 @@ void SeedRng2(u32 seed)
     SFC32_Seed(&gRng2Value, seed, STREAM2);
 }
 
+rng_value_t LocalRandomSeed(u32 seed)
+{
+    rng_value_t result;
+    SFC32_Seed(&result, seed, STREAM1);
+    return result;
+}
+
 void AdvanceRandom(void)
 {
     if (sRngLoopUnlocked == TRUE)
@@ -103,39 +110,6 @@ void AdvanceRandom(void)
 #define LOOP_RANDOM_END sRngLoopUnlocked = TRUE;
 
 #define LOOP_RANDOM ((u16)(_SFC32_Next(state) >> 16))
-
-#else
-EWRAM_DATA static u32 sRandCount = 0;
-
-u16 Random(void)
-{
-    gRngValue = ISO_RANDOMIZE1(gRngValue);
-    sRandCount++;
-    return gRngValue >> 16;
-}
-
-void SeedRng(u16 seed)
-{
-    gRngValue = seed;
-}
-
-void SeedRng2(u16 seed)
-{
-    gRng2Value = seed;
-}
-
-u16 Random2(void)
-{
-    gRng2Value = ISO_RANDOMIZE1(gRng2Value);
-    return gRng2Value >> 16;
-}
-
-#define LOOP_RANDOM_START
-#define LOOP_RANDOM_END
-
-#define LOOP_RANDOM (Random())
-
-#endif
 
 #define SHUFFLE_IMPL \
     u32 tmp; \
@@ -230,4 +204,23 @@ u32 RandomWeightedArrayDefault(enum RandomTag tag, u32 sum, u32 n, const u8 *wei
 const void *RandomElementArrayDefault(enum RandomTag tag, const void *array, size_t size, size_t count)
 {
     return (const u8 *)array + size * RandomUniformDefault(tag, 0, count - 1);
+}
+
+// Returns a random index according to a list of weights
+u8 RandomWeightedIndex(u8 *weights, u8 length)
+{
+    u32 i;
+    u16 randomValue;
+    u16 weightSum = 0;
+    for (i = 0; i < length; i++)
+        weightSum += weights[i];
+    randomValue = weightSum > 0 ? Random() % weightSum : 0;
+    weightSum = 0;
+    for (i = 0; i < length; i++)
+    {
+        weightSum += weights[i];
+        if (randomValue <= weightSum)
+            return i;
+    }
+    return 0;
 }

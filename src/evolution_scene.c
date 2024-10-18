@@ -258,7 +258,7 @@ void EvolutionScene(struct Pokemon *mon, u16 postEvoSpecies, bool8 canStopEvo, u
     currSpecies = GetMonData(mon, MON_DATA_SPECIES);
     isShiny = GetMonData(mon, MON_DATA_IS_SHINY);
     personality = GetMonData(mon, MON_DATA_PERSONALITY);
-    LoadSpecialPokePic(gMonSpritesGfxPtr->sprites.ptr[B_POSITION_OPPONENT_LEFT],
+    LoadSpecialPokePic(gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT],
                         currSpecies,
                         personality,
                         TRUE);
@@ -273,7 +273,7 @@ void EvolutionScene(struct Pokemon *mon, u16 postEvoSpecies, bool8 canStopEvo, u
     gSprites[id].invisible = TRUE;
 
     // postEvo sprite
-    LoadSpecialPokePic(gMonSpritesGfxPtr->sprites.ptr[B_POSITION_OPPONENT_RIGHT],
+    LoadSpecialPokePic(gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_RIGHT],
                         postEvoSpecies,
                         personality,
                         TRUE);
@@ -350,7 +350,7 @@ static void CB2_EvolutionSceneLoadGraphics(void)
     FreeAllSpritePalettes();
     gReservedSpritePaletteCount = 4;
 
-    LoadSpecialPokePic(gMonSpritesGfxPtr->sprites.ptr[B_POSITION_OPPONENT_RIGHT],
+    LoadSpecialPokePic(gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_RIGHT],
                         postEvoSpecies,
                         personality,
                         TRUE);
@@ -420,7 +420,7 @@ static void CB2_TradeEvolutionSceneLoadGraphics(void)
         {
             bool8 isShiny = GetMonData(mon, MON_DATA_IS_SHINY);
             u32 personality = GetMonData(mon, MON_DATA_PERSONALITY);
-            LoadSpecialPokePic(gMonSpritesGfxPtr->sprites.ptr[B_POSITION_OPPONENT_RIGHT],
+            LoadSpecialPokePic(gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_RIGHT],
                                 postEvoSpecies,
                                 personality,
                                 TRUE);
@@ -484,7 +484,7 @@ void TradeEvolutionScene(struct Pokemon *mon, u16 postEvoSpecies, u8 preEvoSprit
     sEvoStructPtr = AllocZeroed(sizeof(struct EvoInfo));
     sEvoStructPtr->preEvoSpriteId = preEvoSpriteId;
 
-    LoadSpecialPokePic(gMonSpritesGfxPtr->sprites.ptr[B_POSITION_OPPONENT_LEFT],
+    LoadSpecialPokePic(gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT],
                         postEvoSpecies,
                         personality,
                         TRUE);
@@ -545,19 +545,13 @@ static void CB2_TradeEvolutionSceneUpdate(void)
 static void CreateShedinja(u16 preEvoSpecies, struct Pokemon *mon)
 {
     u32 data = 0;
-    #if P_SHEDINJA_BALL >= GEN_4
-        u16 ball = ITEM_POKE_BALL;
-    #endif
+    u16 ball = ITEM_POKE_BALL;
     const struct Evolution *evolutions = GetSpeciesEvolutions(preEvoSpecies);
 
     if (evolutions == NULL)
         return;
 
-    if (evolutions[0].method == EVO_LEVEL_NINJASK && gPlayerPartyCount < PARTY_SIZE
-    #if P_SHEDINJA_BALL >= GEN_4
-        && (CheckBagHasItem(ball, 1))
-    #endif
-    )
+    if (evolutions[0].method == EVO_LEVEL_NINJASK && gPlayerPartyCount < PARTY_SIZE && (P_SHEDINJA_BALL < GEN_4 || CheckBagHasItem(ball, 1)))
     {
         s32 i;
         struct Pokemon *shedinja = &gPlayerParty[gPlayerPartyCount];
@@ -567,10 +561,11 @@ static void CreateShedinja(u16 preEvoSpecies, struct Pokemon *mon)
         SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_NICKNAME, GetSpeciesName(evolutions[1].targetSpecies));
         SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_HELD_ITEM, &data);
         SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_MARKINGS, &data);
-    #if P_SHEDINJA_BALL >= GEN_4
-        SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_POKEBALL, &ball);
-        RemoveBagItem(ball, 1);
-    #endif
+        if (P_SHEDINJA_BALL >= GEN_4)
+        {
+            SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_POKEBALL, &ball);
+            RemoveBagItem(ball, 1);
+        }
 
         for (i = MON_DATA_COOL_RIBBON; i < MON_DATA_COOL_RIBBON + CONTEST_CATEGORIES_COUNT; i++)
             SetMonData(&gPlayerParty[gPlayerPartyCount], i, &data);
@@ -769,11 +764,13 @@ static void Task_EvolutionScene(u8 taskId)
     case EVOSTATE_SET_MON_EVOLVED:
         if (IsCryFinished())
         {
+            u32 zero = 0;
             StringExpandPlaceholders(gStringVar4, gText_CongratsPkmnEvolved);
             BattlePutTextOnWindow(gStringVar4, B_WIN_MSG);
             PlayBGM(MUS_EVOLVED);
             gTasks[taskId].tState++;
             SetMonData(mon, MON_DATA_SPECIES, (void *)(&gTasks[taskId].tPostEvoSpecies));
+            SetMonData(mon, MON_DATA_EVOLUTION_TRACKER, &zero);
             CalculateMonStats(mon);
             EvolutionRenameMon(mon, gTasks[taskId].tPreEvoSpecies, gTasks[taskId].tPostEvoSpecies);
             GetSetPokedexFlag(SpeciesToNationalPokedexNum(gTasks[taskId].tPostEvoSpecies), FLAG_SET_SEEN);
@@ -1188,11 +1185,13 @@ static void Task_TradeEvolutionScene(u8 taskId)
     case T_EVOSTATE_SET_MON_EVOLVED:
         if (IsCryFinished())
         {
+            u32 zero = 0;
             StringExpandPlaceholders(gStringVar4, gText_CongratsPkmnEvolved);
             DrawTextOnTradeWindow(0, gStringVar4, 1);
             PlayFanfare(MUS_EVOLVED);
             gTasks[taskId].tState++;
             SetMonData(mon, MON_DATA_SPECIES, (&gTasks[taskId].tPostEvoSpecies));
+            SetMonData(mon, MON_DATA_EVOLUTION_TRACKER, &zero);
             CalculateMonStats(mon);
             EvolutionRenameMon(mon, gTasks[taskId].tPreEvoSpecies, gTasks[taskId].tPostEvoSpecies);
             GetSetPokedexFlag(SpeciesToNationalPokedexNum(gTasks[taskId].tPostEvoSpecies), FLAG_SET_SEEN);

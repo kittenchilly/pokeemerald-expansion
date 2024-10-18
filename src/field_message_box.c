@@ -5,8 +5,11 @@
 #include "text.h"
 #include "match_call.h"
 #include "field_message_box.h"
+#include "text_window.h"
+#include "script.h"
 
 static EWRAM_DATA u8 sFieldMessageBoxMode = 0;
+EWRAM_DATA u8 gWalkAwayFromSignpostTimer = 0;
 
 static void ExpandStringAndStartDrawFieldMessage(const u8 *, bool32);
 static void StartDrawFieldMessage(void);
@@ -29,7 +32,12 @@ static void Task_DrawFieldMessage(u8 taskId)
     switch (task->tState)
     {
         case 0:
-           LoadMessageBoxAndBorderGfx();
+            if (gMsgIsSignPost)
+                LoadSignPostWindowFrameGfx();
+            else
+                LoadMessageBoxAndBorderGfx();
+            task->tState++;
+            break;
            task->tState++;
            break;
         case 1:
@@ -117,15 +125,7 @@ bool8 ShowFieldMessageFromBuffer(void)
 
 static void ExpandStringAndStartDrawFieldMessage(const u8 *str, bool32 allowSkippingDelayWithButtonPress)
 {
-    if (DECAP_ENABLED && DECAP_MIRRORING && !DECAP_FIELD_MSG)
-    {
-        gStringVar4[0] = CHAR_FIXED_CASE;
-        StringExpandPlaceholders(gStringVar4+1, str);
-    }
-    else
-    {
-        StringExpandPlaceholders(gStringVar4, str);
-    }
+    StringExpandPlaceholders(gStringVar4, str);
     AddTextPrinterForMessage(allowSkippingDelayWithButtonPress);
     CreateTask_DrawFieldMessage();
 }

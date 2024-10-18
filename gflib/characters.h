@@ -53,6 +53,7 @@
 #define CHAR_EQUALS            0x35
 #define CHAR_SEMICOLON         0x36
 #define CHAR_BARD_WORD_DELIMIT 0x37 // Empty space to separate words in Bard's song
+#define CHAR_V_D_ARROW         0x38
 #define CHAR_INV_QUESTION_MARK 0x51
 #define CHAR_INV_EXCL_MARK     0x52
 #define CHAR_PK                0x53
@@ -77,9 +78,6 @@
 #define CHAR_DOWN_ARROW        0x7A
 #define CHAR_LEFT_ARROW        0x7B
 #define CHAR_RIGHT_ARROW       0x7C
-// Case-fixing characters
-#define CHAR_FIXED_CASE        0x7D
-#define CHAR_UNFIX_CASE        0x7E
 //
 #define CHAR_SUPER_E           0x84
 #define CHAR_LESS_THAN         0x85
@@ -265,10 +263,6 @@
 #define PLACEHOLDER_ID_MAXIE         0xB
 #define PLACEHOLDER_ID_KYOGRE        0xC
 #define PLACEHOLDER_ID_GROUDON       0xD
-// Fixed-case placeholders
-// These behave the same as their (id & 0x7F),
-// but prepend CHAR_FIXED_CASE
-#define PLACEHOLDER_FIXED_MASK       0x80
 
 // battle placeholders are located in battle_message.h
 

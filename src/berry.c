@@ -1817,6 +1817,8 @@ bool32 BerryTreeGrow(struct BerryTree *tree)
         tree->stage = BERRY_STAGE_BERRIES;
         break;
     case BERRY_STAGE_BERRIES:
+        if (OW_BERRY_IMMORTAL)
+            break;
         tree->watered = 0;
         tree->berryYield = 0;
         tree->stage = BERRY_STAGE_SPROUTED;
@@ -1842,16 +1844,16 @@ static u16 GetMulchAffectedGrowthRate(u16 berryDuration, u8 mulch, u8 stage)
 void BerryTreeTimeUpdate(s32 minutes)
 {
     int i;
-    u8 drainVal;
+    u32 drainVal;
     struct BerryTree *tree;
 
     for (i = 0; i < BERRY_TREES_COUNT; i++)
     {
         tree = &gSaveBlock1Ptr->berryTrees[i];
 
-        if (tree->berry && tree->stage && !tree->stopGrowth)
+        if (tree->berry && tree->stage && !tree->stopGrowth && (!OW_BERRY_IMMORTAL || tree->stage != BERRY_STAGE_BERRIES))
         {
-            if (minutes >= GetStageDurationByBerryType(tree->berry) * 71)
+            if ((!OW_BERRY_IMMORTAL) && (minutes >= GetStageDurationByBerryType(tree->berry) * 71))
             {
                 *tree = gBlankBerryTree;
             }
@@ -2142,6 +2144,8 @@ void ObjectEventInteractionGetBerryCountString(void)
     u8 treeId = GetObjectEventBerryTreeId(gSelectedObjectEvent);
     u8 berry = GetBerryTypeByBerryTreeId(treeId);
     u8 count = GetBerryCountByBerryTreeId(treeId);
+
+    gSpecialVar_0x8006 = BerryTypeToItemId(berry);
     CopyItemNameHandlePlural(BerryTypeToItemId(berry), gStringVar1, count);
     berry = GetTreeMutationValue(treeId);
     if (berry > 0)
@@ -2295,8 +2299,6 @@ bool8 PlayerHasMulch(void)
 }
 
 #if OW_BERRY_MUTATIONS == TRUE
-#define BERRY_MUTATION_CHANCE 25
-
 static const u8 sBerryMutations[][3] = {
     {ITEM_TO_BERRY(ITEM_IAPAPA_BERRY), ITEM_TO_BERRY(ITEM_MAGO_BERRY),   ITEM_TO_BERRY(ITEM_POMEG_BERRY)},
     {ITEM_TO_BERRY(ITEM_CHESTO_BERRY), ITEM_TO_BERRY(ITEM_PERSIM_BERRY), ITEM_TO_BERRY(ITEM_KELPSY_BERRY)},
@@ -2353,7 +2355,7 @@ static u8 TryForMutation(u8 berryTreeId, u8 berry)
         {
             x2 = gObjectEvents[j].currentCoords.x;
             y2 = gObjectEvents[j].currentCoords.y;
-            if (Random() % 100 < (BERRY_MUTATION_CHANCE * (mulch == ITEM_TO_MULCH(ITEM_SURPRISE_MULCH) || mulch == ITEM_TO_MULCH(ITEM_AMAZE_MULCH))) && (
+            if (Random() % 100 < (OW_BERRY_MUTATION_CHANCE * (mulch == ITEM_TO_MULCH(ITEM_SURPRISE_MULCH) || mulch == ITEM_TO_MULCH(ITEM_AMAZE_MULCH))) && (
                 (x1 == x2 && y1 == y2 - 1) ||
                 (x1 == x2 && y1 == y2 + 1) ||
                 (x1 == x2 - 1 && y1 == y2) ||
@@ -2385,6 +2387,9 @@ static u8 GetTreeMutationValue(u8 id)
         return 0;
     myMutation.asField.a = tree->mutationA;
     myMutation.asField.b = tree->mutationB;
+    myMutation.asField.unused = 0;
+    if (myMutation.value == 0) // no mutation
+        return 0;
     return sBerryMutations[myMutation.value - 1][2];
 #else
     return 0;
@@ -2419,7 +2424,7 @@ static u16 GetBerryPestSpecies(u8 berryId)
             return P_FAMILY_VOLBEAT_ILLUMISE ? SPECIES_ILLUMISE : SPECIES_NONE;
             break;
         case BERRY_COLOR_GREEN:
-            return P_FAMILY_BURMY ? SPECIES_BURMY_PLANT_CLOAK : SPECIES_NONE;
+            return P_FAMILY_BURMY ? SPECIES_BURMY_PLANT : SPECIES_NONE;
             break;
         case BERRY_COLOR_YELLOW:
             return P_FAMILY_COMBEE ? SPECIES_COMBEE : SPECIES_NONE;

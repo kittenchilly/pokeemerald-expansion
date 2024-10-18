@@ -142,8 +142,8 @@ SINGLE_BATTLE_TEST("Rage Fist base power is not increased if a substitute was hi
         HP_BAR(opponent, captureDamage: &timesGotHit[0]);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SUBSTITUTE, player);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_CRUNCH, opponent);
-        MESSAGE("The SUBSTITUTE took damage for Wobbuffet!");
-        MESSAGE("Wobbuffet's SUBSTITUTE faded!");
+        MESSAGE("The substitute took damage for Wobbuffet!");
+        MESSAGE("Wobbuffet's substitute faded!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_RAGE_FIST, player);
         HP_BAR(opponent, captureDamage: &timesGotHit[1]);
     } THEN {
@@ -167,9 +167,9 @@ SINGLE_BATTLE_TEST("Rage Fist base power is not lost if user switches out")
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_RAGE_FIST, player);
         HP_BAR(opponent, captureDamage: &timesGotHit[0]);
-        MESSAGE("Wobbuffet, that's enough! Come back!");
+        SWITCH_OUT_MESSAGE("Wobbuffet");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_TACKLE, opponent);
-        MESSAGE("Wynaut, that's enough! Come back!");
+        SWITCH_OUT_MESSAGE("Wynaut");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_RAGE_FIST, player);
         HP_BAR(opponent, captureDamage: &timesGotHit[1]);
     } THEN {
@@ -241,7 +241,7 @@ SINGLE_BATTLE_TEST("Rage Fist base power is not increased if move had no affect"
         for (turns = 0; turns < 2; turns++) {
             ANIMATION(ANIM_TYPE_MOVE, MOVE_RAGE_FIST, player);
             HP_BAR(opponent, captureDamage: &timesGotHit[turns]);
-            MESSAGE("Foe Regirock used Tackle!");
+            MESSAGE("The opposing Regirock used Tackle!");
             MESSAGE("It doesn't affect Gastly…");
         }
     } THEN {
@@ -252,9 +252,13 @@ SINGLE_BATTLE_TEST("Rage Fist base power is not increased if move had no affect"
 SINGLE_BATTLE_TEST("Rage Fist base power is increased if Disguise breaks")
 {
     s16 timesGotHit[2];
+    u16 species = SPECIES_NONE;
+
+    PARAMETRIZE { species = SPECIES_MIMIKYU_DISGUISED; }
+    PARAMETRIZE { species = SPECIES_MIMIKYU_TOTEM_DISGUISED; }
 
     GIVEN {
-        PLAYER(SPECIES_MIMIKYU_DISGUISED) { Ability(ABILITY_DISGUISE); }
+        PLAYER(species) { Ability(ABILITY_DISGUISE); }
         OPPONENT(SPECIES_REGIROCK);
     } WHEN {
         TURN { MOVE(player, MOVE_RAGE_FIST); MOVE(opponent, MOVE_ROCK_THROW); }

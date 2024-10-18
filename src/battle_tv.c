@@ -338,17 +338,8 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
     defSide = GetBattlerSide(gBattlerTarget);
     effSide = GetBattlerSide(gEffectBattler);
     scriptingSide = GetBattlerSide(gBattleMsgDataPtr->scrActive);
-
-    if (atkSide == B_SIDE_PLAYER)
-        atkMon = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
-    else
-        atkMon = &gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]];
-
-    if (defSide == B_SIDE_PLAYER)
-        defMon = &gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]];
-    else
-        defMon = &gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]];
-
+    atkMon = GetPartyBattlerData(gBattlerAttacker);
+    defMon = GetPartyBattlerData(gBattlerTarget);
     moveSlot = GetBattlerMoveSlotId(gBattlerAttacker, gBattleMsgDataPtr->currentMove);
 
     if (moveSlot >= MAX_MON_MOVES && IsNotSpecialBattleString(stringId) && stringId > BATTLESTRINGS_TABLE_START)
@@ -775,7 +766,7 @@ void BattleTv_SetDataBasedOnMove(u16 move, u16 weatherFlags, struct DisableStruc
     tvPtr->side[atkSide].usedMoveSlot = moveSlot;
     AddMovePoints(PTS_MOVE_EFFECT, moveSlot, move, 0);
     AddPointsBasedOnWeather(weatherFlags, move, moveSlot);
-    if (disableStructPtr->chargeTimer != 0)
+    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP)
         AddMovePoints(PTS_ELECTRIC, move, moveSlot, 0);
 
     if (move == MOVE_WISH)
@@ -944,7 +935,7 @@ static void AddMovePoints(u8 caseId, u16 arg1, u8 arg2, u8 arg3)
             baseFromEffect++; // Recoil moves
         if (MoveHasAdditionalEffect(arg2, MOVE_EFFECT_RAPID_SPIN))
             baseFromEffect++;
-        if (MoveHasAdditionalEffect(arg2, MOVE_EFFECT_SP_ATK_TWO_DOWN) || MoveHasAdditionalEffect(arg2, MOVE_EFFECT_ATK_DEF_DOWN))
+        if (MoveHasAdditionalEffect(arg2, MOVE_EFFECT_SP_ATK_MINUS_2) || MoveHasAdditionalEffect(arg2, MOVE_EFFECT_ATK_DEF_DOWN))
             baseFromEffect += 2; // Overheat, Superpower, etc.
         if (MoveHasAdditionalEffect(arg2, MOVE_EFFECT_STEAL_ITEM))
             baseFromEffect += 3;

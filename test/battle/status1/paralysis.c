@@ -17,14 +17,14 @@ SINGLE_BATTLE_TEST("Paralysis reduces Speed by 50%")
         if (playerFirst) {
             ONE_OF {
                 MESSAGE("Wobbuffet used Celebrate!");
-                MESSAGE("Wobbuffet is paralyzed! It can't move!");
+                MESSAGE("Wobbuffet is paralyzed, so it may be unable to move!");
             }
-            MESSAGE("Foe Wobbuffet used Celebrate!");
+            MESSAGE("The opposing Wobbuffet used Celebrate!");
         } else {
-            MESSAGE("Foe Wobbuffet used Celebrate!");
+            MESSAGE("The opposing Wobbuffet used Celebrate!");
             ONE_OF {
                 MESSAGE("Wobbuffet used Celebrate!");
-                MESSAGE("Wobbuffet is paralyzed! It can't move!");
+                MESSAGE("Wobbuffet is paralyzed, so it may be unable to move!");
             }
         }
     }
@@ -39,6 +39,24 @@ SINGLE_BATTLE_TEST("Paralysis has a 25% chance of skipping the turn")
     } WHEN {
         TURN { MOVE(player, MOVE_CELEBRATE); }
     } SCENE {
-        MESSAGE("Wobbuffet is paralyzed! It can't move!");
+        MESSAGE("Wobbuffet couldn't move because it's paralyzed!");
+    }
+}
+
+AI_SINGLE_BATTLE_TEST("AI avoids Thunder Wave when it can not paralyse target")
+{
+    u32 species, ability;
+
+    PARAMETRIZE { species = SPECIES_HITMONLEE; ability = ABILITY_LIMBER; }
+    PARAMETRIZE { species = SPECIES_KOMALA; ability = ABILITY_COMATOSE; }
+    PARAMETRIZE { species = SPECIES_NACLI; ability = ABILITY_PURIFYING_SALT; }
+    PARAMETRIZE { species = SPECIES_PIKACHU; ability = ABILITY_STATIC; }
+
+    GIVEN {
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_OMNISCIENT);
+        PLAYER(species) { Ability(ability); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE, MOVE_THUNDER_WAVE); }
+    } WHEN {
+        TURN { SCORE_EQ(opponent, MOVE_CELEBRATE, MOVE_THUNDER_WAVE); } // Both get -10
     }
 }

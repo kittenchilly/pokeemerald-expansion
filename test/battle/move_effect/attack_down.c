@@ -6,7 +6,7 @@ ASSUMPTIONS
     ASSUME(gMovesInfo[MOVE_GROWL].effect == EFFECT_ATTACK_DOWN);
 }
 
-SINGLE_BATTLE_TEST("Growl lowers Attack", s16 damage)
+SINGLE_BATTLE_TEST("Growl lowers Attack by 1 stage", s16 damage)
 {
     bool32 lowerAttack;
     PARAMETRIZE { lowerAttack = FALSE; }
@@ -22,7 +22,7 @@ SINGLE_BATTLE_TEST("Growl lowers Attack", s16 damage)
         if (lowerAttack) {
             ANIMATION(ANIM_TYPE_MOVE, MOVE_GROWL, player);
             ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, opponent);
-            MESSAGE("Foe Wobbuffet's Attack fell!");
+            MESSAGE("The opposing Wobbuffet's Attack fell!");
         }
         ANIMATION(ANIM_TYPE_MOVE, MOVE_TACKLE, opponent);
         HP_BAR(player, captureDamage: &results[i].damage);

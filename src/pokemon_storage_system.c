@@ -6,6 +6,7 @@
 #include "dma3.h"
 #include "dynamic_placeholder_text_util.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "field_screen_effect.h"
 #include "field_weather.h"
 #include "fldeff_misc.h"
@@ -41,6 +42,7 @@
 #include "constants/moves.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/pokemon_icon.h"
 
 /*
     NOTE: This file is large. Some general groups of functions have
@@ -52,9 +54,19 @@
 
 // PC main menu options
 enum {
+#if OW_PC_MOVE_ORDER <= GEN_3
     OPTION_WITHDRAW,
     OPTION_DEPOSIT,
     OPTION_MOVE_MONS,
+#elif OW_PC_MOVE_ORDER >= GEN_4 && OW_PC_MOVE_ORDER <= GEN_6_XY
+    OPTION_DEPOSIT,
+    OPTION_WITHDRAW,
+    OPTION_MOVE_MONS,
+#elif OW_PC_MOVE_ORDER >= GEN_7
+    OPTION_MOVE_MONS,
+    OPTION_DEPOSIT,
+    OPTION_WITHDRAW,
+#endif
     OPTION_MOVE_ITEMS,
     OPTION_EXIT,
     OPTIONS_COUNT
@@ -217,7 +229,7 @@ enum {
 #define BOXID_CANCELED    201
 
 enum {
-    PALTAG_MON_ICON_0 = 56000,
+    PALTAG_MON_ICON_0 = POKE_ICON_BASE_PAL_TAG,
     PALTAG_MON_ICON_1, // Used implicitly in CreateMonIconSprite
     PALTAG_MON_ICON_2, // Used implicitly in CreateMonIconSprite
     PALTAG_MON_ICON_3, // Used implicitly in CreateMonIconSprite
@@ -716,8 +728,6 @@ static void MultiMove_DeselectColumn(u8, u8, u8);
 
 // Move Items mode
 static bool32 IsItemIconAtPosition(u8, u8);
-static const u32 *GetItemIconPic(u16);
-static const u32 *GetItemIconPalette(u16);
 static u8 GetNewItemIconIdx(void);
 static void SetItemIconPosition(u8, u8, u8);
 static void LoadItemIconGfx(u8, const u32 *, const u32 *);
@@ -882,16 +892,20 @@ static void UnkUtil_DmaRun(struct UnkUtilData *);
 void SetMonFormPSS(struct BoxPokemon *boxMon);
 void UpdateSpeciesSpritePSS(struct BoxPokemon *boxmon);
 
+static const u8 gText_JustOnePkmn[] = _("There is just one POKéMON with you.");
+static const u8 gText_PartyFull[] = _("Your party is full!");
+static const u8 gText_Box[] = _("BOX");
+
 struct {
     const u8 *text;
     const u8 *desc;
 } static const sMainMenuTexts[OPTIONS_COUNT] =
 {
-    [OPTION_WITHDRAW]   = {gText_WithdrawPokemon, gText_WithdrawMonDescription},
-    [OPTION_DEPOSIT]    = {gText_DepositPokemon,  gText_DepositMonDescription},
-    [OPTION_MOVE_MONS]  = {gText_MovePokemon,     gText_MoveMonDescription},
-    [OPTION_MOVE_ITEMS] = {gText_MoveItems,       gText_MoveItemsDescription},
-    [OPTION_EXIT]       = {gText_SeeYa,           gText_SeeYaDescription}
+    [OPTION_WITHDRAW]   = {COMPOUND_STRING("WITHDRAW POKéMON"), COMPOUND_STRING("Move POKéMON stored in BOXES to\nyour party.")},
+    [OPTION_DEPOSIT]    = {COMPOUND_STRING("DEPOSIT POKéMON"),  COMPOUND_STRING("Store POKéMON in your party in BOXES.")},
+    [OPTION_MOVE_MONS]  = {COMPOUND_STRING("MOVE POKéMON"),     COMPOUND_STRING("Organize the POKéMON in BOXES and\nin your party.")},
+    [OPTION_MOVE_ITEMS] = {COMPOUND_STRING("MOVE ITEMS"),       COMPOUND_STRING("Move items held by any POKéMON\nin a BOX or your party.")},
+    [OPTION_EXIT]       = {COMPOUND_STRING("SEE YA!"),          COMPOUND_STRING("Return to the previous menu.")}
 };
 
 static const struct WindowTemplate sWindowTemplate_MainMenu =
@@ -1068,39 +1082,41 @@ static const struct SpriteTemplate sSpriteTemplate_DisplayMon =
     .callback = SpriteCallbackDummy,
 };
 
+static const u8 gText_PkmnIsSelected[] = _("{DYNAMIC 0} is selected.");
+
 static const struct StorageMessage sMessages[] =
 {
-    [MSG_EXIT_BOX]             = {gText_ExitFromBox,             MSG_VAR_NONE},
-    [MSG_WHAT_YOU_DO]          = {gText_WhatDoYouWantToDo,       MSG_VAR_NONE},
-    [MSG_PICK_A_THEME]         = {gText_PleasePickATheme,        MSG_VAR_NONE},
-    [MSG_PICK_A_WALLPAPER]     = {gText_PickTheWallpaper,        MSG_VAR_NONE},
-    [MSG_IS_SELECTED]          = {gText_PkmnIsSelected,          MSG_VAR_MON_NAME_1},
-    [MSG_JUMP_TO_WHICH_BOX]    = {gText_JumpToWhichBox,          MSG_VAR_NONE},
-    [MSG_DEPOSIT_IN_WHICH_BOX] = {gText_DepositInWhichBox,       MSG_VAR_NONE},
-    [MSG_WAS_DEPOSITED]        = {gText_PkmnWasDeposited,        MSG_VAR_MON_NAME_1},
-    [MSG_BOX_IS_FULL]          = {gText_BoxIsFull2,              MSG_VAR_NONE},
-    [MSG_RELEASE_POKE]         = {gText_ReleaseThisPokemon,      MSG_VAR_NONE},
-    [MSG_WAS_RELEASED]         = {gText_PkmnWasReleased,         MSG_VAR_RELEASE_MON_1},
-    [MSG_BYE_BYE]              = {gText_ByeByePkmn,              MSG_VAR_RELEASE_MON_3},
-    [MSG_MARK_POKE]            = {gText_MarkYourPkmn,            MSG_VAR_NONE},
-    [MSG_LAST_POKE]            = {gText_ThatsYourLastPkmn,       MSG_VAR_NONE},
-    [MSG_PARTY_FULL]           = {gText_YourPartysFull,          MSG_VAR_NONE},
-    [MSG_HOLDING_POKE]         = {gText_YoureHoldingAPkmn,       MSG_VAR_NONE},
-    [MSG_WHICH_ONE_WILL_TAKE]  = {gText_WhichOneWillYouTake,     MSG_VAR_NONE},
-    [MSG_CANT_RELEASE_EGG]     = {gText_YouCantReleaseAnEgg,     MSG_VAR_NONE},
-    [MSG_CONTINUE_BOX]         = {gText_ContinueBoxOperations,   MSG_VAR_NONE},
-    [MSG_CAME_BACK]            = {gText_PkmnCameBack,            MSG_VAR_MON_NAME_1},
-    [MSG_WORRIED]              = {gText_WasItWorriedAboutYou,    MSG_VAR_NONE},
-    [MSG_SURPRISE]             = {gText_FourEllipsesExclamation, MSG_VAR_NONE},
-    [MSG_PLEASE_REMOVE_MAIL]   = {gText_PleaseRemoveTheMail,     MSG_VAR_NONE},
-    [MSG_IS_SELECTED2]         = {gText_PkmnIsSelected,          MSG_VAR_ITEM_NAME},
-    [MSG_GIVE_TO_MON]          = {gText_GiveToAPkmn,             MSG_VAR_NONE},
-    [MSG_PLACED_IN_BAG]        = {gText_PlacedItemInBag,         MSG_VAR_ITEM_NAME},
-    [MSG_BAG_FULL]             = {gText_BagIsFull2,              MSG_VAR_NONE},
-    [MSG_PUT_IN_BAG]           = {gText_PutItemInBag,            MSG_VAR_NONE},
-    [MSG_ITEM_IS_HELD]         = {gText_ItemIsNowHeld,           MSG_VAR_ITEM_NAME},
-    [MSG_CHANGED_TO_ITEM]      = {gText_ChangedToNewItem,        MSG_VAR_ITEM_NAME},
-    [MSG_CANT_STORE_MAIL]      = {gText_MailCantBeStored,        MSG_VAR_NONE},
+    [MSG_EXIT_BOX]             = {COMPOUND_STRING("Exit from the BOX?"),         MSG_VAR_NONE},
+    [MSG_WHAT_YOU_DO]          = {COMPOUND_STRING("What do you want to do?"),    MSG_VAR_NONE},
+    [MSG_PICK_A_THEME]         = {COMPOUND_STRING("Please pick a theme."),       MSG_VAR_NONE},
+    [MSG_PICK_A_WALLPAPER]     = {COMPOUND_STRING("Pick the wallpaper."),        MSG_VAR_NONE},
+    [MSG_IS_SELECTED]          = {gText_PkmnIsSelected,                          MSG_VAR_MON_NAME_1},
+    [MSG_JUMP_TO_WHICH_BOX]    = {COMPOUND_STRING("Jump to which BOX?"),         MSG_VAR_NONE},
+    [MSG_DEPOSIT_IN_WHICH_BOX] = {COMPOUND_STRING("Deposit in which BOX?"),      MSG_VAR_NONE},
+    [MSG_WAS_DEPOSITED]        = {COMPOUND_STRING("{DYNAMIC 0} was deposited."), MSG_VAR_MON_NAME_1},
+    [MSG_BOX_IS_FULL]          = {COMPOUND_STRING("The BOX is full."),           MSG_VAR_NONE},
+    [MSG_RELEASE_POKE]         = {COMPOUND_STRING("Release this POKéMON?"),      MSG_VAR_NONE},
+    [MSG_WAS_RELEASED]         = {COMPOUND_STRING("{DYNAMIC 0} was released."),  MSG_VAR_RELEASE_MON_1},
+    [MSG_BYE_BYE]              = {COMPOUND_STRING("Bye-bye, {DYNAMIC 0}!"),      MSG_VAR_RELEASE_MON_3},
+    [MSG_MARK_POKE]            = {COMPOUND_STRING("Mark your POKéMON."),         MSG_VAR_NONE},
+    [MSG_LAST_POKE]            = {COMPOUND_STRING("That's your last POKéMON!"),  MSG_VAR_NONE},
+    [MSG_PARTY_FULL]           = {gText_YourPartysFull,                          MSG_VAR_NONE},
+    [MSG_HOLDING_POKE]         = {COMPOUND_STRING("You're holding a POKéMON!"),  MSG_VAR_NONE},
+    [MSG_WHICH_ONE_WILL_TAKE]  = {COMPOUND_STRING("Which one will you take?"),   MSG_VAR_NONE},
+    [MSG_CANT_RELEASE_EGG]     = {COMPOUND_STRING("You can't release an EGG."),  MSG_VAR_NONE},
+    [MSG_CONTINUE_BOX]         = {COMPOUND_STRING("Continue BOX operations?"),   MSG_VAR_NONE},
+    [MSG_CAME_BACK]            = {COMPOUND_STRING("{DYNAMIC 0} came back!"),     MSG_VAR_MON_NAME_1},
+    [MSG_WORRIED]              = {COMPOUND_STRING("Was it worried about you?"),  MSG_VAR_NONE},
+    [MSG_SURPRISE]             = {COMPOUND_STRING("… … … … !"),                  MSG_VAR_NONE},
+    [MSG_PLEASE_REMOVE_MAIL]   = {COMPOUND_STRING("Please remove the MAIL."),    MSG_VAR_NONE},
+    [MSG_IS_SELECTED2]         = {gText_PkmnIsSelected,                          MSG_VAR_ITEM_NAME},
+    [MSG_GIVE_TO_MON]          = {COMPOUND_STRING("GIVE to a POKéMON?"),         MSG_VAR_NONE},
+    [MSG_PLACED_IN_BAG]        = {COMPOUND_STRING("Placed item in the BAG."),    MSG_VAR_ITEM_NAME},
+    [MSG_BAG_FULL]             = {COMPOUND_STRING("The BAG is full."),           MSG_VAR_NONE},
+    [MSG_PUT_IN_BAG]           = {COMPOUND_STRING("Put this item in the BAG?"),  MSG_VAR_NONE},
+    [MSG_ITEM_IS_HELD]         = {COMPOUND_STRING("{DYNAMIC 0} is now held."),   MSG_VAR_ITEM_NAME},
+    [MSG_CHANGED_TO_ITEM]      = {COMPOUND_STRING("Changed to {DYNAMIC 0}."),    MSG_VAR_ITEM_NAME},
+    [MSG_CANT_STORE_MAIL]      = {COMPOUND_STRING("MAIL can't be stored!"),      MSG_VAR_NONE},
 };
 
 static const struct WindowTemplate sYesNoWindowTemplate =
@@ -1427,9 +1443,9 @@ s16 GetFirstFreeBoxSpot(u8 boxId)
     return -1; // all spots are taken
 }
 
-u8 CountPartyNonEggMons(void)
+u32 CountPartyNonEggMons(void)
 {
-    u16 i, count;
+    u32 i, count;
 
     for (i = 0, count = 0; i < PARTY_SIZE; i++)
     {
@@ -1988,7 +2004,10 @@ static void VBlankCB_PokeStorage(void)
     ProcessSpriteCopyRequests();
     UnkUtil_Run();
     TransferPlttBuffer();
-    SetGpuReg(REG_OFFSET_BG2HOFS, sStorage->bg2_X);
+    if (sStorage != NULL)
+    {
+        SetGpuReg(REG_OFFSET_BG2HOFS, sStorage->bg2_X);
+    }
 }
 
 static void CB2_PokeStorage(void)
@@ -4018,16 +4037,16 @@ static void PrintDisplayMonInfo(void)
     FillWindowPixelBuffer(WIN_DISPLAY_INFO, PIXEL_FILL(1));
     if (sStorage->boxOption != OPTION_MOVE_ITEMS)
     {
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, sStorage->displayMonNameText, 6, 0, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SHORT, sStorage->displayMonSpeciesName, 6, 15, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(sStorage->displayMonNameText, FONT_NORMAL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), sStorage->displayMonNameText, 6, 0, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(sStorage->displayMonNameText, FONT_SHORT, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 12), sStorage->displayMonSpeciesName, 6, 15, TEXT_SKIP_DRAW, NULL);
         AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SHORT, sStorage->displayMonGenderLvlText, 10, 29, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SMALL, sStorage->displayMonItemName, 6, 43, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(sStorage->displayMonItemName, FONT_SMALL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), sStorage->displayMonItemName, 6, 43, TEXT_SKIP_DRAW, NULL);
     }
     else
     {
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SMALL, sStorage->displayMonItemName, 6, 0, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, sStorage->displayMonNameText, 6, 13, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SHORT, sStorage->displayMonSpeciesName, 6, 28, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(sStorage->displayMonItemName, FONT_SMALL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), sStorage->displayMonItemName, 6, 0, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(sStorage->displayMonNameText, FONT_NORMAL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), sStorage->displayMonNameText, 6, 13, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(sStorage->displayMonSpeciesName, FONT_SHORT, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 12), sStorage->displayMonSpeciesName, 6, 28, TEXT_SKIP_DRAW, NULL);
         AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SHORT, sStorage->displayMonGenderLvlText, 10, 42, TEXT_SKIP_DRAW, NULL);
     }
 
@@ -4196,11 +4215,14 @@ static void StopFlashingCloseBoxButton(void)
 
 static void UpdateCloseBoxButtonFlash(void)
 {
-    if (sStorage->closeBoxFlashing && ++sStorage->closeBoxFlashTimer > 30)
+    if (sStorage != NULL)
     {
-        sStorage->closeBoxFlashTimer = 0;
-        sStorage->closeBoxFlashState = (sStorage->closeBoxFlashState == FALSE);
-        UpdateCloseBoxButtonTilemap(sStorage->closeBoxFlashState);
+        if (sStorage->closeBoxFlashing && ++sStorage->closeBoxFlashTimer > 30)
+        {
+            sStorage->closeBoxFlashTimer = 0;
+            sStorage->closeBoxFlashState = (sStorage->closeBoxFlashState == FALSE);
+            UpdateCloseBoxButtonTilemap(sStorage->closeBoxFlashState);
+        }
     }
 }
 
@@ -5548,10 +5570,7 @@ static void InitBoxTitle(u8 boxId)
     sStorage->wallpaperPalBits |= (1 << 16) << tagIndex;
 
     StringCopyPadded(sStorage->boxTitleText, GetBoxNamePtr(boxId), 0, BOX_NAME_LENGTH);
-    if (DECAP_ENABLED && DECAP_MIRRORING)
-        DrawTextWindowAndBufferTiles(MirrorPtr(sStorage->boxTitleText), sStorage->boxTitleTiles, 0, 0, 2);
-    else
-        DrawTextWindowAndBufferTiles(sStorage->boxTitleText, sStorage->boxTitleTiles, 0, 0, 2);
+    DrawTextWindowAndBufferTiles(sStorage->boxTitleText, sStorage->boxTitleTiles, 0, 0, 2);
     LoadSpriteSheet(&spriteSheet);
     x = GetBoxTitleBaseX(GetBoxNamePtr(boxId));
 
@@ -5987,7 +6006,7 @@ static bool8 UpdateCursorPos(void)
 
 static void InitNewCursorPos(u8 newCursorArea, u8 newCursorPosition)
 {
-    u16 x, y;
+    u16 x = 0, y = 0;
 
     GetCursorCoordsByPos(newCursorArea, newCursorPosition, &x, &y);
     sStorage->newCursorArea = newCursorArea;
@@ -6406,9 +6425,15 @@ static void RefreshDisplayMon(void)
 static void SetMovingMonData(u8 boxId, u8 position)
 {
     if (boxId == TOTAL_BOXES_COUNT)
+    {
         sStorage->movingMon = gPlayerParty[sCursorPosition];
+        if (&gPlayerParty[sCursorPosition] == GetFirstLiveMon())
+            gFollowerSteps = 0;
+    }
     else
+    {
         BoxMonAtToMon(boxId, position, &sStorage->movingMon);
+    }
 
     PurgeMonOrBoxMon(boxId, position);
     sMovingMonOrigBoxId = boxId;
@@ -6421,9 +6446,15 @@ static void SetPlacedMonData(u8 boxId, u8 position)
         HealPokemon(&sStorage->movingMon);
 
     if (boxId == TOTAL_BOXES_COUNT)
+    {
         gPlayerParty[position] = sStorage->movingMon;
+        if (&gPlayerParty[position] == GetFirstLiveMon())
+            gFollowerSteps = 0;
+    }
     else
+    {
         SetBoxMonAt(boxId, position, &sStorage->movingMon.box);
+    }
 }
 
 static void PurgeMonOrBoxMon(u8 boxId, u8 position)
@@ -6511,6 +6542,7 @@ static bool8 TryHideReleaseMon(void)
 static void ReleaseMon(void)
 {
     u8 boxId;
+    u16 item = ITEM_NONE;
 
     DestroyReleaseMonIcon();
     if (sIsMonBeingMoved)
@@ -6520,11 +6552,21 @@ static void ReleaseMon(void)
     else
     {
         if (sCursorArea == CURSOR_AREA_IN_PARTY)
+        {
             boxId = TOTAL_BOXES_COUNT;
+            if (OW_PC_RELEASE_ITEM >= GEN_8)
+                item = GetMonData(&gPlayerParty[sCursorPosition], MON_DATA_HELD_ITEM);
+        }
         else
+        {
             boxId = StorageGetCurrentBox();
+            if (OW_PC_RELEASE_ITEM >= GEN_8)
+                item = GetBoxMonDataAt(boxId, sCursorPosition, MON_DATA_HELD_ITEM);
+        }
 
         PurgeMonOrBoxMon(boxId, sCursorPosition);
+        if (item != ITEM_NONE)
+            AddBagItem(item, 1);
     }
     TryRefreshDisplayMon();
 }
@@ -8005,47 +8047,49 @@ static void InitMenu(void)
     sStorage->menuWindow.baseBlock = 92;
 }
 
+static const u8 gPCText_Give[] = _("GIVE");
+
 static const u8 *const sMenuTexts[] =
 {
-    [MENU_CANCEL]     = gPCText_Cancel,
-    [MENU_STORE]      = gPCText_Store,
-    [MENU_WITHDRAW]   = gPCText_Withdraw,
-    [MENU_MOVE]       = gPCText_Move,
-    [MENU_SHIFT]      = gPCText_Shift,
-    [MENU_PLACE]      = gPCText_Place,
-    [MENU_SUMMARY]    = gPCText_Summary,
-    [MENU_RELEASE]    = gPCText_Release,
-    [MENU_MARK]       = gPCText_Mark,
-    [MENU_JUMP]       = gPCText_Jump,
-    [MENU_WALLPAPER]  = gPCText_Wallpaper,
-    [MENU_NAME]       = gPCText_Name,
-    [MENU_TAKE]       = gPCText_Take,
+    [MENU_CANCEL]     = COMPOUND_STRING("CANCEL"),
+    [MENU_STORE]      = COMPOUND_STRING("STORE"),
+    [MENU_WITHDRAW]   = COMPOUND_STRING("WITHDRAW"),
+    [MENU_MOVE]       = COMPOUND_STRING("MOVE"),
+    [MENU_SHIFT]      = COMPOUND_STRING("SHIFT"),
+    [MENU_PLACE]      = COMPOUND_STRING("PLACE"),
+    [MENU_SUMMARY]    = COMPOUND_STRING("SUMMARY"),
+    [MENU_RELEASE]    = COMPOUND_STRING("RELEASE"),
+    [MENU_MARK]       = COMPOUND_STRING("MARK"),
+    [MENU_JUMP]       = COMPOUND_STRING("JUMP"),
+    [MENU_WALLPAPER]  = COMPOUND_STRING("WALLPAPER"),
+    [MENU_NAME]       = COMPOUND_STRING("NAME"),
+    [MENU_TAKE]       = COMPOUND_STRING("TAKE"),
     [MENU_GIVE]       = gPCText_Give,
     [MENU_GIVE_2]     = gPCText_Give,
-    [MENU_SWITCH]     = gPCText_Switch,
-    [MENU_BAG]        = gPCText_Bag,
-    [MENU_INFO]       = gPCText_Info,
-    [MENU_SCENERY_1]  = gPCText_Scenery1,
-    [MENU_SCENERY_2]  = gPCText_Scenery2,
-    [MENU_SCENERY_3]  = gPCText_Scenery3,
-    [MENU_ETCETERA]   = gPCText_Etcetera,
-    [MENU_FRIENDS]    = gPCText_Friends,
-    [MENU_FOREST]     = gPCText_Forest,
-    [MENU_CITY]       = gPCText_City,
-    [MENU_DESERT]     = gPCText_Desert,
-    [MENU_SAVANNA]    = gPCText_Savanna,
-    [MENU_CRAG]       = gPCText_Crag,
-    [MENU_VOLCANO]    = gPCText_Volcano,
-    [MENU_SNOW]       = gPCText_Snow,
-    [MENU_CAVE]       = gPCText_Cave,
-    [MENU_BEACH]      = gPCText_Beach,
-    [MENU_SEAFLOOR]   = gPCText_Seafloor,
-    [MENU_RIVER]      = gPCText_River,
-    [MENU_SKY]        = gPCText_Sky,
-    [MENU_POLKADOT]   = gPCText_PolkaDot,
-    [MENU_POKECENTER] = gPCText_Pokecenter,
-    [MENU_MACHINE]    = gPCText_Machine,
-    [MENU_SIMPLE]     = gPCText_Simple,
+    [MENU_SWITCH]     = COMPOUND_STRING("SWITCH"),
+    [MENU_BAG]        = COMPOUND_STRING("BAG"),
+    [MENU_INFO]       = COMPOUND_STRING("INFO"),
+    [MENU_SCENERY_1]  = COMPOUND_STRING("SCENERY 1"),
+    [MENU_SCENERY_2]  = COMPOUND_STRING("SCENERY 2"),
+    [MENU_SCENERY_3]  = COMPOUND_STRING("SCENERY 3"),
+    [MENU_ETCETERA]   = COMPOUND_STRING("ETCETERA"),
+    [MENU_FRIENDS]    = COMPOUND_STRING("FRIENDS"),
+    [MENU_FOREST]     = COMPOUND_STRING("FOREST"),
+    [MENU_CITY]       = COMPOUND_STRING("CITY"),
+    [MENU_DESERT]     = COMPOUND_STRING("DESERT"),
+    [MENU_SAVANNA]    = COMPOUND_STRING("SAVANNA"),
+    [MENU_CRAG]       = COMPOUND_STRING("CRAG"),
+    [MENU_VOLCANO]    = COMPOUND_STRING("VOLCANO"),
+    [MENU_SNOW]       = COMPOUND_STRING("SNOW"),
+    [MENU_CAVE]       = COMPOUND_STRING("CAVE"),
+    [MENU_BEACH]      = COMPOUND_STRING("BEACH"),
+    [MENU_SEAFLOOR]   = COMPOUND_STRING("SEAFLOOR"),
+    [MENU_RIVER]      = COMPOUND_STRING("RIVER"),
+    [MENU_SKY]        = COMPOUND_STRING("SKY"),
+    [MENU_POLKADOT]   = COMPOUND_STRING("POLKA-DOT"),
+    [MENU_POKECENTER] = COMPOUND_STRING("POKéCENTER"),
+    [MENU_MACHINE]    = COMPOUND_STRING("MACHINE"),
+    [MENU_SIMPLE]     = COMPOUND_STRING("SIMPLE"),
 };
 
 static void SetMenuText(u8 textId)
@@ -9255,16 +9299,6 @@ static void SetItemIconActive(u8 id, bool8 active)
     sStorage->itemIcons[id].sprite->invisible = (active == FALSE);
 }
 
-static const u32 *GetItemIconPic(u16 itemId)
-{
-    return GetItemIconPicOrPalette(itemId, 0);
-}
-
-static const u32 *GetItemIconPalette(u16 itemId)
-{
-    return GetItemIconPicOrPalette(itemId, 1);
-}
-
 static void PrintItemDescription(void)
 {
     const u8 *description;
@@ -9609,10 +9643,7 @@ struct BoxPokemon *GetBoxedMonPtr(u8 boxId, u8 boxPosition)
 u8 *GetBoxNamePtr(u8 boxId)
 {
     if (boxId < TOTAL_BOXES_COUNT)
-        if (DECAP_ENABLED && DECAP_MIRRORING)
-            return MirrorPtr(gPokemonStoragePtr->boxNames[boxId]);
-        else
-            return gPokemonStoragePtr->boxNames[boxId];
+        return gPokemonStoragePtr->boxNames[boxId];
     else
         return NULL;
 }

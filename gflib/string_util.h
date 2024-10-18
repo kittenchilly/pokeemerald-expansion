@@ -13,7 +13,6 @@ enum StringConvertMode
     STR_CONV_MODE_LEADING_ZEROS
 };
 
-bool32 IsStringAddrSafe(u8 *ptr, u32 length);
 u8 *StringCopy_Nickname(u8 *dest, const u8 *src);
 u8 *StringGet_Nickname(u8 *str);
 u8 *StringCopy_PlayerName(u8 *dest, const u8 *src);
@@ -22,6 +21,7 @@ u8 *StringAppend(u8 *dest, const u8 *src);
 u8 *StringCopyN(u8 *dest, const u8 *src, u8 n);
 u8 *StringAppendN(u8 *dest, const u8 *src, u8 n);
 u16 StringLength(const u8 *str);
+u16 StringLineLength(const u8 *str);
 s32 StringCompare(const u8 *str1, const u8 *str2);
 s32 StringCompareN(const u8 *str1, const u8 *str2, u32 n);
 bool8 IsStringLengthAtLeast(const u8 *str, s32 n);

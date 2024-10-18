@@ -54,11 +54,11 @@ DOUBLE_BATTLE_TEST("Ally Switch changes the position of battlers")
         ANIMATION(ANIM_TYPE_MOVE, MOVE_ALLY_SWITCH, playerLeft);
         MESSAGE("Wobbuffet and Wynaut switched places!");
 
-        MESSAGE("Foe Kadabra used Screech!");
+        MESSAGE("The opposing Kadabra used Screech!");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, playerLeft);
         MESSAGE("Wynaut's Defense harshly fell!");
 
-        MESSAGE("Foe Abra used Screech!");
+        MESSAGE("The opposing Abra used Screech!");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, playerLeft);
         MESSAGE("Wynaut's Defense harshly fell!");
     } THEN {
@@ -84,7 +84,7 @@ DOUBLE_BATTLE_TEST("Ally Switch does not redirect the target of Snipe Shot")
         ANIMATION(ANIM_TYPE_MOVE, MOVE_ALLY_SWITCH, playerLeft);
         MESSAGE("Wobbuffet and Wynaut switched places!");
 
-        MESSAGE("Foe Kadabra used Snipe Shot!");
+        MESSAGE("The opposing Kadabra used Snipe Shot!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SNIPE_SHOT, opponentLeft);
         HP_BAR(playerRight);
     }
@@ -109,13 +109,13 @@ DOUBLE_BATTLE_TEST("Ally Switch does not redirect moves done by pokemon with Sta
         ANIMATION(ANIM_TYPE_MOVE, MOVE_ALLY_SWITCH, playerLeft);
         MESSAGE("Wobbuffet and Wynaut switched places!");
 
-        MESSAGE("Foe Kadabra used Tackle!");
+        MESSAGE("The opposing Kadabra used Tackle!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_TACKLE, opponentLeft);
         HP_BAR((ability == ABILITY_STALWART || ability == ABILITY_PROPELLER_TAIL) ? playerLeft : playerRight);
     }
 }
 
-DOUBLE_BATTLE_TEST("Ally Switch has no effect on parnter's chosen move")
+DOUBLE_BATTLE_TEST("Ally Switch has no effect on partner's chosen move")
 {
     u16 chosenMove;
     struct BattlePokemon *chosenTarget = NULL;
@@ -167,32 +167,6 @@ DOUBLE_BATTLE_TEST("Ally Switch - move fails if the target was ally which change
     }
 }
 
-// Verified on Showdown, even though Bulbapedia says otherwise.
-DOUBLE_BATTLE_TEST("Acupressure works after ally used Ally Switch")
-{
-    struct BattlePokemon *battlerTarget = NULL;
-
-    PARAMETRIZE { battlerTarget = playerLeft; }
-    PARAMETRIZE { battlerTarget = playerRight; }
-
-    GIVEN {
-        PLAYER(SPECIES_WOBBUFFET);
-        PLAYER(SPECIES_WYNAUT);
-        OPPONENT(SPECIES_KADABRA);
-        OPPONENT(SPECIES_ABRA);
-    } WHEN {
-        TURN { MOVE(playerLeft, MOVE_ALLY_SWITCH); MOVE(playerRight, MOVE_ACUPRESSURE, target:battlerTarget); }
-    } SCENE {
-        MESSAGE("Wobbuffet used Ally Switch!");
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_ALLY_SWITCH, playerLeft);
-        MESSAGE("Wobbuffet and Wynaut switched places!");
-
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_ACUPRESSURE);
-        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, battlerTarget);
-        NOT MESSAGE("But it failed!");
-    }
-}
-
 DOUBLE_BATTLE_TEST("Ally Switch increases the Protect-like moves counter")
 {
     GIVEN {
@@ -228,3 +202,6 @@ DOUBLE_BATTLE_TEST("Ally Switch works if ally used two-turn move like Dig")
         HP_BAR(opponentRight);
     }
 }
+
+// Triple Battles required to test
+//TO_DO_BATTLE_TEST("Ally Switch fails if the user is in the middle of the field in a Triple Battle");

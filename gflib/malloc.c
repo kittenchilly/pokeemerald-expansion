@@ -7,7 +7,7 @@
 static void *sHeapStart;
 static u32 sHeapSize;
 
-EWRAM_DATA u8 gHeap[HEAP_SIZE] = {0};
+ALIGNED(4) EWRAM_DATA u8 gHeap[HEAP_SIZE] = {0};
 
 void PutMemBlockHeader(void *block, struct MemBlock *prev, struct MemBlock *next, u32 size)
 {
@@ -92,14 +92,14 @@ void *AllocInternal(void *heapStart, u32 size, const char *location)
                 {
                     const char *location = MemBlockLocation(block);
                     if (location)
-                        MgbaPrintf_("%s: %d bytes allocated", location, block->size);
+                        Test_MgbaPrintf("%s: %d bytes allocated", location, block->size);
                     else
-                        MgbaPrintf_("<unknown>: %d bytes allocated", block->size);
+                        Test_MgbaPrintf("<unknown>: %d bytes allocated", block->size);
                 }
                 block = block->next;
             }
             while (block != head);
-            Test_ExitWithResult(TEST_RESULT_ERROR, "%s: OOM allocating %d bytes", location, size);
+            Test_ExitWithResult(TEST_RESULT_ERROR, SourceLine(0), ":L%s:%d, %s: OOM allocating %d bytes", gTestRunnerState.test->filename, SourceLine(0), location, size);
 #endif
             return NULL;
         }

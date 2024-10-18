@@ -68,7 +68,6 @@
 #include "constants/weather.h"
 #include "save.h"
 
-#if DEBUG_OVERWORLD_MENU == TRUE
 // *******************************
 enum DebugMenu
 {
@@ -99,6 +98,7 @@ enum UtilDebugMenu
     DEBUG_UTIL_MENU_ITEM_CHEAT,
     DEBUG_UTIL_MENU_ITEM_EXPANSION_VER,
     DEBUG_UTIL_MENU_ITEM_BERRY_FUNCTIONS,
+    DEBUG_UTIL_MENU_ITEM_EWRAM_COUNTERS,
 };
 
 enum GivePCBagDebugMenu
@@ -126,9 +126,9 @@ enum PartyDebugMenu
     DEBUG_PARTY_MENU_ITEM_MOVE_REMINDER,
     DEBUG_PARTY_MENU_ITEM_HATCH_AN_EGG,
     DEBUG_PARTY_MENU_ITEM_HEAL_PARTY,
-    DEBUG_PARTY_MENU_ITEM_POISON_MONS,
-    DEBUG_PARTY_MENU_ITEM_CHECK_EV,
-    DEBUG_PARTY_MENU_ITEM_CHECK_IV,
+    DEBUG_PARTY_MENU_ITEM_INFLICT_STATUS1,
+    DEBUG_PARTY_MENU_ITEM_CHECK_EVS,
+    DEBUG_PARTY_MENU_ITEM_CHECK_IVS,
     DEBUG_PARTY_MENU_ITEM_CLEAR_PARTY,
 };
 
@@ -374,6 +374,7 @@ static void DebugAction_Util_Player_Id(u8 taskId);
 static void DebugAction_Util_CheatStart(u8 taskId);
 static void DebugAction_Util_ExpansionVersion(u8 taskId);
 static void DebugAction_Util_BerryFunctions(u8 taskId);
+static void DebugAction_Util_CheckEWRAMCounters(u8 taskId);
 
 static void DebugAction_OpenPCBagFillMenu(u8 taskId);
 static void DebugAction_PCBag_Fill_PCBoxes_Fast(u8 taskId);
@@ -391,9 +392,9 @@ static void DebugAction_PCBag_ClearBoxes(u8 taskId);
 static void DebugAction_Party_MoveReminder(u8 taskId);
 static void DebugAction_Party_HatchAnEgg(u8 taskId);
 static void DebugAction_Party_HealParty(u8 taskId);
-static void DebugAction_Party_PoisonMons(u8 taskId);
-static void DebugAction_Party_CheckEV(u8 taskId);
-static void DebugAction_Party_CheckIV(u8 taskId);
+static void DebugAction_Party_InflictStatus1(u8 taskId);
+static void DebugAction_Party_CheckEVs(u8 taskId);
+static void DebugAction_Party_CheckIVs(u8 taskId);
 static void DebugAction_Party_ClearParty(u8 taskId);
 
 static void DebugAction_FlagsVars_Flags(u8 taskId);
@@ -452,8 +453,9 @@ static void DebugAction_BerryFunctions_Weeds(u8 taskId);
 extern const u8 Debug_FlagsNotSetOverworldConfigMessage[];
 extern const u8 Debug_FlagsNotSetBattleConfigMessage[];
 extern const u8 Debug_FlagsAndVarNotSetBattleConfigMessage[];
-extern const u8 Debug_EventScript_CheckEV[];
-extern const u8 Debug_EventScript_CheckIV[];
+extern const u8 Debug_EventScript_CheckEVs[];
+extern const u8 Debug_EventScript_CheckIVs[];
+extern const u8 Debug_EventScript_InflictStatus1[];
 extern const u8 Debug_EventScript_Script_1[];
 extern const u8 Debug_EventScript_Script_2[];
 extern const u8 Debug_EventScript_Script_3[];
@@ -475,6 +477,7 @@ extern const u8 Debug_CheckSaveBlock[];
 extern const u8 Debug_CheckROMSpace[];
 extern const u8 Debug_BoxFilledMessage[];
 extern const u8 Debug_ShowExpansionVersion[];
+extern const u8 Debug_EventScript_EWRAMCounters[];
 
 extern const u8 Debug_BerryPestsDisabled[];
 extern const u8 Debug_BerryWeedsDisabled[];
@@ -531,6 +534,7 @@ static const u8 sDebugText_Util_Player_Id[] =                _("New Trainer ID")
 static const u8 sDebugText_Util_CheatStart[] =               _("Cheat start");
 static const u8 sDebugText_Util_ExpansionVersion[] =         _("Expansion Version");
 static const u8 sDebugText_Util_BerryFunctions[] =           _("Berry Functions…{CLEAR_TO 110}{RIGHT_ARROW}");
+static const u8 sDebugText_Util_EWRAMCounters[] =            _("EWRAM Counters…{CLEAR_TO 110}{RIGHT_ARROW}");
 // PC/Bag Menu
 static const u8 sDebugText_PCBag_Fill[] =                    _("Fill…{CLEAR_TO 110}{RIGHT_ARROW}");
 static const u8 sDebugText_PCBag_Fill_Pc_Fast[] =            _("Fill PC Boxes Fast");
@@ -548,9 +552,9 @@ static const u8 sDebugText_PCBag_ClearBoxes[] =              _("Clear Storage Bo
 static const u8 sDebugText_Party_MoveReminder[] =            _("Move Reminder");
 static const u8 sDebugText_Party_HatchAnEgg[] =              _("Hatch an Egg");
 static const u8 sDebugText_Party_HealParty[] =               _("Heal party");
-static const u8 sDebugText_Party_PoisonParty[] =             _("Poison party");
-static const u8 sDebugText_Party_CheckEV[] =                 _("Check EV");
-static const u8 sDebugText_Party_CheckIV[] =                 _("Check IV");
+static const u8 sDebugText_Party_InflictStatus1[] =          _("Inflict Status1");
+static const u8 sDebugText_Party_CheckEVs[] =                _("Check EVs");
+static const u8 sDebugText_Party_CheckIVs[] =                _("Check IVs");
 static const u8 sDebugText_Party_ClearParty[] =              _("Clear Party");
 // Flags/Vars Menu
 static const u8 sDebugText_FlagsVars_Flags[] =               _("Set Flag XYZ…{CLEAR_TO 110}{RIGHT_ARROW}");
@@ -644,7 +648,7 @@ static const u8 sDebugText_Give_BattlePoints[] =        _("Max Battle Points");
 static const u8 sDebugText_Give_DaycareEgg[] =          _("Daycare Egg");
 // Sound Menu
 static const u8 sDebugText_Sound_SFX[] =                _("SFX…{CLEAR_TO 110}{RIGHT_ARROW}");
-static const u8 sDebugText_Sound_SFX_ID[] =   	        _("SFX ID: {STR_VAR_3}   {START_BUTTON} Stop\n{STR_VAR_1}    \n{STR_VAR_2}");
+static const u8 sDebugText_Sound_SFX_ID[] =             _("SFX ID: {STR_VAR_3}   {START_BUTTON} Stop\n{STR_VAR_1}    \n{STR_VAR_2}");
 static const u8 sDebugText_Sound_Music[] =              _("Music…{CLEAR_TO 110}{RIGHT_ARROW}");
 static const u8 sDebugText_Sound_Music_ID[] =           _("Music ID: {STR_VAR_3}   {START_BUTTON} Stop\n{STR_VAR_1}    \n{STR_VAR_2}");
 // Berry Function Menu
@@ -719,6 +723,7 @@ static const struct ListMenuItem sDebugMenu_Items_Utilities[] =
     [DEBUG_UTIL_MENU_ITEM_CHEAT]           = {sDebugText_Util_CheatStart,       DEBUG_UTIL_MENU_ITEM_CHEAT},
     [DEBUG_UTIL_MENU_ITEM_EXPANSION_VER]   = {sDebugText_Util_ExpansionVersion, DEBUG_UTIL_MENU_ITEM_EXPANSION_VER},
     [DEBUG_UTIL_MENU_ITEM_BERRY_FUNCTIONS] = {sDebugText_Util_BerryFunctions,   DEBUG_UTIL_MENU_ITEM_BERRY_FUNCTIONS},
+    [DEBUG_UTIL_MENU_ITEM_EWRAM_COUNTERS]  = {sDebugText_Util_EWRAMCounters,    DEBUG_UTIL_MENU_ITEM_EWRAM_COUNTERS},
 };
 
 static const struct ListMenuItem sDebugMenu_Items_PCBag[] =
@@ -743,13 +748,13 @@ static const struct ListMenuItem sDebugMenu_Items_PCBag_Fill[] =
 
 static const struct ListMenuItem sDebugMenu_Items_Party[] =
 {
-    [DEBUG_PARTY_MENU_ITEM_MOVE_REMINDER]  = {sDebugText_Party_MoveReminder,   DEBUG_PARTY_MENU_ITEM_MOVE_REMINDER},
-    [DEBUG_PARTY_MENU_ITEM_HATCH_AN_EGG]   = {sDebugText_Party_HatchAnEgg,     DEBUG_PARTY_MENU_ITEM_HATCH_AN_EGG},
-    [DEBUG_PARTY_MENU_ITEM_HEAL_PARTY]     = {sDebugText_Party_HealParty,      DEBUG_PARTY_MENU_ITEM_HEAL_PARTY},
-    [DEBUG_PARTY_MENU_ITEM_POISON_MONS]    = {sDebugText_Party_PoisonParty,    DEBUG_PARTY_MENU_ITEM_POISON_MONS},
-    [DEBUG_PARTY_MENU_ITEM_CHECK_EV]       = {sDebugText_Party_CheckEV,        DEBUG_PARTY_MENU_ITEM_CHECK_EV},
-    [DEBUG_PARTY_MENU_ITEM_CHECK_IV]       = {sDebugText_Party_CheckIV,        DEBUG_PARTY_MENU_ITEM_CHECK_IV},
-    [DEBUG_PARTY_MENU_ITEM_CLEAR_PARTY]    = {sDebugText_Party_ClearParty,     DEBUG_PARTY_MENU_ITEM_CLEAR_PARTY},
+    [DEBUG_PARTY_MENU_ITEM_MOVE_REMINDER]   = {sDebugText_Party_MoveReminder,   DEBUG_PARTY_MENU_ITEM_MOVE_REMINDER},
+    [DEBUG_PARTY_MENU_ITEM_HATCH_AN_EGG]    = {sDebugText_Party_HatchAnEgg,     DEBUG_PARTY_MENU_ITEM_HATCH_AN_EGG},
+    [DEBUG_PARTY_MENU_ITEM_HEAL_PARTY]      = {sDebugText_Party_HealParty,      DEBUG_PARTY_MENU_ITEM_HEAL_PARTY},
+    [DEBUG_PARTY_MENU_ITEM_INFLICT_STATUS1] = {sDebugText_Party_InflictStatus1, DEBUG_PARTY_MENU_ITEM_INFLICT_STATUS1},
+    [DEBUG_PARTY_MENU_ITEM_CHECK_EVS]       = {sDebugText_Party_CheckEVs,       DEBUG_PARTY_MENU_ITEM_CHECK_EVS},
+    [DEBUG_PARTY_MENU_ITEM_CHECK_IVS]       = {sDebugText_Party_CheckIVs,       DEBUG_PARTY_MENU_ITEM_CHECK_IVS},
+    [DEBUG_PARTY_MENU_ITEM_CLEAR_PARTY]     = {sDebugText_Party_ClearParty,     DEBUG_PARTY_MENU_ITEM_CLEAR_PARTY},
 };
 
 static const struct ListMenuItem sDebugMenu_Items_Scripts[] =
@@ -888,6 +893,7 @@ static void (*const sDebugMenu_Actions_Utilities[])(u8) =
     [DEBUG_UTIL_MENU_ITEM_CHEAT]           = DebugAction_Util_CheatStart,
     [DEBUG_UTIL_MENU_ITEM_EXPANSION_VER]   = DebugAction_Util_ExpansionVersion,
     [DEBUG_UTIL_MENU_ITEM_BERRY_FUNCTIONS] = DebugAction_Util_BerryFunctions,
+    [DEBUG_UTIL_MENU_ITEM_EWRAM_COUNTERS]  = DebugAction_Util_CheckEWRAMCounters,
 };
 
 static void (*const sDebugMenu_Actions_PCBag[])(u8) =
@@ -912,13 +918,13 @@ static void (*const sDebugMenu_Actions_PCBag_Fill[])(u8) =
 
 static void (*const sDebugMenu_Actions_Party[])(u8) =
 {
-    [DEBUG_PARTY_MENU_ITEM_MOVE_REMINDER] = DebugAction_Party_MoveReminder,
-    [DEBUG_PARTY_MENU_ITEM_HATCH_AN_EGG]  = DebugAction_Party_HatchAnEgg,
-    [DEBUG_PARTY_MENU_ITEM_HEAL_PARTY]    = DebugAction_Party_HealParty,
-    [DEBUG_PARTY_MENU_ITEM_POISON_MONS]   = DebugAction_Party_PoisonMons,
-    [DEBUG_PARTY_MENU_ITEM_CHECK_EV]      = DebugAction_Party_CheckEV,
-    [DEBUG_PARTY_MENU_ITEM_CHECK_IV]      = DebugAction_Party_CheckIV,
-    [DEBUG_PARTY_MENU_ITEM_CLEAR_PARTY]   = DebugAction_Party_ClearParty,
+    [DEBUG_PARTY_MENU_ITEM_MOVE_REMINDER]   = DebugAction_Party_MoveReminder,
+    [DEBUG_PARTY_MENU_ITEM_HATCH_AN_EGG]    = DebugAction_Party_HatchAnEgg,
+    [DEBUG_PARTY_MENU_ITEM_HEAL_PARTY]      = DebugAction_Party_HealParty,
+    [DEBUG_PARTY_MENU_ITEM_INFLICT_STATUS1] = DebugAction_Party_InflictStatus1,
+    [DEBUG_PARTY_MENU_ITEM_CHECK_EVS]       = DebugAction_Party_CheckEVs,
+    [DEBUG_PARTY_MENU_ITEM_CHECK_IVS]       = DebugAction_Party_CheckIVs,
+    [DEBUG_PARTY_MENU_ITEM_CLEAR_PARTY]     = DebugAction_Party_ClearParty,
 };
 
 static void (*const sDebugMenu_Actions_Scripts[])(u8) =
@@ -1343,36 +1349,16 @@ static void Debug_InitDebugBattleData(void)
         sDebugBattleData->aiFlags[i] = FALSE;
 }
 
-static void Debug_RefreshListMenu(u8 taskId)
+static void Debug_GenerateListMenuNames(u32 totalItems)
 {
-    u16 i;
     const u8 sColor_Red[] = _("{COLOR RED}");
     const u8 sColor_Green[] = _("{COLOR GREEN}");
-    u8 totalItems = 0, flagResult = 0;
+    u32 i, flagResult = 0;
     u8 const *name = NULL;
 
-    if (sDebugMenuListData->listId == 0)
-    {
-        gMultiuseListMenuTemplate = sDebugMenu_ListTemplate_FlagsVars;
-        totalItems = gMultiuseListMenuTemplate.totalItems;
-    }
-    else if (sDebugMenuListData->listId == 1 && sDebugBattleData->submenu <= 1)
-    {
-        gMultiuseListMenuTemplate = sDebugMenu_ListTemplate_Battle_1;
-        totalItems = gMultiuseListMenuTemplate.totalItems;
-    }
-    else if (sDebugMenuListData->listId == 1 && sDebugBattleData->submenu > 1)
-    {
-        gMultiuseListMenuTemplate = sDebugMenu_ListTemplate_Battle_2;
-        totalItems = 7;
-    }
-
-    // Failsafe to prevent memory corruption
-    totalItems = min(totalItems, DEBUG_MAX_MENU_ITEMS);
     // Copy item names for all entries but the last (which is Cancel)
-    for(i = 0; i < totalItems; i++)
+    for (i = 0; i < totalItems; i++)
     {
-
         if (sDebugMenuListData->listId == 1 && sDebugBattleData->submenu > 1)
         {
             u16 species;
@@ -1428,6 +1414,31 @@ static void Debug_RefreshListMenu(u8 taskId)
         sDebugMenuListData->listItems[i].name = &sDebugMenuListData->itemNames[i][0];
         sDebugMenuListData->listItems[i].id = i;
     }
+}
+
+static void Debug_RefreshListMenu(u8 taskId)
+{
+    u8 totalItems = 0;
+
+    if (sDebugMenuListData->listId == 0)
+    {
+        gMultiuseListMenuTemplate = sDebugMenu_ListTemplate_FlagsVars;
+        totalItems = gMultiuseListMenuTemplate.totalItems;
+    }
+    else if (sDebugMenuListData->listId == 1 && sDebugBattleData->submenu <= 1)
+    {
+        gMultiuseListMenuTemplate = sDebugMenu_ListTemplate_Battle_1;
+        totalItems = gMultiuseListMenuTemplate.totalItems;
+    }
+    else if (sDebugMenuListData->listId == 1 && sDebugBattleData->submenu > 1)
+    {
+        gMultiuseListMenuTemplate = sDebugMenu_ListTemplate_Battle_2;
+        totalItems = 7;
+    }
+
+    // Failsafe to prevent memory corruption
+    totalItems = min(totalItems, DEBUG_MAX_MENU_ITEMS);
+    Debug_GenerateListMenuNames(totalItems);
 
     // Set list menu data
     gMultiuseListMenuTemplate.items = sDebugMenuListData->listItems;
@@ -1594,7 +1605,8 @@ static void DebugTask_HandleMenuInput_FlagsVars(u8 taskId)
             else
             {
                 func(taskId);
-                Debug_RedrawListMenu(taskId);
+                Debug_GenerateListMenuNames(gMultiuseListMenuTemplate.totalItems);
+                RedrawListMenu(gTasks[taskId].tMenuTaskId);
             }
 
             // Remove TRUE/FALSE window for functions that haven't been assigned flags
@@ -3360,7 +3372,7 @@ static void DebugAction_Give_Pokemon_SelectShiny(u8 taskId)
         StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
         ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 2);
         StringCopyPadded(gStringVar3, gStringVar3, CHAR_SPACE, 15);
-        StringCopy(gStringVar1, gNatureNamePointers[0]);
+        StringCopy(gStringVar1, gNaturesInfo[0].name);
         StringExpandPlaceholders(gStringVar4, sDebugText_PokemonNature);
         AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
 
@@ -3396,14 +3408,14 @@ static void DebugAction_Give_Pokemon_SelectNature(u8 taskId)
         StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
         ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 2);
         StringCopyPadded(gStringVar3, gStringVar3, CHAR_SPACE, 15);
-        StringCopy(gStringVar1, gNatureNamePointers[gTasks[taskId].tInput]);
+        StringCopy(gStringVar1, gNaturesInfo[gTasks[taskId].tInput].name);
         StringExpandPlaceholders(gStringVar4, sDebugText_PokemonNature);
         AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
     }
 
     if (JOY_NEW(A_BUTTON))
     {
-        u8 abilityId;
+        u16 abilityId;
         sDebugMonData->nature = gTasks[taskId].tInput;
         gTasks[taskId].tInput = 0;
         gTasks[taskId].tDigit = 0;
@@ -4095,7 +4107,7 @@ static void DebugAction_PCBag_Fill_PCBoxes_Fast(u8 taskId) //Credit: Sierraffini
                 StringCopy(speciesName, GetSpeciesName(species));
                 SetBoxMonData(&boxMon, MON_DATA_NICKNAME, &speciesName);
                 SetBoxMonData(&boxMon, MON_DATA_SPECIES, &species);
-                GiveBoxMonInitialMoveset_Fast(&boxMon);
+                GiveBoxMonInitialMoveset(&boxMon);
                 gPokemonStoragePtr->boxes[boxId][boxPosition] = boxMon;
             }
         }
@@ -5084,32 +5096,19 @@ static void DebugAction_Party_HealParty(u8 taskId)
     Debug_DestroyMenu_Full(taskId);
 }
 
-static void DebugAction_Party_PoisonMons(u8 taskId)
+static void DebugAction_Party_InflictStatus1(u8 taskId)
 {
-    int i;
-    for (i = 0; i < PARTY_SIZE; i++)
-    {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, 0)
-            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
-            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
-        {
-            u32 curStatus = STATUS1_POISON;
-            SetMonData(&gPlayerParty[i], MON_DATA_STATUS, &curStatus);
-        }
-    }
-    PlaySE(SE_FIELD_POISON);
-    ScriptContext_Enable();
-    Debug_DestroyMenu_Full(taskId);
+    Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_InflictStatus1);
 }
 
-static void DebugAction_Party_CheckEV(u8 taskId)
+static void DebugAction_Party_CheckEVs(u8 taskId)
 {
-    Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_CheckEV);
+    Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_CheckEVs);
 }
 
-static void DebugAction_Party_CheckIV(u8 taskId)
+static void DebugAction_Party_CheckIVs(u8 taskId)
 {
-    Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_CheckIV);
+    Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_CheckIVs);
 }
 
 static void DebugAction_Party_ClearParty(u8 taskId)
@@ -5119,4 +5118,13 @@ static void DebugAction_Party_ClearParty(u8 taskId)
     Debug_DestroyMenu_Full(taskId);
 }
 
-#endif //DEBUG_OVERWORLD_MENU == TRUE
+void CheckEWRAMCounters(struct ScriptContext *ctx)
+{
+    ConvertIntToDecimalStringN(gStringVar1, gFollowerSteps, STR_CONV_MODE_LEFT_ALIGN, 5);
+    ConvertIntToDecimalStringN(gStringVar2, gChainFishingDexNavStreak, STR_CONV_MODE_LEFT_ALIGN, 5);
+}
+
+static void DebugAction_Util_CheckEWRAMCounters(u8 taskId)
+{
+    Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_EWRAMCounters);
+}

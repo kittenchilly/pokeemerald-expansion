@@ -22,7 +22,7 @@ SINGLE_BATTLE_TEST("Clear Amulet prevents Intimidate")
         HP_BAR(player, captureDamage: &turnOneHit);
         ABILITY_POPUP(player, ABILITY_INTIMIDATE);
         NOT ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, player);
-        MESSAGE("Foe Wobbuffet's Clear Amulet prevents its stats from being lowered!");
+        MESSAGE("The effects of the Clear Amulet held by the opposing Wobbuffet prevents its stats from being lowered!");
         HP_BAR(player, captureDamage: &turnTwoHit);
     } THEN {
         EXPECT_EQ(turnOneHit, turnTwoHit);
@@ -47,8 +47,7 @@ SINGLE_BATTLE_TEST("Clear Amulet prevents stat reducing effects")
         ASSUME(gMovesInfo[MOVE_CONFIDE].effect == EFFECT_SPECIAL_ATTACK_DOWN);
         ASSUME(gMovesInfo[MOVE_FAKE_TEARS].effect == EFFECT_SPECIAL_DEFENSE_DOWN_2);
         ASSUME(gMovesInfo[MOVE_SCARY_FACE].effect == EFFECT_SPEED_DOWN_2);
-        ASSUME(B_UPDATED_MOVE_DATA >= GEN_6);
-        ASSUME(gMovesInfo[MOVE_SWEET_SCENT].effect == EFFECT_EVASION_DOWN_2);
+        ASSUME(gMovesInfo[MOVE_SWEET_SCENT].effect == (B_UPDATED_MOVE_DATA >= GEN_6 ? EFFECT_EVASION_DOWN_2 : EFFECT_EVASION_DOWN));
         ASSUME(gMovesInfo[MOVE_SAND_ATTACK].effect == EFFECT_ACCURACY_DOWN);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET) { Item(ITEM_CLEAR_AMULET); };
@@ -56,7 +55,7 @@ SINGLE_BATTLE_TEST("Clear Amulet prevents stat reducing effects")
         TURN { MOVE(player, move); }
     } SCENE {
         NOT ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, opponent);
-        MESSAGE("Foe Wobbuffet's Clear Amulet prevents its stats from being lowered!");
+        MESSAGE("The effects of the Clear Amulet held by the opposing Wobbuffet prevents its stats from being lowered!");
     }
 }
 
@@ -85,7 +84,7 @@ SINGLE_BATTLE_TEST("Clear Amulet prevents secondary effects that reduce stats")
     } SCENE {
         NONE_OF {
             ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, opponent);
-            MESSAGE("Foe Wobbuffet's Clear Amulet prevents its stats from being lowered!");
+            MESSAGE("The effects of the Clear Amulet held by the opposing Wobbuffet prevents its stats from being lowered!");
         }
     }
 }
