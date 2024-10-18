@@ -635,10 +635,8 @@ extern u16 sBattlerAbilities[MAX_BATTLERS_COUNT];
 TEST("Battle strings fit on the battle message window")
 {
     u32 i, j, strWidth;
-    //u32 start = BATTLESTRINGS_TABLE_START + 401;
-    //u32 end = BATTLESTRINGS_TABLE_START + 500;
-    u32 start = STRINGID_GRASSYTERRAINHEALS;
-    u32 end = STRINGID_GRASSYTERRAINHEALS;
+    u32 start = BATTLESTRINGS_TABLE_START + 0;
+    u32 end = BATTLESTRINGS_TABLE_START + 100;
     const u32 fontId = FONT_NORMAL, widthPx = 208;
     u32 battleStringId = 0;
     u8 battleString[1000] = {0};

@@ -1423,6 +1423,16 @@ static u32 (*GetFontWidthFunc(u8 fontId))(u16, bool32)
     return NULL;
 }
 
+s32 GetGlyphWidth(u16 glyphId, bool32 isJapanese, u8 fontId)
+{
+    u32 (*func)(u16 fontId, bool32 isJapanese);
+
+    func = GetFontWidthFunc(fontId);
+    if (func == NULL)
+        return 0;
+    return func(glyphId, isJapanese);
+}
+
 s32 GetStringWidth(u8 fontId, const u8 *str, s16 letterSpacing)
 {
     bool32 isJapanese;
