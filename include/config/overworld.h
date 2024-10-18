@@ -3,14 +3,14 @@
 
 // Movement config
 #define OW_RUNNING_INDOORS          GEN_LATEST  // In Gen4+, players are allowed to run indoors.
-#define OW_AUTO_SIGNPOST            FALSE       // When enabled, if the tile that the player is facing has MB_SIGNPOST, MB_POKEMART_SIGN, or MB_POKEMON_CENTER_SIGN, the player will automatically read the signpost, as seen in FRLG.
+#define OW_AUTO_SIGNPOST            TRUE       // When enabled, if the tile that the player is facing has MB_SIGNPOST, MB_POKEMART_SIGN, or MB_POKEMON_CENTER_SIGN, the player will automatically read the signpost, as seen in FRLG.
 #define SLOW_MOVEMENT_ON_STAIRS     FALSE       // If enabled, the player will move slower up/down stairs like in FR
 
 // Other settings
 #define OW_POISON_DAMAGE                GEN_LATEST // In Gen4, Pokémon no longer faint from Poison in the overworld. In Gen5+, they no longer take damage at all.
-#define OW_DOUBLE_APPROACH_WITH_ONE_MON FALSE      // If enabled, you can be spotted by two trainers at the same time even if you only have one eligible Pokémon in your party.
-#define OW_HIDE_REPEAT_MAP_POPUP        FALSE      // If enabled, map popups will not appear if entering a map with the same Map Section Id as the last.
-#define OW_FRLG_WHITEOUT                FALSE      // If enabled, shows an additional whiteout message and post whiteout event script with healing NPC.
+#define OW_DOUBLE_APPROACH_WITH_ONE_MON TRUE      // If enabled, you can be spotted by two trainers at the same time even if you only have one eligible Pokémon in your party.
+#define OW_HIDE_REPEAT_MAP_POPUP        TRUE      // If enabled, map popups will not appear if entering a map with the same Map Section Id as the last.
+#define OW_FRLG_WHITEOUT                TRUE      // If enabled, shows an additional whiteout message and post whiteout event script with healing NPC.
 
 // Item Obtain Description Box
 #define OW_ITEM_DESCRIPTIONS_OFF        0   // never show descriptions
@@ -54,7 +54,7 @@
                                                   // 16x32, 32x32, 64x64 etc are fine
 #define OW_MON_WANDER_WALK             TRUE       // If true, OW pokemon with MOVEMENT_TYPE_WANDER will walk-in-place in between steps.
 // Follower Pokémon
-#define OW_FOLLOWERS_ENABLED           FALSE      // Enables follower Pokémon, HGSS style. Requires OW_POKEMON_OBJECT_EVENTS. Note that additional scripting may be required for them to be fully supported!
+#define OW_FOLLOWERS_ENABLED           TRUE      // Enables follower Pokémon, HGSS style. Requires OW_POKEMON_OBJECT_EVENTS. Note that additional scripting may be required for them to be fully supported!
 #define OW_FOLLOWERS_BOBBING           TRUE       // If true, follower pokemon will bob up and down during their idle & walking animations
 #define OW_FOLLOWERS_POKEBALLS         TRUE       // Followers will emerge from the pokeball they are stored in, instead of a normal pokeball
 
