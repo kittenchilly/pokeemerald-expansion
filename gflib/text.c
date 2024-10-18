@@ -1595,21 +1595,7 @@ s32 GetStringWidth(u8 fontId, const u8 *str, s16 letterSpacing)
     return width;
 }
 
-s32 GetStringLineWidth(u8 fontId, const u8 *str, s16 letterSpacing, u32 lineNum)
-{
-    u32 strWidth = 0, strLen, currLine;
-
-    for (currLine = 1; currLine <= lineNum; currLine++)
-    {
-        strWidth = GetStringWidth(fontId, str, letterSpacing);
-        strLen = StringLineLength(str);
-        str += strLen + 1;
-    }
-    return strWidth;
-}
-
-#ifndef NDEBUG
-s32 Debug_PrintStringLine(u8 fontId, const u8 *str, s16 letterSpacing, u32 lineNum, u32 strSize)
+s32 GetStringLineWidth(u8 fontId, const u8 *str, s16 letterSpacing, u32 lineNum, u32 strSize, bool32 printDebug)
 {
     u32 strWidth = 0, strLen, currLine;
     u8 strCopy[strSize];
@@ -1625,13 +1611,13 @@ s32 Debug_PrintStringLine(u8 fontId, const u8 *str, s16 letterSpacing, u32 lineN
             strWidth = GetStringWidth(fontId, strCopy, letterSpacing);
             strLen = StringLineLength(strCopy);
             StringAppend(strCopy, gText_EmptyString3);
-            DebugPrintf("  Line %d, len:%d, width:%d, \"%S\"", currLine, strLen, strWidth, strCopy);
+            if (printDebug && strWidth != 0)
+                DebugPrintf("  Line %d, len:%d, width:%d, \"%S\"", currLine, strLen, strWidth, strCopy);
         }
         str += strLen + 1;
     }
     return strWidth;
 }
-#endif
 
 u8 RenderTextHandleBold(u8 *pixels, u8 fontId, u8 *str)
 {

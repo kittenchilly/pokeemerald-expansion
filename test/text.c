@@ -827,12 +827,9 @@ TEST("Battle strings fit on the battle message window")
     DebugPrintf("Battle String ID %d: %S", battleStringId + BATTLESTRINGS_TABLE_START, battleString);
     for (j = 1;; j++)
     {
-        strWidth = GetStringLineWidth(fontId, battleString, 0, j);
+        strWidth = GetStringLineWidth(fontId, battleString, 0, j, sizeof(battleString), TRUE);
         if (strWidth == 0)
             break;
-    #ifndef NDEBUG
-        Debug_PrintStringLine(fontId, battleString, 0, j, sizeof(battleString));
-    #endif
         EXPECT_LE(strWidth, widthPx);
     }
     Free(gBattleMsgDataPtr);
