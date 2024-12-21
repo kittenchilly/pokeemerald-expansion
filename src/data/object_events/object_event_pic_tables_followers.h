@@ -6510,14 +6510,38 @@ static const struct SpriteFrameImage sPicTable_IronValiant[] = {
 #endif //P_FAMILY_IRON_VALIANT
 
 #if P_FAMILY_KORAIDON
-static const struct SpriteFrameImage sPicTable_Koraidon[] = {
-    overworld_ascending_frames(gObjectEventPic_Koraidon, 8, 8),
+static const struct SpriteFrameImage sPicTable_KoraidonApex[] = {
+    overworld_ascending_frames(gObjectEventPic_KoraidonApex, 8, 8),
+};
+static const struct SpriteFrameImage sPicTable_KoraidonLimited[] = {
+    overworld_ascending_frames(gObjectEventPic_KoraidonLimited, 8, 8),
+};
+static const struct SpriteFrameImage sPicTable_KoraidonSprinting[] = {
+    overworld_ascending_frames(gObjectEventPic_KoraidonSprinting, 8, 8),
+};
+static const struct SpriteFrameImage sPicTable_KoraidonSwimming[] = {
+    overworld_ascending_frames(gObjectEventPic_KoraidonSwimming, 8, 8),
+};
+static const struct SpriteFrameImage sPicTable_KoraidonGliding[] = {
+    overworld_ascending_frames(gObjectEventPic_KoraidonGliding, 8, 8),
 };
 #endif //P_FAMILY_KORAIDON
 
 #if P_FAMILY_MIRAIDON
-static const struct SpriteFrameImage sPicTable_Miraidon[] = {
-    overworld_ascending_frames(gObjectEventPic_Miraidon, 8, 8),
+static const struct SpriteFrameImage sPicTable_MiraidonUltimate[] = {
+    overworld_ascending_frames(gObjectEventPic_MiraidonUltimate, 8, 8),
+};
+static const struct SpriteFrameImage sPicTable_MiraidonLowPower[] = {
+    overworld_ascending_frames(gObjectEventPic_MiraidonLowPower, 8, 8),
+};
+static const struct SpriteFrameImage sPicTable_MiraidonDrive[] = {
+    overworld_ascending_frames(gObjectEventPic_MiraidonDrive, 8, 8),
+};
+static const struct SpriteFrameImage sPicTable_MiraidonAquatic[] = {
+    overworld_ascending_frames(gObjectEventPic_MiraidonAquatic, 8, 8),
+};
+static const struct SpriteFrameImage sPicTable_MiraidonGlide[] = {
+    overworld_ascending_frames(gObjectEventPic_MiraidonGlide, 8, 8),
 };
 #endif //P_FAMILY_MIRAIDON
 

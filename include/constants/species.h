@@ -1500,8 +1500,10 @@
 #define SPECIES_CHI_YU                                  1397
 #define SPECIES_ROARING_MOON                            1398
 #define SPECIES_IRON_VALIANT                            1399
-#define SPECIES_KORAIDON                                1400
-#define SPECIES_MIRAIDON                                1401
+#define SPECIES_KORAIDON                                SPECIES_KORAIDON_APEX
+#define SPECIES_KORAIDON_APEX                           1400
+#define SPECIES_MIRAIDON                                SPECIES_MIRAIDON_ULTIMATE
+#define SPECIES_MIRAIDON_ULTIMATE                       1401
 // Paldean Forms
 #define SPECIES_TAUROS_PALDEA_COMBAT                    1402
 #define SPECIES_TAUROS_PALDEA_BLAZE                     1403
@@ -1637,8 +1639,16 @@
 #define SPECIES_URSHIFU_RAPID_STRIKE_STYLE_GMAX         SPECIES_URSHIFU_RAPID_STRIKE_GMAX
 #define SPECIES_MIMIKYU_BUSTED_TOTEM                    1523
 #define SPECIES_MIMIKYU_TOTEM_BUSTED                    SPECIES_MIMIKYU_BUSTED_TOTEM
+#define SPECIES_KORAIDON_LIMITED                        1524
+#define SPECIES_KORAIDON_SPRINTING                      1525
+#define SPECIES_KORAIDON_SWIMMING                       1526
+#define SPECIES_KORAIDON_GLIDING                        1527
+#define SPECIES_MIRAIDON_LOW_POWER                      1528
+#define SPECIES_MIRAIDON_DRIVE                          1529
+#define SPECIES_MIRAIDON_AQUATIC                        1530
+#define SPECIES_MIRAIDON_GLIDE                          1531
 
-#define SPECIES_EGG                                     (SPECIES_MIMIKYU_BUSTED_TOTEM + 1)
+#define SPECIES_EGG                                     (SPECIES_MIRAIDON_GLIDE + 1)
 
 #define NUM_SPECIES SPECIES_EGG
 

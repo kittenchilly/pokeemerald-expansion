@@ -26356,16 +26356,38 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //P_FAMILY_IRON_VALIANT
 
 #if P_FAMILY_KORAIDON
-    const u32 gMonFrontPic_Koraidon[] = INCBIN_U32("graphics/pokemon/koraidon/front.4bpp.lz");
     const u32 gMonPalette_Koraidon[] = INCBIN_U32("graphics/pokemon/koraidon/normal.gbapal.lz");
-    const u32 gMonBackPic_Koraidon[] = INCBIN_U32("graphics/pokemon/koraidon/back.4bpp.lz");
     const u32 gMonShinyPalette_Koraidon[] = INCBIN_U32("graphics/pokemon/koraidon/shiny.gbapal.lz");
-    const u8 gMonIcon_Koraidon[] = INCBIN_U8("graphics/pokemon/koraidon/icon.4bpp");
 #if P_FOOTPRINTS
     const u8 gMonFootprint_Koraidon[] = INCBIN_U8("graphics/pokemon/koraidon/footprint.1bpp");
 #endif //P_FOOTPRINTS
+
+    const u32 gMonFrontPic_KoraidonApex[] = INCBIN_U32("graphics/pokemon/koraidon/front.4bpp.lz");
+    const u32 gMonBackPic_KoraidonApex[] = INCBIN_U32("graphics/pokemon/koraidon/back.4bpp.lz");
+    const u8 gMonIcon_KoraidonApex[] = INCBIN_U8("graphics/pokemon/koraidon/icon.4bpp");
+
+    const u32 gMonFrontPic_KoraidonLimited[] = INCBIN_U32("graphics/pokemon/koraidon/limited/front.4bpp.lz");
+    const u32 gMonBackPic_KoraidonLimited[] = INCBIN_U32("graphics/pokemon/koraidon/limited/back.4bpp.lz");
+    const u8 gMonIcon_KoraidonLimited[] = INCBIN_U8("graphics/pokemon/koraidon/limited/icon.4bpp");
+
+    const u32 gMonFrontPic_KoraidonSprinting[] = INCBIN_U32("graphics/pokemon/koraidon/sprinting/front.4bpp.lz");
+    const u32 gMonBackPic_KoraidonSprinting[] = INCBIN_U32("graphics/pokemon/koraidon/sprinting/back.4bpp.lz");
+    const u8 gMonIcon_KoraidonSprinting[] = INCBIN_U8("graphics/pokemon/koraidon/sprinting/icon.4bpp");
+
+    const u32 gMonFrontPic_KoraidonSwimming[] = INCBIN_U32("graphics/pokemon/koraidon/swimming/front.4bpp.lz");
+    const u32 gMonBackPic_KoraidonSwimming[] = INCBIN_U32("graphics/pokemon/koraidon/swimming/back.4bpp.lz");
+    const u8 gMonIcon_KoraidonSwimming[] = INCBIN_U8("graphics/pokemon/koraidon/swimming/icon.4bpp");
+
+    const u32 gMonFrontPic_KoraidonGliding[] = INCBIN_U32("graphics/pokemon/koraidon/gliding/front.4bpp.lz");
+    const u32 gMonBackPic_KoraidonGliding[] = INCBIN_U32("graphics/pokemon/koraidon/gliding/back.4bpp.lz");
+    const u8 gMonIcon_KoraidonGliding[] = INCBIN_U8("graphics/pokemon/koraidon/gliding/icon.4bpp");
+
 #if OW_POKEMON_OBJECT_EVENTS
-    const u32 gObjectEventPic_Koraidon[] = INCBIN_COMP("graphics/pokemon/koraidon/overworld.4bpp");
+    const u32 gObjectEventPic_KoraidonApex[] = INCBIN_COMP("graphics/pokemon/koraidon/overworld.4bpp");
+    const u32 gObjectEventPic_KoraidonLimited[] = INCBIN_COMP("graphics/pokemon/koraidon/limited/overworld.4bpp");
+    const u32 gObjectEventPic_KoraidonSprinting[] = INCBIN_COMP("graphics/pokemon/koraidon/sprinting/overworld.4bpp");
+    const u32 gObjectEventPic_KoraidonSwimming[] = INCBIN_COMP("graphics/pokemon/koraidon/swimming/overworld.4bpp");
+    const u32 gObjectEventPic_KoraidonGliding[] = INCBIN_COMP("graphics/pokemon/koraidon/gliding/overworld.4bpp");
 #if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
     const u32 gOverworldPalette_Koraidon[] = INCBIN_U32("graphics/pokemon/koraidon/overworld_normal.gbapal.lz");
     const u32 gShinyOverworldPalette_Koraidon[] = INCBIN_U32("graphics/pokemon/koraidon/overworld_shiny.gbapal.lz");
@@ -26374,16 +26396,38 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //P_FAMILY_KORAIDON
 
 #if P_FAMILY_MIRAIDON
-    const u32 gMonFrontPic_Miraidon[] = INCBIN_U32("graphics/pokemon/miraidon/front.4bpp.lz");
     const u32 gMonPalette_Miraidon[] = INCBIN_U32("graphics/pokemon/miraidon/normal.gbapal.lz");
-    const u32 gMonBackPic_Miraidon[] = INCBIN_U32("graphics/pokemon/miraidon/back.4bpp.lz");
     const u32 gMonShinyPalette_Miraidon[] = INCBIN_U32("graphics/pokemon/miraidon/shiny.gbapal.lz");
-    const u8 gMonIcon_Miraidon[] = INCBIN_U8("graphics/pokemon/miraidon/icon.4bpp");
 #if P_FOOTPRINTS
     const u8 gMonFootprint_Miraidon[] = INCBIN_U8("graphics/pokemon/miraidon/footprint.1bpp");
 #endif //P_FOOTPRINTS
+
+    const u32 gMonFrontPic_MiraidonUltimate[] = INCBIN_U32("graphics/pokemon/miraidon/front.4bpp.lz");
+    const u32 gMonBackPic_MiraidonUltimate[] = INCBIN_U32("graphics/pokemon/miraidon/back.4bpp.lz");
+    const u8 gMonIcon_MiraidonUltimate[] = INCBIN_U8("graphics/pokemon/miraidon/icon.4bpp");
+
+    const u32 gMonFrontPic_MiraidonLowPower[] = INCBIN_U32("graphics/pokemon/miraidon/low_power/front.4bpp.lz");
+    const u32 gMonBackPic_MiraidonLowPower[] = INCBIN_U32("graphics/pokemon/miraidon/low_power/back.4bpp.lz");
+    const u8 gMonIcon_MiraidonLowPower[] = INCBIN_U8("graphics/pokemon/miraidon/low_power/icon.4bpp");
+
+    const u32 gMonFrontPic_MiraidonDrive[] = INCBIN_U32("graphics/pokemon/miraidon/drive/front.4bpp.lz");
+    const u32 gMonBackPic_MiraidonDrive[] = INCBIN_U32("graphics/pokemon/miraidon/drive/back.4bpp.lz");
+    const u8 gMonIcon_MiraidonDrive[] = INCBIN_U8("graphics/pokemon/miraidon/drive/icon.4bpp");
+
+    const u32 gMonFrontPic_MiraidonAquatic[] = INCBIN_U32("graphics/pokemon/miraidon/aquatic/front.4bpp.lz");
+    const u32 gMonBackPic_MiraidonAquatic[] = INCBIN_U32("graphics/pokemon/miraidon/aquatic/back.4bpp.lz");
+    const u8 gMonIcon_MiraidonAquatic[] = INCBIN_U8("graphics/pokemon/miraidon/aquatic/icon.4bpp");
+
+    const u32 gMonFrontPic_MiraidonGlide[] = INCBIN_U32("graphics/pokemon/miraidon/glide/front.4bpp.lz");
+    const u32 gMonBackPic_MiraidonGlide[] = INCBIN_U32("graphics/pokemon/miraidon/glide/back.4bpp.lz");
+    const u8 gMonIcon_MiraidonGlide[] = INCBIN_U8("graphics/pokemon/miraidon/glide/icon.4bpp");
+
 #if OW_POKEMON_OBJECT_EVENTS
-    const u32 gObjectEventPic_Miraidon[] = INCBIN_COMP("graphics/pokemon/miraidon/overworld.4bpp");
+    const u32 gObjectEventPic_MiraidonUltimate[] = INCBIN_COMP("graphics/pokemon/miraidon/overworld.4bpp");
+    const u32 gObjectEventPic_MiraidonLowPower[] = INCBIN_COMP("graphics/pokemon/miraidon/low_power/overworld.4bpp");
+    const u32 gObjectEventPic_MiraidonDrive[] = INCBIN_COMP("graphics/pokemon/miraidon/drive/overworld.4bpp");
+    const u32 gObjectEventPic_MiraidonAquatic[] = INCBIN_COMP("graphics/pokemon/miraidon/aquatic/overworld.4bpp");
+    const u32 gObjectEventPic_MiraidonGlide[] = INCBIN_COMP("graphics/pokemon/miraidon/glide/overworld.4bpp");
 #if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
     const u32 gOverworldPalette_Miraidon[] = INCBIN_U32("graphics/pokemon/miraidon/overworld_normal.gbapal.lz");
     const u32 gShinyOverworldPalette_Miraidon[] = INCBIN_U32("graphics/pokemon/miraidon/overworld_shiny.gbapal.lz");

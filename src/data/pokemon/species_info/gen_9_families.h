@@ -6665,135 +6665,145 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 #endif //P_FAMILY_IRON_VALIANT
 
 #if P_FAMILY_KORAIDON
-    [SPECIES_KORAIDON] =
-    {
-        .baseHP        = 100,
-        .baseAttack    = 135,
-        .baseDefense   = 115,
-        .baseSpeed     = 135,
-        .baseSpAttack  = 85,
-        .baseSpDefense = 100,
-        .types = MON_TYPES(TYPE_FIGHTING, TYPE_DRAGON),
-        .catchRate = 3,
-        .expYield = 335,
-        .evYield_Attack = 3,
-        .genderRatio = MON_GENDERLESS,
-        .eggCycles = 50,
-        .friendship = 0,
-        .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
-        .abilities = { ABILITY_ORICHALCUM_PULSE, ABILITY_NONE, ABILITY_NONE },
-        .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Koraidon"),
-        .cryId = CRY_KORAIDON,
-        .natDexNum = NATIONAL_DEX_KORAIDON,
-        .categoryName = _("Paradox"),
-        .height = 25,
-        .weight = 3030,
-        .description = COMPOUND_STRING(
-            "This Pokémon resembles Cyclizar,\n"
-            "but it is far burlier and more\n"
-            "ferocious. Nothing is known about its\n"
-            "ecology or other features."),
-        .pokemonScale = 356,
-        .pokemonOffset = 17,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-        .frontPic = gMonFrontPic_Koraidon,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Koraidon,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_Koraidon,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_Koraidon,
-        .shinyPalette = gMonShinyPalette_Koraidon,
-        .iconSprite = gMonIcon_Koraidon,
-        .iconPalIndex = 0,
-        SHADOW(-3, 13, SHADOW_SIZE_XL_BATTLE_ONLY)
-        FOOTPRINT(Koraidon)
-        OVERWORLD(
-            sPicTable_Koraidon,
-            SIZE_64x64,
-            SHADOW_SIZE_M,
-            TRACKS_NONE,
-            gOverworldPalette_Koraidon,
-            gShinyOverworldPalette_Koraidon
-        )
-        .isLegendary = TRUE,
-        .isFrontierBanned = TRUE,
-        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
-        .levelUpLearnset = sKoraidonLevelUpLearnset,
-        .teachableLearnset = sKoraidonTeachableLearnset,
-    },
+
+#define KORAIDON_SPECIES_INFO(Form, Height)                                      \
+    {                                                                            \
+        .baseHP        = 100,                                                    \
+        .baseAttack    = 135,                                                    \
+        .baseDefense   = 115,                                                    \
+        .baseSpeed     = 135,                                                    \
+        .baseSpAttack  = 85,                                                     \
+        .baseSpDefense = 100,                                                    \
+        .types = MON_TYPES(TYPE_FIGHTING, TYPE_DRAGON),                          \
+        .catchRate = 3,                                                          \
+        .expYield = 335,                                                         \
+        .evYield_Attack = 3,                                                     \
+        .genderRatio = MON_GENDERLESS,                                           \
+        .eggCycles = 50,                                                         \
+        .friendship = 0,                                                         \
+        .growthRate = GROWTH_SLOW,                                               \
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),               \
+        .abilities = { ABILITY_ORICHALCUM_PULSE, ABILITY_NONE, ABILITY_NONE },   \
+        .bodyColor = BODY_COLOR_RED,                                             \
+        .speciesName = _("Koraidon"),                                            \
+        .cryId = CRY_KORAIDON,                                                   \
+        .natDexNum = NATIONAL_DEX_KORAIDON,                                      \
+        .categoryName = _("Paradox"),                                            \
+        .height = Height,                                                        \
+        .weight = 3030,                                                          \
+        .description = gKoraidon##Form##PokedexText,                             \
+        .pokemonScale = 356,                                                     \
+        .pokemonOffset = 17,                                                     \
+        .trainerScale = 256,                                                     \
+        .trainerOffset = 0,                                                      \
+        .frontPic = gMonFrontPic_Koraidon##Form,                                 \
+        .frontPicSize = MON_COORDS_SIZE(64, 64),                                 \
+        .frontPicYOffset = 0,                                                    \
+        .frontAnimFrames = sAnims_Koraidon,                                      \
+        /*.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,*/                             \
+        .backPic = gMonBackPic_Koraidon##Form,                                   \
+        .backPicSize = MON_COORDS_SIZE(64, 64),                                  \
+        .backPicYOffset = 0,                                                     \
+        /*.backAnimId = BACK_ANIM_NONE,*/                                        \
+        .palette = gMonPalette_Koraidon,                                         \
+        .shinyPalette = gMonShinyPalette_Koraidon,                               \
+        .iconSprite = gMonIcon_Koraidon##Form,                                   \
+        .iconPalIndex = 0,                                                       \
+        SHADOW(-3, 13, SHADOW_SIZE_XL_BATTLE_ONLY)                               \
+        FOOTPRINT(Koraidon)                                                      \
+        OVERWORLD(                                                               \
+            sPicTable_Koraidon##Form,                                            \
+            SIZE_64x64,                                                          \
+            SHADOW_SIZE_M,                                                       \
+            TRACKS_NONE,                                                         \
+            gOverworldPalette_Koraidon,                                          \
+            gShinyOverworldPalette_Koraidon                                      \
+        )                                                                        \
+        .isLegendary = TRUE,                                                     \
+        .isFrontierBanned = TRUE,                                                \
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,                            \
+        .levelUpLearnset = sKoraidonLevelUpLearnset,                             \
+        .teachableLearnset = sKoraidonTeachableLearnset,                         \
+        .formSpeciesIdTable = sKoraidonFormSpeciesIdTable,                       \
+    }
+
+    [SPECIES_KORAIDON_APEX]      = KORAIDON_SPECIES_INFO(Apex,      25),
+    [SPECIES_KORAIDON_LIMITED]   = KORAIDON_SPECIES_INFO(Limited,   35),
+    [SPECIES_KORAIDON_SPRINTING] = KORAIDON_SPECIES_INFO(Sprinting, 35),
+    [SPECIES_KORAIDON_SWIMMING]  = KORAIDON_SPECIES_INFO(Swimming,  35),
+    [SPECIES_KORAIDON_GLIDING]   = KORAIDON_SPECIES_INFO(Gliding,   35),
+
 #endif //P_FAMILY_KORAIDON
 
 #if P_FAMILY_MIRAIDON
-    [SPECIES_MIRAIDON] =
-    {
-        .baseHP        = 100,
-        .baseAttack    = 85,
-        .baseDefense   = 100,
-        .baseSpeed     = 135,
-        .baseSpAttack  = 135,
-        .baseSpDefense = 115,
-        .types = MON_TYPES(TYPE_ELECTRIC, TYPE_DRAGON),
-        .catchRate = 3,
-        .expYield = 335,
-        .evYield_SpAttack = 3,
-        .genderRatio = MON_GENDERLESS,
-        .eggCycles = 50,
-        .friendship = 0,
-        .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
-        .abilities = { ABILITY_HADRON_ENGINE, ABILITY_NONE, ABILITY_NONE },
-        .bodyColor = BODY_COLOR_PURPLE,
-        .speciesName = _("Miraidon"),
-        .cryId = CRY_MIRAIDON,
-        .natDexNum = NATIONAL_DEX_MIRAIDON,
-        .categoryName = _("Paradox"),
-        .height = 35,
-        .weight = 2400,
-        .description = COMPOUND_STRING(
-            "This seems to be the Iron Serpent\n"
-            "mentioned in an Violet Book. The\n"
-            "Iron Serpent is said to have turned the\n"
-            "land to ash with its lightning."),
-        .pokemonScale = 356,
-        .pokemonOffset = 17,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-        .frontPic = gMonFrontPic_Miraidon,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Miraidon,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_Miraidon,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_Miraidon,
-        .shinyPalette = gMonShinyPalette_Miraidon,
-        .iconSprite = gMonIcon_Miraidon,
-        .iconPalIndex = 2,
-        SHADOW(10, 14, SHADOW_SIZE_L)
-        FOOTPRINT(Miraidon)
-        OVERWORLD(
-            sPicTable_Miraidon,
-            SIZE_64x64,
-            SHADOW_SIZE_M,
-            TRACKS_NONE,
-            gOverworldPalette_Miraidon,
-            gShinyOverworldPalette_Miraidon
-        )
-        .isLegendary = TRUE,
-        .isFrontierBanned = TRUE,
-        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
-        .levelUpLearnset = sMiraidonLevelUpLearnset,
-        .teachableLearnset = sMiraidonTeachableLearnset,
-    },
+
+#define MIRAIDON_SPECIES_INFO(Form, Height)                                   \
+    {                                                                         \
+        .baseHP        = 100,                                                 \
+        .baseAttack    = 85,                                                  \
+        .baseDefense   = 100,                                                 \
+        .baseSpeed     = 135,                                                 \
+        .baseSpAttack  = 135,                                                 \
+        .baseSpDefense = 115,                                                 \
+        .types = MON_TYPES(TYPE_ELECTRIC, TYPE_DRAGON),                       \
+        .catchRate = 3,                                                       \
+        .expYield = 335,                                                      \
+        .evYield_SpAttack = 3,                                                \
+        .genderRatio = MON_GENDERLESS,                                        \
+        .eggCycles = 50,                                                      \
+        .friendship = 0,                                                      \
+        .growthRate = GROWTH_SLOW,                                            \
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),            \
+        .abilities = { ABILITY_HADRON_ENGINE, ABILITY_NONE, ABILITY_NONE },   \
+        .bodyColor = BODY_COLOR_PURPLE,                                       \
+        .speciesName = _("Miraidon"),                                         \
+        .cryId = CRY_MIRAIDON,                                                \
+        .natDexNum = NATIONAL_DEX_MIRAIDON,                                   \
+        .categoryName = _("Paradox"),                                         \
+        .height = Height,                                                     \
+        .weight = 2400,                                                       \
+        .description = gMiraidon##Form##PokedexText,                          \
+        .pokemonScale = 356,                                                  \
+        .pokemonOffset = 17,                                                  \
+        .trainerScale = 256,                                                  \
+        .trainerOffset = 0,                                                   \
+        .frontPic = gMonFrontPic_Miraidon##Form,                              \
+        .frontPicSize = MON_COORDS_SIZE(64, 64),                              \
+        .frontPicYOffset = 0,                                                 \
+        .frontAnimFrames = sAnims_Miraidon,                                   \
+        /*.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,*/                          \
+        .backPic = gMonBackPic_Miraidon##Form,                                \
+        .backPicSize = MON_COORDS_SIZE(64, 64),                               \
+        .backPicYOffset = 0,                                                  \
+        /*.backAnimId = BACK_ANIM_NONE,*/                                     \
+        .palette = gMonPalette_Miraidon,                                      \
+        .shinyPalette = gMonShinyPalette_Miraidon,                            \
+        .iconSprite = gMonIcon_Miraidon##Form,                                \
+        .iconPalIndex = 2,                                                    \
+        SHADOW(10, 14, SHADOW_SIZE_L)                                         \
+        FOOTPRINT(Miraidon)                                                   \
+        OVERWORLD(                                                            \
+            sPicTable_Miraidon##Form,                                         \
+            SIZE_64x64,                                                       \
+            SHADOW_SIZE_M,                                                    \
+            TRACKS_NONE,                                                      \
+            gOverworldPalette_Miraidon,                                       \
+            gShinyOverworldPalette_Miraidon                                   \
+        )                                                                     \
+        .isLegendary = TRUE,                                                  \
+        .isFrontierBanned = TRUE,                                             \
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,                         \
+        .levelUpLearnset = sMiraidonLevelUpLearnset,                          \
+        .teachableLearnset = sMiraidonTeachableLearnset,                      \
+        .formSpeciesIdTable = sMiraidonFormSpeciesIdTable,                    \
+    }
+
+    [SPECIES_MIRAIDON_ULTIMATE]  = MIRAIDON_SPECIES_INFO(Ultimate, 35),
+    [SPECIES_MIRAIDON_LOW_POWER] = MIRAIDON_SPECIES_INFO(LowPower, 28),
+    [SPECIES_MIRAIDON_DRIVE]     = MIRAIDON_SPECIES_INFO(Drive,    28),
+    [SPECIES_MIRAIDON_AQUATIC]   = MIRAIDON_SPECIES_INFO(Aquatic,  28),
+    [SPECIES_MIRAIDON_GLIDE]     = MIRAIDON_SPECIES_INFO(Glide,    28),
+
 #endif //P_FAMILY_MIRAIDON
 
 #if P_FAMILY_WALKING_WAKE

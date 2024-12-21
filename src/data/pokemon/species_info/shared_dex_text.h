@@ -266,6 +266,67 @@ const u8 gToxtricityGigantamaxPokedexText[] = _(
     "contaminating the earth with toxic sweat.");
 
 // Gen 9 families
+
+const u8 gKoraidonApexPokedexText[] = _(
+    "This Pokémon resembles Cyclizar,\n"
+    "but it is far burlier and more\n"
+    "ferocious. Nothing is known about its\n"
+    "ecology or other features.");
+
+const u8 gKoraidonLimitedPokedexText[] = _(
+    "The ecology and other data about\n"
+    "this Pokémon are unknown. It was\n"
+    "named Koraidon by the professor\n"
+    "who discovered it.");
+
+const u8 gKoraidonSprintingPokedexText[] = _(
+    "The ecology and other data about\n"
+    "this Pokémon are unknown. It was\n"
+    "named Koraidon by the professor\n"
+    "who discovered it.");
+
+const u8 gKoraidonSwimmingPokedexText[] = _(
+    "The ecology and other data about\n"
+    "this Pokémon are unknown. It was\n"
+    "named Koraidon by the professor\n"
+    "who discovered it.");
+
+const u8 gKoraidonGlidingPokedexText[] = _(
+    "The ecology and other data about\n"
+    "this Pokémon are unknown. It was\n"
+    "named Koraidon by the professor\n"
+    "who discovered it.");
+
+const u8 gMiraidonUltimatePokedexText[] = _(
+    "This seems to be the Iron Serpent\n"
+    "mentioned in an Violet Book. The\n"
+    "Iron Serpent is said to have turned the\n"
+    "land to ash with its lightning.");
+
+const u8 gMiraidonLowPowerPokedexText[] = _(
+    "It was given the name Miraidon by\n"
+    "the professor who discovered it.\n"
+    "Its ecology and other details are\n"
+    "unknown.");
+
+const u8 gMiraidonDrivePokedexText[] = _(
+    "It was given the name Miraidon by\n"
+    "the professor who discovered it.\n"
+    "Its ecology and other details are\n"
+    "unknown.");
+
+const u8 gMiraidonAquaticPokedexText[] = _(
+    "It was given the name Miraidon by\n"
+    "the professor who discovered it.\n"
+    "Its ecology and other details are\n"
+    "unknown.");
+
+const u8 gMiraidonGlidePokedexText[] = _(
+    "It was given the name Miraidon by\n"
+    "the professor who discovered it.\n"
+    "Its ecology and other details are\n"
+    "unknown.");
+
 const u8 gOgerponTealMaskPokedexText[] = _(
     "This Pokémon's type changes based on\n"
     "which mask it's wearing. It confounds\n"
