@@ -718,8 +718,6 @@ SINGLE_BATTLE_TEST("Sleep Clause: Sleep clause is deactivated when a sleeping mo
             MESSAGE("The opposing Wobbuffet woke up!");
             MESSAGE("Wobbuffet used Spore!");
             ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_SLP, opponent);
-            MESSAGE("The opposing Wobbuffet grew drowsy!");
-            STATUS_ICON(opponent, drowsy: TRUE);
         }
     }
 }
@@ -1937,7 +1935,7 @@ SINGLE_BATTLE_TEST("Sleep Clause: Yawn'd Pokémon slept due to Effect Spore befo
         ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_SLP, opponent);
         if (!B_USE_DROWSY)
         {
-            MESSAGE("Breloom's Effect Spore made the opposing Zigzagoon drowsy!");
+            MESSAGE("Breloom's Effect Spore made the opposing Zigzagoon sleep!");
             STATUS_ICON(opponent, sleep: TRUE);
         }
         else
