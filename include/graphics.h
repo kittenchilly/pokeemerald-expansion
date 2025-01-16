@@ -548,12 +548,11 @@ extern const u32 gItemIconPalette_MaxLure[];
 extern const u32 gItemIcon_EscapeRope[];
 extern const u32 gItemIconPalette_EscapeRope[];
 // X Items
-extern const u32 gItemIcon_BattleStatItem[];
+extern const u32 gItemIcon_BattleUseItem[];
 extern const u32 gItemIconPalette_XAttack[];
 extern const u32 gItemIconPalette_XDefend[];
-extern const u32 gItemIconPalette_XSpecial[];
-extern const u32 gItemIcon_XSpecialDefense[];
-extern const u32 gItemIconPalette_XSpecialDefense[];
+extern const u32 gItemIconPalette_XSpAtk[];
+extern const u32 gItemIconPalette_XSpDef[];
 extern const u32 gItemIconPalette_XSpeed[];
 extern const u32 gItemIconPalette_XAccuracy[];
 extern const u32 gItemIconPalette_DireHit[];

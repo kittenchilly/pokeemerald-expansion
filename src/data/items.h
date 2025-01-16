@@ -20,9 +20,9 @@ static const u8 sFullHealDesc[]       = _("Heals all the\n"
                                           "status problems of\n"
                                           "one Pokémon.");
 
-static const u8 sPokeDollDesc[]       = _("Use to flee from\n"
-                                          "any battle with\n"
-                                          "a wild Pokémon.");
+static const u8 sPokeDollDesc[]       = _("Guarantees escape\n"
+                                          "from any battle\n"
+                                          "with wild Pokémon.");
 
 static const u8 sHealthFeatherDesc[]  = _("An item that raises\n"
                                           "the base HP of\n"
@@ -284,8 +284,8 @@ const struct Item gItemsInfo[] =
         .price = 1000,
         .description = COMPOUND_STRING(
             "A Ball that works\n"
-            "better the lower\n"
-            "the Pokémon's level."),
+            "well on lower\n"
+            "level Pokémon."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -354,8 +354,8 @@ const struct Item gItemsInfo[] =
         .price = 1000,
         .description = COMPOUND_STRING(
             "A Ball that works\n"
-            "well when used at\n"
-            "the start of battle."),
+            "well used first\n"
+            "thing in battle."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -402,8 +402,8 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
             "A Ball that works\n"
-            "well on lower\n"
-            "level Pokémon."),
+            "well on Pokémon\n"
+            "weaker than yours."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -618,8 +618,8 @@ const struct Item gItemsInfo[] =
         .holdEffectParam = 20,
         .description = COMPOUND_STRING(
             "A spray medicine\n"
-            "that restores 20 HP\n"
-            "to a Pokémon."),
+            "that restores 20\n"
+            "HP to a Pokémon."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -638,11 +638,11 @@ const struct Item gItemsInfo[] =
         .description = COMPOUND_STRING(
             "A spray medicine\n"
         #if I_HEALTH_RECOVERY >= GEN_7
-            "that restores 60 HP\n"
+            "that restores 60\n"
         #else
-            "that restores 50 HP\n"
+            "that restores 50\n"
         #endif
-            "to a Pokémon."),
+            "HP to a Pokémon."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -660,12 +660,12 @@ const struct Item gItemsInfo[] =
         .holdEffectParam = 120,
         .description = COMPOUND_STRING(
             "A spray medicine\n"
-            "that restores\n"
         #if I_HEALTH_RECOVERY >= GEN_7
-            "120 HP to a Pokémon."),
+            "that restores 120\n"
         #else
-            "200 HP to a Pokémon."),
+            "that restores 200\n"
         #endif
+            "HP to a Pokémon."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -684,7 +684,7 @@ const struct Item gItemsInfo[] =
         .description = COMPOUND_STRING(
             "A spray medicine\n"
             "that fully restores\n"
-            "the HP of a Pokémon."),
+            "HP of a Pokémon."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -779,7 +779,7 @@ const struct Item gItemsInfo[] =
         .price = 300,
         .holdEffectParam = 50,
         .description = COMPOUND_STRING(
-            "A highly carbonated\n"
+            "Highly carbonated\n"
             "soda drink.\n"
         #if I_HEALTH_RECOVERY >= GEN_7
             "Restores 50 HP."),
@@ -1150,7 +1150,7 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 3000 : 100,
         .holdEffectParam = 20,
         .description = COMPOUND_STRING(
-            "A piece of cloyingly\n"
+            "Piece of cloyingly\n"
             "sweet chocolate.\n"
             "Restores 20 HP."),
         .pocket = POCKET_ITEMS,
@@ -1264,7 +1264,7 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 350 : 100,
         .description = COMPOUND_STRING(
             "Castelia City's\n"
-            "specialty ice cream.\n"
+            "specialty icecream.\n"
             "Cures any status."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
@@ -2315,13 +2315,13 @@ const struct Item gItemsInfo[] =
         .holdEffectParam = X_ITEM_STAGES,
         .description = COMPOUND_STRING(
         #if B_X_ITEMS_BUFF >= GEN_7
-            "Sharply raises stat\n"
-            "Attack during\n"
-            "one battle."),
+            "Sharply boosts a\n"
+            "Pokémon's Attack\n"
+            "until withdrawn."),
         #else
-            "Raises the stat\n"
-            "Attack during one\n"
-            "battle."),
+            "Boosts a Pokémon's\n"
+            "Attack stat\n"
+            "until withdrawn."),
         #endif
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2329,7 +2329,7 @@ const struct Item gItemsInfo[] =
         .battleUsage = EFFECT_ITEM_INCREASE_STAT,
         .effect = gItemEffect_XAttack,
         .flingPower = 30,
-        .iconPic = gItemIcon_BattleStatItem,
+        .iconPic = gItemIcon_BattleUseItem,
         .iconPalette = gItemIconPalette_XAttack,
     },
 
@@ -2340,13 +2340,13 @@ const struct Item gItemsInfo[] =
         .holdEffectParam = X_ITEM_STAGES,
         .description = COMPOUND_STRING(
         #if B_X_ITEMS_BUFF >= GEN_7
-            "Sharply raises stat\n"
-            "Defense during\n"
-            "one battle."),
+            "Sharply boosts a\n"
+            "Pokémon's Defense\n"
+            "until withdrawn."),
         #else
-            "Raises the stat\n"
-            "Defense during one\n"
-            "battle."),
+            "Boosts a Pokémon's\n"
+            "Defense stat\n"
+            "until withdrawn."),
         #endif
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2354,7 +2354,7 @@ const struct Item gItemsInfo[] =
         .battleUsage = EFFECT_ITEM_INCREASE_STAT,
         .effect = gItemEffect_XDefense,
         .flingPower = 30,
-        .iconPic = gItemIcon_BattleStatItem,
+        .iconPic = gItemIcon_BattleUseItem,
         .iconPalette = gItemIconPalette_XDefend,
     },
 
@@ -2365,13 +2365,13 @@ const struct Item gItemsInfo[] =
         .holdEffectParam = X_ITEM_STAGES,
         .description = COMPOUND_STRING(
         #if B_X_ITEMS_BUFF >= GEN_7
-            "Sharply raises stat\n"
-            "Sp. Atk during\n"
-            "one battle."),
+            "Sharply boosts a\n"
+            "Pokémon's Sp. Atk\n"
+            "until withdrawn."),
         #else
-            "Raises the stat\n"
-            "Sp. Atk during one\n"
-            "battle."),
+            "Boosts a Pokémon's\n"
+            "Sp. Atk stat\n"
+            "until withdrawn."),
         #endif
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2379,8 +2379,8 @@ const struct Item gItemsInfo[] =
         .battleUsage = EFFECT_ITEM_INCREASE_STAT,
         .effect = gItemEffect_XSpecialAttack,
         .flingPower = 30,
-        .iconPic = gItemIcon_BattleStatItem,
-        .iconPalette = gItemIconPalette_XSpecial,
+        .iconPic = gItemIcon_BattleUseItem,
+        .iconPalette = gItemIconPalette_XSpAtk,
     },
 
     [ITEM_X_SP_DEF] =
@@ -2390,13 +2390,13 @@ const struct Item gItemsInfo[] =
         .holdEffectParam = X_ITEM_STAGES,
         .description = COMPOUND_STRING(
         #if B_X_ITEMS_BUFF >= GEN_7
-            "Sharply raises stat\n"
-            "Sp. Def during\n"
-            "one battle."),
+            "Sharply boosts a\n"
+            "Pokémon's Sp. Def\n"
+            "until withdrawn."),
         #else
-            "Raises the stat\n"
-            "Sp. Def during one\n"
-            "battle."),
+            "Boosts a Pokémon's\n"
+            "Sp. Def stat\n"
+            "until withdrawn."),
         #endif
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2404,8 +2404,8 @@ const struct Item gItemsInfo[] =
         .battleUsage = EFFECT_ITEM_INCREASE_STAT,
         .effect = gItemEffect_XSpecialDefense,
         .flingPower = 30,
-        .iconPic = gItemIcon_XSpecialDefense,
-        .iconPalette = gItemIconPalette_XSpecialDefense,
+        .iconPic = gItemIcon_BattleUseItem,
+        .iconPalette = gItemIconPalette_XSpDef,
     },
 
     [ITEM_X_SPEED] =
@@ -2415,13 +2415,13 @@ const struct Item gItemsInfo[] =
         .holdEffectParam = X_ITEM_STAGES,
         .description = COMPOUND_STRING(
         #if B_X_ITEMS_BUFF >= GEN_7
-            "Sharply raises stat\n"
-            "Speed during\n"
-            "one battle."),
+            "Sharply boosts a\n"
+            "Pokémon's Speed\n"
+            "until withdrawn."),
         #else
-            "Raises the stat\n"
-            "Speed during one\n"
-            "battle."),
+            "Boosts a Pokémon's\n"
+            "Speed stat\n"
+            "until withdrawn."),
         #endif
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2429,7 +2429,7 @@ const struct Item gItemsInfo[] =
         .battleUsage = EFFECT_ITEM_INCREASE_STAT,
         .effect = gItemEffect_XSpeed,
         .flingPower = 30,
-        .iconPic = gItemIcon_BattleStatItem,
+        .iconPic = gItemIcon_BattleUseItem,
         .iconPalette = gItemIconPalette_XSpeed,
     },
 
@@ -2439,15 +2439,15 @@ const struct Item gItemsInfo[] =
         .pluralName = _("X Accuracies"),
         .price = (I_PRICE >= GEN_7) ? 1000 : 950,
         .holdEffectParam = X_ITEM_STAGES,
-            .description = COMPOUND_STRING(
+        .description = COMPOUND_STRING(
         #if B_X_ITEMS_BUFF >= GEN_7
-            "Sharply raises move\n"
-            "accuracy during\n"
-            "one battle."),
+            "Sharply boosts a\n"
+            "Pokémon's accuracy\n"
+            "until withdrawn."),
         #else
-            "Raises accuracy\n"
-            "of attack moves\n"
-            "during one battle."),
+            "Boosts a Pokémon's\n"
+            "accuracy until\n"
+            "withdrawn from battle."),
         #endif
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -2455,7 +2455,7 @@ const struct Item gItemsInfo[] =
         .battleUsage = EFFECT_ITEM_INCREASE_STAT,
         .effect = gItemEffect_XAccuracy,
         .flingPower = 30,
-        .iconPic = gItemIcon_BattleStatItem,
+        .iconPic = gItemIcon_BattleUseItem,
         .iconPalette = gItemIconPalette_XAccuracy,
     },
 
@@ -2464,16 +2464,16 @@ const struct Item gItemsInfo[] =
         .name = _("Dire Hit"),
         .price = (I_PRICE >= GEN_7) ? 1000 : 650,
         .description = COMPOUND_STRING(
-            "Raises the\n"
+            "Sharply boosts the\n"
             "critical-hit ratio\n"
-            "during one battle."),
+            "until withdrawn."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .battleUsage = EFFECT_ITEM_SET_FOCUS_ENERGY,
         .effect = gItemEffect_DireHit,
         .flingPower = 30,
-        .iconPic = gItemIcon_BattleStatItem,
+        .iconPic = gItemIcon_BattleUseItem,
         .iconPalette = gItemIconPalette_DireHit,
     },
 
@@ -2484,15 +2484,15 @@ const struct Item gItemsInfo[] =
         .price = (I_PRICE >= GEN_7) ? 1500 : 700,
         .description = COMPOUND_STRING(
             "Prevents stat\n"
-            "reduction when\n"
-            "used in battle."),
+            "reduction on your\n"
+            "side for 5 turns."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .battleUsage = EFFECT_ITEM_SET_MIST,
         .effect = gItemEffect_GuardSpec,
         .flingPower = 30,
-        .iconPic = gItemIcon_BattleStatItem,
+        .iconPic = gItemIcon_BattleUseItem,
         .iconPalette = gItemIconPalette_GuardSpec,
     },
 
@@ -2544,9 +2544,9 @@ const struct Item gItemsInfo[] =
         .pluralName = _("Max Mushrooms"),
         .price = 8000,
         .description = COMPOUND_STRING(
-            "Raises every stat\n"
-            "during one battle\n"
-            "by one stage."),
+            "Boost all stats\n"
+            "of a Pokémon\n"
+            "during battle."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
