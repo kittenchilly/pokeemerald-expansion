@@ -546,7 +546,7 @@ static u32 ChooseMoveOrAction_Singles(u32 battlerAi)
             }
         }
     }
-    return consideredMoveArray[Random() % numOfBestMoves];
+    return RandomElement(RNG_AI_CONSIDERED_MOVES_SINGLES, consideredMoveArray);
 }
 
 static u32 ChooseMoveOrAction_Doubles(u32 battlerAi)
@@ -630,7 +630,7 @@ static u32 ChooseMoveOrAction_Doubles(u32 battlerAi)
                         }
                     }
                 }
-                actionOrMoveIndex[i] = mostViableMovesIndices[Random() % mostViableMovesNo];
+                actionOrMoveIndex[i] = RandomElement(RNG_AI_CONSIDERED_MOVES_DOUBLES, mostViableMovesIndices);
                 bestMovePointsForTarget[i] = mostViableMovesScores[0];
 
                 // Don't use a move against ally if it has less than 100 points.
@@ -666,7 +666,7 @@ static u32 ChooseMoveOrAction_Doubles(u32 battlerAi)
         }
     }
 
-    gBattlerTarget = mostViableTargetsArray[Random() % mostViableTargetsNo];
+    gBattlerTarget = RandomElement(RNG_AI_CONSIDERED_TARGETS_DOUBLES, mostViableTargetsArray);
     gBattleStruct->aiChosenTarget[battlerAi] = gBattlerTarget;
     return actionOrMoveIndex[gBattlerTarget];
 }
@@ -2062,7 +2062,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                     {
                         ADJUST_SCORE(-10); //Don't protect if you're going to faint after protecting
                     }
-                    else if (gDisableStructs[battlerAtk].protectUses == 1 && Random() % 100 < 50)
+                    else if (gDisableStructs[battlerAtk].protectUses == 1 && RandomPercentage(RNG_AI_CHECKBADMOVE_PROTECT, 50))
                     {
                         if (!isDoubleBattle)
                             ADJUST_SCORE(-6);
@@ -5030,7 +5030,7 @@ static s32 AI_Risky(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             switch (additionalEffect->moveEffect)
             {
                 case MOVE_EFFECT_ALL_STATS_UP:
-                    if (Random() & 1)
+                    if (RandomChance(RNG_AI_RISKY_HIT_ALLSTATSUP, 1, 2))
                         ADJUST_SCORE(AVERAGE_RISKY_EFFECT);
                     break;
                 default:
@@ -5569,7 +5569,7 @@ static s32 AI_Safari(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 {
     u32 safariFleeRate = gBattleStruct->safariEscapeFactor * 5; // Safari flee rate, from 0-20.
 
-    if ((Random() % 100) < safariFleeRate)
+    if (RandomPercentage(RNG_AI_SAFARI, safariFleeRate))
         AI_Flee();
     else
         AI_Watch();

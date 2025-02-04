@@ -15175,17 +15175,17 @@ static void Cmd_pickup(void)
         {
             species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
             heldItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
-            lvlDivBy10 = (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL)-1) / 10; //Moving this here makes it easier to add in abilities like Honey Gather.
+            ability = gSpeciesInfo[species].abilities[GetMonData(&gPlayerParty[i], MON_DATA_ABILITY_NUM)];
+
+            lvlDivBy10 = (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) - 1) / 10; //Moving this here makes it easier to add in abilities like Honey Gather.
             if (lvlDivBy10 > 9)
                 lvlDivBy10 = 9;
-
-            ability = gSpeciesInfo[species].abilities[GetMonData(&gPlayerParty[i], MON_DATA_ABILITY_NUM)];
 
             if (ability == ABILITY_PICKUP
                 && species != SPECIES_NONE
                 && species != SPECIES_EGG
                 && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
+                && RandomPercentage(RNG_PICKUP, 10))
             {
                 if (isInPyramid)
                 {
@@ -15194,7 +15194,7 @@ static void Cmd_pickup(void)
                 }
                 else
                 {
-                    u32 rand = Random() % 100;
+                    u32 rand = RandomUniform(RNG_PICKUP, 0, 99);
                     u32 percentTotal = 0;
 
                     for (j = 0; j < ARRAY_COUNT(sPickupTable); j++)
@@ -15209,20 +15209,18 @@ static void Cmd_pickup(void)
                 }
             }
             else if (ability == ABILITY_HONEY_GATHER
-                && species != 0
+                && species != SPECIES_NONE
                 && species != SPECIES_EGG
-                && heldItem == ITEM_NONE)
+                && heldItem == ITEM_NONE
+                && RandomPercentage(RNG_HONEY_GATHER, (lvlDivBy10 + 1) * 5))
             {
-                if ((lvlDivBy10 + 1 ) * 5 > Random() % 100)
-                {
-                    heldItem = ITEM_HONEY;
-                    SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-                }
+                heldItem = ITEM_HONEY;
+                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
             }
             else if (P_SHUCKLE_BERRY_JUICE == GEN_2
                 && species == SPECIES_SHUCKLE
                 && heldItem == ITEM_ORAN_BERRY
-                && (Random() % 16) == 0)
+                && RandomChance(RNG_SHUCKLE_BERRY_JUICE, 1, 16))
             {
                 heldItem = ITEM_BERRY_JUICE;
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);

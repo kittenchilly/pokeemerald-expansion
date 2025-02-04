@@ -648,7 +648,7 @@ static bool32 HasSuperEffectiveMoveAgainstOpponents(u32 battler, bool32 noRng)
             {
                 if (noRng)
                     return TRUE;
-                if (Random() % 10 != 0)
+                if (RandomChance(RNG_AI_SWITCH_SE_OFFENSIVE, 9, 10))
                     return TRUE;
             }
         }
@@ -670,7 +670,7 @@ static bool32 HasSuperEffectiveMoveAgainstOpponents(u32 battler, bool32 noRng)
             {
                 if (noRng)
                     return TRUE;
-                if (Random() % 10 != 0)
+                if (RandomChance(RNG_AI_SWITCH_SE_OFFENSIVE, 9, 10))
                     return TRUE;
             }
         }
@@ -1155,11 +1155,11 @@ static u32 GetBestMonBatonPass(struct Pokemon *party, int firstId, int lastId, u
         }
     }
 
-    if ((aliveCount == 2 || (aliveCount > 2 && Random() % 3 == 0)) && bits)
+    if ((aliveCount == 2 || (aliveCount > 2 && RandomChance(RNG_AI_SWITCH_BEST_WITH_BATON_PASS, 1, 3))) && bits)
     {
         do
         {
-            i = (Random() % (lastId - firstId)) + firstId;
+            i = (RandomUniform(RNG_AI_SWITCH_BEST_WITH_BATON_PASS, 0, (lastId - firstId) - 1)) + firstId;
         } while (!(bits & (1 << i)));
         return i;
     }
@@ -1681,11 +1681,11 @@ static int GetRandomSwitchinWithBatonPass(int aliveCount, int bits, int firstId,
         return PARTY_SIZE;
 
     // GetBestMonBatonPass randomly chooses between all mons that met Baton Pass check
-    if ((aliveCount == 2 || (aliveCount > 2 && Random() % 3 == 0)) && bits)
+    if ((aliveCount == 2 || (aliveCount > 2 && RandomChance(RNG_AI_SWITCH_FROM_BATON_PASS, 1, 3))) && bits)
     {
         do
         {
-            return (Random() % (lastId - firstId)) + firstId;
+            return (RandomUniform(RNG_AI_SWITCH_FROM_BATON_PASS, 0, (lastId - firstId) - 1)) + firstId;
         } while (!(bits & (1 << (currentMonId))));
     }
 

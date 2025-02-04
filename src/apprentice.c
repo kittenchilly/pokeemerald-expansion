@@ -182,14 +182,14 @@ static void SetApprenticeId(void)
     {
         do
         {
-            PLAYER_APPRENTICE.id = sInitialApprenticeIds[Random() % ARRAY_COUNT(sInitialApprenticeIds)];
+            PLAYER_APPRENTICE.id = RandomElement(RNG_APPRENTICE_ID, sInitialApprenticeIds);
         } while (PLAYER_APPRENTICE.id == gSaveBlock2Ptr->apprentices[0].id);
     }
     else
     {
         do
         {
-            PLAYER_APPRENTICE.id = Random() % (NUM_APPRENTICES);
+            PLAYER_APPRENTICE.id = RandomUniform(RNG_APPRENTICE_ID, 0, NUM_APPRENTICES - 1);
         } while (PLAYER_APPRENTICE.id == gSaveBlock2Ptr->apprentices[0].id);
     }
 }
@@ -224,7 +224,7 @@ static u8 GetMonIdForQuestion(u8 questionId, u8 *party, u8 *partySlot)
     {
         do
         {
-            monId = Random() % (MULTI_PARTY_SIZE);
+            monId = RandomUniform(RNG_APPRENTICE_QUESTION_MON, 0, MULTI_PARTY_SIZE - 1);
             for (count = 0, i = 0; i < NUM_WHICH_MOVE_QUESTIONS; i++)
             {
                 if (gApprenticePartyMovesData->moves[monId][i] != MOVE_NONE)
@@ -281,7 +281,7 @@ static void SetRandomQuestionData(void)
             {
                 do
                 {
-                    rand = Random() % MAX_MON_MOVES;
+                    rand = RandomUniform(RNG_APPRENTICE_QUESTION_DATA, 0, MAX_MON_MOVES - 1);
                     for (j = 0; j < gApprenticePartyMovesData->moveCounter + 1; j++)
                     {
                         if (gApprenticePartyMovesData->moveSlots[id][j] == rand)
@@ -343,7 +343,7 @@ static u16 GetRandomAlternateMove(u8 monId)
     // This while loop contains 3 potential infinite loops, though none of them would occur in the base game
     while (i < 5)
     {
-        if (Random() % 2 == 0 || needTMs == TRUE)
+        if (RandomChance(RNG_APPRENTICE_QUESTION_MOVE, 1, 2) || needTMs == TRUE)
         {
             // Get TM move
             // NOTE: Below is an infinite loop if a species that only learns TMs for moves
@@ -353,7 +353,7 @@ static u16 GetRandomAlternateMove(u8 monId)
                 // NOTE: Below is an infinite loop if a species which cannot learn TMs is assigned to an Apprentice
                 do
                 {
-                    id = Random() % (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES);
+                    id = RandomUniform(RNG_APPRENTICE_QUESTION_MOVE, 0, (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES) - 1);
                     shouldUseMove = CanLearnTeachableMove(species, ItemIdToBattleMoveId(ITEM_TM01 + id));
                 }
                 while (!shouldUseMove);
@@ -392,7 +392,7 @@ static u16 GetRandomAlternateMove(u8 monId)
                 do
                 {
                     // Get a random move excluding the 4 it would know at max level
-                    u8 learnsetId = Random() % (numLearnsetMoves - MAX_MON_MOVES);
+                    u8 learnsetId = RandomUniform(RNG_APPRENTICE_QUESTION_MOVE, 0, (numLearnsetMoves - MAX_MON_MOVES) - 1);
                     moveId = learnset[learnsetId].move;
                     shouldUseMove = TRUE;
 

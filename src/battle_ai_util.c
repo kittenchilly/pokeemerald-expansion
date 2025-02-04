@@ -51,7 +51,7 @@ u32 GetAIChosenMove(u32 battlerId)
 
 bool32 AI_RandLessThan(u32 val)
 {
-    if ((Random() % 0xFF) < val)
+    if (RandomChance(RNG_AI_LESS_THAN, val, 0xFF)) // Not really "less than" anymore...
         return TRUE;
     return FALSE;
 }
@@ -1542,7 +1542,7 @@ bool32 ShouldTryOHKO(u32 battlerAtk, u32 battlerDef, u32 atkAbility, u32 defAbil
     u32 accuracy = AI_DATA->moveAccuracy[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex];
 
     gPotentialItemEffectBattler = battlerDef;
-    if (holdEffect == HOLD_EFFECT_FOCUS_BAND && (Random() % 100) < AI_DATA->holdEffectParams[battlerDef])
+    if (holdEffect == HOLD_EFFECT_FOCUS_BAND && RandomPercentage(RNG_AI_OHKO_FOCUS_BAND, AI_DATA->holdEffectParams[battlerDef]))
         return FALSE;   //probabilistically speaking, focus band should activate so dont OHKO
     else if (holdEffect == HOLD_EFFECT_FOCUS_SASH && AI_BattlerAtMaxHp(battlerDef))
         return FALSE;
@@ -1562,7 +1562,7 @@ bool32 ShouldTryOHKO(u32 battlerAtk, u32 battlerDef, u32 atkAbility, u32 defAbil
         u32 odds = accuracy + (gBattleMons[battlerAtk].level - gBattleMons[battlerDef].level);
         if (B_SHEER_COLD_ACC >= GEN_7 && move == MOVE_SHEER_COLD && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ICE))
             odds -= 10;
-        if (Random() % 100 + 1 < odds && gBattleMons[battlerAtk].level >= gBattleMons[battlerDef].level)
+        if (RandomPercentage(RNG_AI_OHKO_TEST_ODDS, odds) && gBattleMons[battlerAtk].level >= gBattleMons[battlerDef].level)
             return TRUE;
     }
     return FALSE;
@@ -1694,7 +1694,7 @@ void ProtectChecks(u32 battlerAtk, u32 battlerDef, u32 move, u32 predictedMove, 
     {
         if (predictedMove != MOVE_NONE && predictedMove != 0xFFFF && !IsBattleMoveStatus(predictedMove))
             ADJUST_SCORE_PTR(DECENT_EFFECT);
-        else if (Random() % 256 < 100)
+        else if (RandomChance(RNG_AI_PROTECT_CHECKS, 100, 256))
             ADJUST_SCORE_PTR(WEAK_EFFECT);
     }
     else
@@ -3248,7 +3248,7 @@ bool32 ShouldAbsorb(u32 battlerAtk, u32 battlerDef, u32 move, s32 damage)
         if (CanTargetFaintAi(battlerDef, battlerAtk)
           && !CanTargetFaintAiWithMod(battlerDef, battlerAtk, healDmg, 0))
             return TRUE;    // target can faint attacker unless they heal
-        else if (!CanTargetFaintAi(battlerDef, battlerAtk) && AI_DATA->hpPercents[battlerAtk] < 60 && (Random() % 3))
+        else if (!CanTargetFaintAi(battlerDef, battlerAtk) && AI_DATA->hpPercents[battlerAtk] < 60 && RandomChance(RNG_AI_ABSORB, 2, 3))
             return TRUE;    // target can't faint attacker at all, attacker health is about half, 2/3rds rate of encouraging healing
     }
     else
@@ -3274,7 +3274,7 @@ bool32 ShouldRecover(u32 battlerAtk, u32 battlerDef, u32 move, u32 healPercent)
         if (CanTargetFaintAi(battlerDef, battlerAtk)
           && !CanTargetFaintAiWithMod(battlerDef, battlerAtk, healAmount, 0))
             return TRUE;    // target can faint attacker unless they heal
-        else if (!CanTargetFaintAi(battlerDef, battlerAtk) && AI_DATA->hpPercents[battlerAtk] < 60 && (Random() % 3))
+        else if (!CanTargetFaintAi(battlerDef, battlerAtk) && AI_DATA->hpPercents[battlerAtk] < 60 && RandomChance(RNG_AI_RECOVER, 2, 3))
             return TRUE;    // target can't faint attacker at all, attacker health is about half, 2/3rds rate of encouraging healing
     }
     return FALSE;
