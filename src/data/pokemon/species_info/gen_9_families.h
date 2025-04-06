@@ -6870,7 +6870,6 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 #endif //P_FAMILY_IRON_VALIANT
 
 #if P_FAMILY_KORAIDON
-
 #define KORAIDON_SPECIES_INFO(Form, Height)                                      \
     {                                                                            \
         .baseHP        = 100,                                                    \
@@ -6896,7 +6895,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .categoryName = _("Paradox"),                                            \
         .height = Height,                                                        \
         .weight = 3030,                                                          \
-        .description = gKoraidon##Form##PokedexText                              \
+        .description = gKoraidon##Form##PokedexText,                             \
         .pokemonScale = 356,                                                     \
         .pokemonOffset = 17,                                                     \
         .trainerScale = 256,                                                     \
@@ -6942,7 +6941,6 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 #endif //P_FAMILY_KORAIDON
 
 #if P_FAMILY_MIRAIDON
-
 #define MIRAIDON_SPECIES_INFO(Form, Height)                                   \
     {                                                                         \
         .baseHP        = 100,                                                 \
@@ -6968,7 +6966,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .categoryName = _("Paradox"),                                         \
         .height = Height,                                                     \
         .weight = 2400,                                                       \
-        .description = gMiraidon##Form##PokedexText                           \
+        .description = gMiraidon##Form##PokedexText,                          \
         .pokemonScale = 356,                                                  \
         .pokemonOffset = 17,                                                  \
         .trainerScale = 256,                                                  \
