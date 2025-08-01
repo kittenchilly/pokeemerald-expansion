@@ -26356,8 +26356,8 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //P_FAMILY_IRON_VALIANT
 
 #if P_FAMILY_KORAIDON
-    const u32 gMonPalette_Koraidon[] = INCBIN_U32("graphics/pokemon/koraidon/normal.gbapal");
-    const u32 gMonShinyPalette_Koraidon[] = INCBIN_U32("graphics/pokemon/koraidon/shiny.gbapal");
+    const u16 gMonPalette_Koraidon[] = INCBIN_U16("graphics/pokemon/koraidon/normal.gbapal");
+    const u16 gMonShinyPalette_Koraidon[] = INCBIN_U16("graphics/pokemon/koraidon/shiny.gbapal");
 #if P_FOOTPRINTS
     const u8 gMonFootprint_Koraidon[] = INCBIN_U8("graphics/pokemon/koraidon/footprint.1bpp");
 #endif //P_FOOTPRINTS
@@ -26396,8 +26396,8 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //P_FAMILY_KORAIDON
 
 #if P_FAMILY_MIRAIDON
-    const u32 gMonPalette_Miraidon[] = INCBIN_U32("graphics/pokemon/miraidon/normal.gbapal");
-    const u32 gMonShinyPalette_Miraidon[] = INCBIN_U32("graphics/pokemon/miraidon/shiny.gbapal");
+    const u16 gMonPalette_Miraidon[] = INCBIN_U16("graphics/pokemon/miraidon/normal.gbapal");
+    const u16 gMonShinyPalette_Miraidon[] = INCBIN_U16("graphics/pokemon/miraidon/shiny.gbapal");
 #if P_FOOTPRINTS
     const u8 gMonFootprint_Miraidon[] = INCBIN_U8("graphics/pokemon/miraidon/footprint.1bpp");
 #endif //P_FOOTPRINTS
