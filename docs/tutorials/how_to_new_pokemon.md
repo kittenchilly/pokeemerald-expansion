@@ -314,7 +314,8 @@ Cry_Pecharunt::
 Then we add the cry ID to [include/constants/cries.h](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/include/constants/cries.h):
 
 ```diff
-enum {
+enum PokemonCry
+{
     CRY_NONE,
     ...
 #if P_FAMILY_TERAPAGOS
@@ -371,7 +372,8 @@ Edit [include/constants/pokedex.h](https://github.com/rh-hideout/pokeemerald-exp
 
 ```diff
 // National Pokedex order
-enum {
+enum NationalDexOrder
+{
     NATIONAL_DEX_NONE,
     // Kanto
     NATIONAL_DEX_BULBASAUR,
@@ -394,7 +396,8 @@ Do keep in mind that if you intend to add your new species to the Hoenn Dex, you
 
 ```diff
 // Hoenn Pokedex order
-enum {
+enum HoennDexOrder
+{
     HOENN_DEX_NONE,
     HOENN_DEX_TREECKO,
 ...
@@ -1278,3 +1281,26 @@ Gen 4-style shadows are defined by the `SHADOW` macro which takes the following 
     - `SHADOW_SIZE_XL_BATTLE_ONLY`
 
 To make the Pokémon have no shadow, use the `NO_SHADOW` macro instead of `SHADOW`.
+
+## 6. Limiting species allowed as followers
+You may use the following configs in `include/config/overworld.h`
+```c
+#define OW_FOLLOWERS_ALLOWED_SPECIES (0)
+#define OW_FOLLOWERS_ALLOWED_MET_LVL (0)
+#define OW_FOLLOWERS_ALLOWED_MET_LOC (0)
+```
+Examples:
+```c
+// Yellow Pikachu:
+#define OW_FOLLOWERS_ALLOWED_SPECIES (SPECIES_PIKACHU)
+#define OW_FOLLOWERS_ALLOWED_MET_LVL (0)
+#define OW_FOLLOWERS_ALLOWED_MET_LOC (MAPSEC_PALLET_TOWN)
+// Hoenn Starter:
+#define OW_FOLLOWERS_ALLOWED_SPECIES (0)
+#define OW_FOLLOWERS_ALLOWED_MET_LVL (5)
+#define OW_FOLLOWERS_ALLOWED_MET_LOC (MAPSEC_ROUTE_101)
+// Species set in VAR_XXXX:
+#define OW_FOLLOWERS_ALLOWED_SPECIES (VAR_XXXX)
+#define OW_FOLLOWERS_ALLOWED_MET_LVL (0)
+#define OW_FOLLOWERS_ALLOWED_MET_LOC (0)
+```
