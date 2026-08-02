@@ -14,6 +14,7 @@
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"
+#include "test/battle.h"
 #include "test_runner.h"
 #include "trig.h"
 #include "util.h"
@@ -71,7 +72,7 @@ static void SpriteCB_Ball_Capture_Step(struct Sprite *);
 static void MakeCaptureStars(struct Sprite *);
 static void SpriteCB_Ball_FadeOut(struct Sprite *);
 static void DestroySpriteAfterOneFrame(struct Sprite *);
-static void LoadBallParticleGfx(u8);
+static void LoadBallParticleGfx(enum PokeBall);
 static void SpriteCB_CaptureStar_Flicker(struct Sprite *);
 static void SpriteCB_Ball_Release_Wait(struct Sprite *);
 static void SpriteCB_Ball_Block_Step(struct Sprite *);
@@ -1600,7 +1601,7 @@ static void SpriteCB_Ball_Block_Step(struct Sprite *sprite)
 
 #undef sFrame
 
-static void LoadBallParticleGfx(u8 ballId)
+static void LoadBallParticleGfx(enum PokeBall ballId)
 {
     if (GetSpriteTileStartByTag(sBallParticles[ballId].pic.tag) == 0xFFFF)
     {
@@ -1609,7 +1610,7 @@ static void LoadBallParticleGfx(u8 ballId)
     }
 }
 
-u8 AnimateBallOpenParticles(u8 x, u8 y, u8 priority, u8 subpriority, u8 ballId)
+u8 AnimateBallOpenParticles(u8 x, u8 y, u8 priority, u8 subpriority, enum PokeBall ballId)
 {
     u8 taskId;
 
@@ -1636,7 +1637,7 @@ static void PokeBallOpenParticleAnimation(u8 taskId)
     u8 spriteId;
     u8 x, y;
     u8 priority, subpriority;
-    u8 ballId;
+    enum PokeBall ballId;
     u8 var0;
 
     ballId = gTasks[taskId].data[15];
@@ -2065,7 +2066,7 @@ static void DestroyBallOpenAnimationParticle(struct Sprite *sprite)
 #define tPaletteHi data[11]
 #define tBallId    data[15]
 
-u8 LaunchBallFadeMonTask(bool8 unfadeLater, u8 spritePalNum, u32 selectedPalettes, u8 ballId)
+u8 LaunchBallFadeMonTask(bool8 unfadeLater, u8 spritePalNum, u32 selectedPalettes, enum PokeBall ballId)
 {
     u8 taskId;
 
@@ -2094,7 +2095,7 @@ u8 LaunchBallFadeMonTask(bool8 unfadeLater, u8 spritePalNum, u32 selectedPalette
 
 static void Task_FadeMon_ToBallColor(u8 taskId)
 {
-    u8 ballId = gTasks[taskId].tBallId;
+    enum PokeBall ballId = gTasks[taskId].tBallId;
 
     if (gTasks[taskId].tTimer <= 16)
     {
@@ -2122,7 +2123,7 @@ static void Task_FadeMon_ToNormal(u8 taskId)
 
 static void Task_FadeMon_ToNormal_Step(u8 taskId)
 {
-    u8 ballId = gTasks[taskId].tBallId;
+    enum PokeBall ballId = gTasks[taskId].tBallId;
 
     if (gTasks[taskId].tTimer <= 16)
     {
@@ -2272,7 +2273,7 @@ void TryShinyAnimation(enum BattlerId battler, struct Pokemon *mon)
     if (illusionMon != NULL)
         mon = illusionMon;
 
-    if (IsBattlerSpriteVisible(battler) && IsValidForBattle(mon) && !gTestRunnerHeadless)
+    if (IsBattlerSpriteVisible(battler) && IsValidForBattle(mon) && (!gTestRunnerHeadless || gBattleTestRunnerState->forceMoveAnim))
     {
         if (isShiny)
         {
