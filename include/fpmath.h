@@ -65,6 +65,28 @@ static inline uq4_12_t uq4_12_divide(uq4_12_t dividend, uq4_12_t divisor)
     return (dividend << UQ_4_12_SHIFT) / divisor;
 }
 
+static inline uq4_12_t uq4_12_sqrt(uq4_12_t a)
+{
+    return Sqrt(a << UQ_4_12_SHIFT);
+}
+
+static inline uq4_12_t uq4_12_pow(uq4_12_t base, u32 exponent)
+{
+    uq4_12_t result = UQ_4_12(1.0);
+    uq4_12_t current_base = base;
+
+    while (exponent > 0)
+    {
+        if (exponent & 1)
+            result = uq4_12_multiply(result, current_base);
+        
+        current_base = uq4_12_multiply(current_base, current_base);
+        exponent >>= 1;
+    }
+
+    return result;
+}
+
 // Multiplies value by the UQ_4_12 number modifier.
 // Returns an integer, rounded to nearest (rounding down on n.5)
 static inline u32 uq4_12_multiply_by_int_half_down(uq4_12_t modifier, u32 value)

@@ -7822,10 +7822,9 @@ static void FinalizeCapture(void)
 
 struct BallData
 {
-    u16 multiplier;
-    u16 divider;
+    uq4_12_t multiplier;
+    s16 flatBonus;
     bool8 guaranteedCapture;
-    s8 flatBonus;
 };
 
 #define CAPTURE_GUARANTEED -1
@@ -7836,100 +7835,83 @@ static void ComputeBallData(u32 wildMonBattler, u32 playerBattler, struct BallDa
     enum PokeBall ballId = ItemIdToBallId(gLastUsedItem);
     struct BattlePokemon *battleMon = &gBattleMons[wildMonBattler];
 
-    ball->multiplier = 100;
-    ball->divider = 100;
+    ball->multiplier = UQ_4_12(1.0);
     ball->flatBonus = 0;
     ball->guaranteedCapture = FALSE;
-
-    if (gSpeciesInfo[battleMon->species].isUltraBeast)
+    
+    if (gSpeciesInfo[battleMon->species].isUltraBeast && ballId != BALL_BEAST)
     {
-        if (ballId == BALL_BEAST)
-            ball->multiplier = 500;
-        else
-        {
-            ball->multiplier = 410;
-            ball->divider = 4096;
-        }
+        ball->multiplier = UQ_4_12(0.1);
         return;
     }
+
     switch (ballId)
     {
     case BALL_GREAT:
-        ball->multiplier = 150;
+        ball->multiplier = UQ_4_12(1.5);
         break;
     case BALL_ULTRA:
-        ball->multiplier = 200;
+        ball->multiplier = UQ_4_12(2.0);
         break;
     case BALL_MASTER:
         ball->guaranteedCapture = TRUE;
         break;
     case BALL_NET:
         if (IS_BATTLER_ANY_TYPE(wildMonBattler, TYPE_WATER, TYPE_BUG))
-            ball->multiplier = B_NET_BALL_MODIFIER >= GEN_7 ? 350 : 300;
+            ball->multiplier = B_NET_BALL_MODIFIER >= GEN_7 ? UQ_4_12(3.5) : UQ_4_12(3.0);
         break;
     case BALL_NEST:
-        ball->multiplier = 100;
         if ((B_NEST_BALL_MODIFIER == GEN_5 && battleMon->level < 31)
             || (B_NEST_BALL_MODIFIER >= GEN_6 && battleMon->level < 30))
         {
-            ball->multiplier = (41 - battleMon->level) * 4096 / 10;
-            ball->divider = 4096;
-        }
-        else if (battleMon->level < 30)
-        {
-            ball->multiplier = 400 - (battleMon->level * 10);
+            u16 levelDiff = 41 - battleMon->level;
+            if (levelDiff > 40)
+                levelDiff = 40;
+            ball->multiplier = UQ_4_12(levelDiff) / 10;
         }
         break;
     case BALL_DIVE:
         if (GetCurrentMapType() == MAP_TYPE_UNDERWATER
             || (B_DIVE_BALL_MODIFIER >= GEN_4 && (gIsFishingEncounter || gIsSurfingEncounter)))
         {
-            ball->multiplier = 350;
+            ball->multiplier = UQ_4_12(3.5);
         }
         break;
     case BALL_DUSK:
         i = GetTimeOfDay();
         if (i == TIME_EVENING || i == TIME_NIGHT || gMapHeader.cave || gMapHeader.mapType == MAP_TYPE_UNDERGROUND)
-            ball->multiplier = (B_DUSK_BALL_MODIFIER >= GEN_7 ? 300 : 350);
+            ball->multiplier = (B_DUSK_BALL_MODIFIER >= GEN_7 ? UQ_4_12(3.0) : UQ_4_12(3.5));
         break;
     case BALL_TIMER:
-        if (B_TIMER_BALL_MODIFIER >= GEN_5)
-        {
-            ball->multiplier = 4096 + gBattleResults.battleTurnCounter * 1229;
-            ball->divider = 4096;
-        }
-        else
-        {
-            ball->multiplier = 100 + gBattleResults.battleTurnCounter * 10;
-        }
-        if (ball->multiplier > (4 * ball->divider))
-            ball->multiplier = 4 * ball->divider;
+        ball->multiplier = UQ_4_12(1.0) + (B_TIMER_BALL_MODIFIER >= GEN_5 ? UQ_4_12(0.3) : UQ_4_12(0.1)) * gBattleResults.battleTurnCounter;
+        if (ball->multiplier > UQ_4_12(4.0))
+            ball->multiplier = UQ_4_12(4.0);
         break;
     case BALL_QUICK:
         if (gBattleResults.battleTurnCounter == 0)
-            ball->multiplier = (B_QUICK_BALL_MODIFIER >= GEN_5 ? 500 : 400);
+            ball->multiplier = (B_QUICK_BALL_MODIFIER >= GEN_5 ? UQ_4_12(5.0) : UQ_4_12(4.0));
         break;
     case BALL_REPEAT:
         if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(battleMon->species), FLAG_GET_CAUGHT))
-            ball->multiplier = (B_REPEAT_BALL_MODIFIER >= GEN_7 ? 350 : 300);
+            ball->multiplier = (B_REPEAT_BALL_MODIFIER >= GEN_7 ? UQ_4_12(3.5) : UQ_4_12(3.0));
         break;
     case BALL_LEVEL:
         if (gBattleMons[playerBattler].level >= 4 * battleMon->level)
-            ball->multiplier = 800;
+            ball->multiplier = UQ_4_12(8.0);
         else if (gBattleMons[playerBattler].level > 2 * battleMon->level)
-            ball->multiplier = 400;
+            ball->multiplier = UQ_4_12(4.0);
         else if (gBattleMons[playerBattler].level > battleMon->level)
-            ball->multiplier = 200;
+            ball->multiplier = UQ_4_12(2.0);
         break;
     case BALL_LURE:
         if (gIsFishingEncounter)
         {
             if (B_LURE_BALL_MODIFIER >= GEN_8)
-                ball->multiplier = 400;
+                ball->multiplier = UQ_4_12(4.0);
             else if (B_LURE_BALL_MODIFIER >= GEN_7)
-                ball->multiplier = 500;
+                ball->multiplier = UQ_4_12(5.0);
             else
-                ball->multiplier = 300;
+                ball->multiplier = UQ_4_12(3.0);
         }
         break;
     case BALL_MOON:
@@ -7941,7 +7923,7 @@ static void ComputeBallData(u32 wildMonBattler, u32 playerBattler, struct BallDa
         {
             if (evolutions[i].method == EVO_ITEM
                 && evolutions[i].param == ITEM_MOON_STONE)
-                ball->multiplier = 400;
+                ball->multiplier = UQ_4_12(4.0);
         }
         break;
     }
@@ -7951,13 +7933,13 @@ static void ComputeBallData(u32 wildMonBattler, u32 playerBattler, struct BallDa
             u8 gender1 = GetMonGender(GetBattlerMon(wildMonBattler));
             u8 gender2 = GetMonGender(GetBattlerMon(playerBattler));
 
-            if (gender1 != gender2 && gender1 != MON_GENDERLESS && gender2 != MON_GENDERLESS)
-                ball->multiplier = 800;
+            if (gender1 != gender2)
+                ball->multiplier = UQ_4_12(8.0);
         }
         break;
     case BALL_FAST:
         if (GetSpeciesBaseSpeed(battleMon->species) >= 100)
-            ball->multiplier = 400;
+            ball->multiplier = UQ_4_12(4.0);
         break;
     case BALL_HEAVY:
         i = GetSpeciesWeight(battleMon->species);
@@ -7998,22 +7980,21 @@ static void ComputeBallData(u32 wildMonBattler, u32 playerBattler, struct BallDa
         }
         break;
     case BALL_DREAM:
-        if (B_DREAM_BALL_MODIFIER >= GEN_8 && (battleMon->status1 & STATUS1_SLEEP || (GetBattlerAbilityIgnoreMoldBreaker(wildMonBattler) == ABILITY_COMATOSE)))
-            ball->multiplier = 400;
+        if (B_DREAM_BALL_MODIFIER >= GEN_8 && IsAsleepOrComatose(wildMonBattler, GetBattlerAbilityIgnoreMoldBreaker(wildMonBattler)))
+            ball->multiplier = UQ_4_12(4.0);
         break;
     case BALL_SAFARI:
         if (B_SAFARI_BALL_MODIFIER == GEN_1)
-            ball->multiplier = 200;
+            ball->multiplier = UQ_4_12(2.0);
         else if (B_SAFARI_BALL_MODIFIER <= GEN_7)
-            ball->multiplier = 150;
+            ball->multiplier = UQ_4_12(1.5);
         break;
     case BALL_SPORT:
         if (B_SPORT_BALL_MODIFIER <= GEN_7)
-            ball->multiplier = 150;
+            ball->multiplier = UQ_4_12(1.5);
         break;
     case BALL_BEAST:
-        ball->multiplier = 410;
-        ball->divider = 4096;
+        ball->multiplier = (gSpeciesInfo[battleMon->species].isUltraBeast ? UQ_4_12(5.0) : UQ_4_12(0.1));
         break;
     default:
         break;
@@ -8045,7 +8026,7 @@ static u32 GetBattleMonCatchRate(struct BattlePokemon *battleMon)
     return gSpeciesInfo[species].catchRate;
 }
 
-static u32 ComputeCaptureOdds(u32 wildMonBattler, u32 playerBattler)
+static uq4_12_t ComputeCaptureOdds(u32 wildMonBattler, u32 playerBattler)
 {
     struct BallData ball;
     ComputeBallData(wildMonBattler, playerBattler, &ball);
@@ -8053,20 +8034,25 @@ static u32 ComputeCaptureOdds(u32 wildMonBattler, u32 playerBattler)
     if (ball.guaranteedCapture)
         return CAPTURE_GUARANTEED;
     struct BattlePokemon *battleMon = &gBattleMons[wildMonBattler];
-    u32 odds = (battleMon->maxHP * 3 -  battleMon->hp * 2);
-    s32 catchRate;
+    u32 hpBase = battleMon->maxHP * 3;
+    u32 hpValue = hpBase - battleMon->hp * 2;
+    uq4_12_t odds = UQ_4_12(hpValue);
 
+    s32 catchRate;
     if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
         catchRate = gBattleStruct->safariCatchFactor * 1275 / 100;
     else
         catchRate = GetBattleMonCatchRate(battleMon);
 
-    catchRate += ball.flatBonus;
-    if (catchRate <= 0)
-        catchRate = catchRate + ball.flatBonus;
+    if (ball.flatBonus > 0)
+    {
+        catchRate += ball.flatBonus;
+        if (catchRate <= 0)
+            catchRate = 1;
+    }
 
-    odds = odds * catchRate / (battleMon->maxHP * 3);
-    odds = odds * ball.multiplier / ball.divider;
+    odds *= catchRate;
+    odds = uq4_12_multiply(odds, ball.multiplier);
 
     u8 badgeCount = 0;
     for (u32 i = FLAG_BADGE01_GET; i < FLAG_BADGE01_GET + NUM_BADGES; i++)
@@ -8075,36 +8061,44 @@ static u32 ComputeCaptureOdds(u32 wildMonBattler, u32 playerBattler)
             badgeCount++;
     }
     if (GetConfig(B_MISSING_BADGE_CATCH_MALUS) == GEN_8 && badgeCount < NUM_BADGES && gBattleMons[playerBattler].level < battleMon->level)
-        odds = odds * 410 / 4096;
+        odds = uq4_12_multiply(odds, UQ_4_12(0.1));
     if (GetConfig(B_MISSING_BADGE_CATCH_MALUS) == GEN_9 && badgeCount < NUM_BADGES)
     {
         for (u32 i = badgeCount; i < NUM_BADGES && battleMon->level > sBadgeLevel[i]; i++)
-            odds = odds * 4 / 5;
+            odds = uq4_12_multiply(odds, UQ_4_12(0.8));
     }
 
+    odds /= hpBase;
+
     if (GetConfig(B_LOW_LEVEL_CATCH_BONUS) == GEN_8 && battleMon->level <= 20)
-         odds = odds * (30 - battleMon->level) / 10;
+    {
+        odds *= (30 - battleMon->level);
+        odds /= 10;
+    }
     else if (GetConfig(B_LOW_LEVEL_CATCH_BONUS) >= GEN_9 && battleMon->level <= 13)
-        odds = odds * (36 - (battleMon->level * 2)) / 10;
+    {
+        odds *= (36 - (battleMon->level * 2));
+        odds /= 10;
+    }
 
     if (battleMon->status1 & STATUS1_INCAPACITATED)
     {
         if (GetConfig(B_INCAPACITATED_CATCH_BONUS) >= GEN_5)
-            odds = (odds * 25) / 10;
+            odds = uq4_12_multiply(odds, UQ_4_12(2.5));
         else
             odds *= 2;
     }
     if (battleMon->status1 & STATUS1_CAN_MOVE)
-        odds = odds * 15 / 10;
+            odds = uq4_12_multiply(odds, UQ_4_12(1.5));
 
     return odds;
 }
 
-static bool32 CriticalCapture(u32 odds)
+static bool32 CriticalCapture(uq4_12_t odds)
 {
+    uq4_12_t criticalOdds;
     u32 numCaught;
     u32 totalDexCount;
-    u32 charmBoost = 1;
 
     if (B_CRITICAL_CAPTURE == FALSE)
         return FALSE;
@@ -8114,45 +8108,48 @@ static bool32 CriticalCapture(u32 odds)
     else
         totalDexCount = NATIONAL_DEX_COUNT;
 
-    if (CheckBagHasItem(ITEM_CATCHING_CHARM, 1))
-        charmBoost = (100 + B_CATCHING_CHARM_BOOST) / 100;
-
     numCaught = GetNationalPokedexCount(FLAG_GET_CAUGHT);
     if (numCaught > (totalDexCount * 600) / 650)
-        odds = (odds * (250 * charmBoost)) / 100;
+        criticalOdds = UQ_4_12(2.5);
     else if (numCaught > (totalDexCount * 450) / 650)
-        odds = (odds * (200 * charmBoost)) / 100;
+        criticalOdds = UQ_4_12(2.0);
     else if (numCaught > (totalDexCount * 300) / 650)
-        odds = (odds * (150 * charmBoost)) / 100;
+        criticalOdds = UQ_4_12(1.5);
     else if (numCaught > (totalDexCount * 150) / 650)
-        odds = (odds * (100 * charmBoost)) / 100;
+        criticalOdds = UQ_4_12(1.0);
     else if (numCaught > (totalDexCount * 30) / 650)
-        odds = (odds * (50 * charmBoost)) / 100;
+        criticalOdds = UQ_4_12(0.5);
     else
         return FALSE;
 
-    if (odds > 255)
-        odds = 255;
+    if (CheckBagHasItem(ITEM_CATCHING_CHARM, 1))
+        criticalOdds = uq4_12_multiply(criticalOdds, UQ_4_12((100.0 + B_CATCHING_CHARM_BOOST) / 100.0));
 
-    odds /= 6;
-    if (RandomUniform(RNG_BALLTHROW_CRITICAL, 0, MAX_u8) < odds)
+    if (odds > UQ_4_12(255))
+        odds = UQ_4_12(255);
+
+    odds = uq4_12_multiply(odds, criticalOdds) / 6;
+    if (RandomUniform(RNG_BALLTHROW_CRITICAL, 0, MAX_u8) < UQ_4_12_TO_INT(odds))
         return TRUE;
 
     return FALSE;
 }
 
-static u32 ComputeBallShakeOdds(u32 odds)
+static u32 ComputeBallShakeOdds(uq4_12_t odds)
 {
-    odds = Sqrt(Sqrt(16711680 / odds));
-    odds = 1048560 / odds;
-    return odds;
+    odds = uq4_12_divide(UQ_4_12(255), odds);
+    float v = 1.0f / 5.33f;
+    odds = uq4_12_pow(odds, UQ_4_12(v));
+    
+    u32 newOdds = 65536 / UQ_4_12_TO_INT(odds);
+    return newOdds;
 }
 
 static void SetBallThrowShakes(void)
 {
     gBallToDisplay = gLastThrownBall = gLastUsedItem;
 
-    u32 odds = ComputeCaptureOdds(gBattlerTarget, gBattlerAttacker);
+    uq4_12_t odds = ComputeCaptureOdds(gBattlerTarget, gBattlerAttacker);
     if (gTestRunnerEnabled)
         TestRunner_Battle_RecordCatchChance(odds);
 
@@ -8183,7 +8180,7 @@ static void SetBallThrowShakes(void)
         maxShakes = BALL_3_SHAKES_SUCCESS;
     }
 
-    if (odds > 254)
+    if (odds >= UQ_4_12(255))
     {
         FinalizeCapture();
         return;
